@@ -50,7 +50,10 @@ const ChooseCounselingModal = ({
                 key={index}
               >
                 <div
-                  className="h-[9.8rem] w-[9.8rem] "
+                  className={clsx(
+                    'h-[9.8rem] w-[9.8rem] rounded-full border',
+                    index === wantCounseling && 'border-black',
+                  )}
                   key={index}
                   onClick={() => setWantCounseling(index)}
                 >

@@ -120,7 +120,7 @@ const Anneagram = () => {
       }
     }
   }, [selectPlace, counselingMethod])
-
+  console.log(sceneOpeningEnd)
   return (
     <div className="fixed z-10 h-screen w-full">
       {!isLoaded && (
@@ -199,7 +199,6 @@ const Anneagram = () => {
                   setWantCounseling={setWantCounseling}
                   wantCounseling={wantCounseling}
                   aiMsg={aiMsg}
-                  setAiMsg={setAiMsg}
                   sendToGPT={sendToGPT}
                 />
               )}
