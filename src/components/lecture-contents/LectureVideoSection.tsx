@@ -35,7 +35,7 @@ const LectureVideoSection = async ({ uid }: TProps) => {
         />
 
         <div className="absolute inset-0 m-auto h-[36.3rem] w-[64.3rem]">
-          <Video {...args} sources={videoSource} />
+          <Video {...args} sources={videoSource} uid={uid} />
         </div>
       </div>
     </div>

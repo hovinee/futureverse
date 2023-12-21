@@ -114,7 +114,11 @@ const LabKidContents = ({ contents, season }: Props) => {
           </CSText>
           {source.src && (
             <div className="mt-[3rem]">
-              <Video {...args} sources={source} />
+              <Video
+                {...args}
+                sources={source}
+                uid={contents[chapterNum].video_uid}
+              />
             </div>
           )}
           {contents[chapterNum].job_intro && (
