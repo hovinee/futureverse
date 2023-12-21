@@ -26,7 +26,6 @@ const args = {
 const LabKidContents = ({ contents, season }: Props) => {
   const [chapterNum, setChapterNum] = useState<number>(0)
   const [source, setSource] = useState({ src: '', type: '' })
-
   const changeVideo = useCallback(async () => {
     const data = await getVideoData(contents[chapterNum].video_uid)
     const videoSource = {

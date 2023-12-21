@@ -6,7 +6,6 @@ export const getVideoData = async (videoUid: string) => {
       headers: {
         Authorization: `bearer ${access_token}`,
         Accept: 'application/vnd.vimeo.*+json;version=3.4',
-        'Access-Control-Allow-Orign': '*',
       },
     },
   )
