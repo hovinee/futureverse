@@ -29,7 +29,7 @@ const LabKidContents = ({ contents, season }: Props) => {
   const changeVideo = useCallback(async () => {
     const data = await getVideoData(contents[chapterNum].video_uid)
     const videoSource = {
-      src: data.play.hls.link,
+      src: data?.play?.hls?.link,
       type: 'application/x-mpegURL',
     }
     return setSource(videoSource)
