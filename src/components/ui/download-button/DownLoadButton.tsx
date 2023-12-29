@@ -1,9 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
 import axios from 'axios'
-
 import CSButton from '../button/CSButton'
 import Progressbar from '@/components/progress-bar/ProgressBar'
 
