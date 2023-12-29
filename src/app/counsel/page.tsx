@@ -17,7 +17,7 @@ import CSText from '@/components/ui/text/CSText'
 import AutoSizeImage from '@/components/ui/auto-size-image/AutoSizeImage'
 import Aptitude from '@/components/unity-ui/aptitude/Aptitude'
 import Heart from '@/components/unity-ui/heart/Heart'
-import Progressbar from '@/components/progress-bar/ProgressBar'
+import Progressbar from '@/components/progress/ProgressBar'
 
 const Anneagram = () => {
   //unity build

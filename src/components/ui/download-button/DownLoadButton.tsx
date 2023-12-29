@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import axios from 'axios'
 import CSButton from '../button/CSButton'
-import Progressbar from '@/components/progress-bar/ProgressBar'
 
 const DownLoadButton = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -75,8 +74,6 @@ const DownLoadButton = () => {
       >
         Download
       </CSButton>
-
-      {loading && <Progressbar number={number} />}
     </>
   )
 }
