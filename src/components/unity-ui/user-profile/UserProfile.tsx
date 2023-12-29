@@ -5,19 +5,19 @@ import CSText from '@/components/ui/text/CSText'
 
 const UserProfile = () => {
   return (
-    <div className="absolute left-[4.2rem] top-[4.8rem] ">
-      <div className="flex h-[10.8rem] w-[28rem] items-center gap-[1.3rem] rounded-[1rem] bg-black/25 pl-[2.2rem]">
+    <div className="absolute left-[3rem] top-[11.4rem] ">
+      <div className="flex h-[10.8rem] w-[28rem] items-center gap-[1.3rem] rounded-[1rem] bg-black pl-[2.2rem]">
         <AutoSizeImage
-          src={'/images/unity/profile.png'}
+          src={'/images/unity/nara_profile.png'}
           rounded="10"
           className={'h-[5.8rem] w-[5.8rem] '}
         />
         <div className="flex flex-col ">
-          <CSText size="16" color="black">
-            침착한 케빈
+          <CSText size="16" color="white">
+            AI 상담사 나라
           </CSText>
-          <CSText size="20" color="black" className="mt-[0.3rem]">
-            침착한 상담소
+          <CSText size="20" color="white" className="mt-[0.3rem]">
+            일일 친구 상담소
           </CSText>
         </div>
       </div>

@@ -5,8 +5,16 @@ import CSInput from '@/components/ui/input/CSInput'
 import CSLabel from '@/components/ui/label/CSLabel'
 import CSText from '@/components/ui/text/CSText'
 import clsx from 'clsx'
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import Image from 'next/image'
+import { tutorial } from '@/data/unity/data'
 
 interface TProps {
   sendToGPT: () => void
@@ -14,22 +22,43 @@ interface TProps {
   userMsg: string
   setUserMsg: Dispatch<SetStateAction<string>>
   setAiMsg: Dispatch<SetStateAction<string>>
+  tutorialStep: number
+  setTutorialStep: Dispatch<SetStateAction<number>>
 }
 
-const Chat = ({ sendToGPT, aiMsg, userMsg, setUserMsg, setAiMsg }: TProps) => {
-  const [openChat, setOpenChat] = useState<boolean>(false)
+interface TTutorial {
+  text: string
+  select?: string[]
+  who?: string
+}
 
-  const [connectChat, setConnectChat] = useState<
-    { who: string; msg: string }[]
-  >([])
+const Chat = ({
+  sendToGPT,
+  aiMsg,
+  userMsg,
+  setUserMsg,
+  setAiMsg,
+  tutorialStep,
+  setTutorialStep,
+}: TProps) => {
+  const [chat, setChat] = useState<TTutorial[]>([
+    {
+      text: '안녕? 어서와~ 난 나라야. 오늘 내가 너의 1일 친구가 되어 줄게. 뭐든 털어놔!',
+      select: ['응 좋아!', '고민좀 해볼게'],
+    },
+  ])
+  const [selectMsg, setSelectMsg] = useState<string[]>([])
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
+
+  const selectTutorial = (msg: string) => {
+    setSelectMsg((prev) => [...prev, msg])
+    setTutorialStep((num) => num + 1)
+    setChat((prevMessages) => [...prevMessages, tutorial[tutorialStep + 1]])
+  }
 
   useEffect(() => {
     if (aiMsg) {
-      setConnectChat((prevMessages) => [
-        ...prevMessages,
-        { msg: aiMsg, who: 'ai' },
-      ])
+      setChat((prevMessages) => [...prevMessages, { text: aiMsg, who: 'ai' }])
     }
   }, [aiMsg])
 
@@ -40,57 +69,133 @@ const Chat = ({ sendToGPT, aiMsg, userMsg, setUserMsg, setAiMsg }: TProps) => {
     }
 
     scrollToBottom()
-  }, [connectChat])
+  }, [chat])
 
   const sendMessage = () => {
     if (userMsg) {
       sendToGPT()
-      setConnectChat((prevMessages) => [
+      setChat((prevMessages) => [
         ...prevMessages,
-        { msg: userMsg, who: 'user' },
+        { text: userMsg, who: 'user' },
       ])
       setAiMsg('')
       setUserMsg('')
-      setOpenChat(true)
     }
   }
+
+  useEffect(() => {
+    switch (tutorialStep) {
+      case 6:
+      case 8:
+      case 9:
+      case 11:
+      case 13:
+      case 14:
+        setChat((prevMessages) => [...prevMessages, tutorial[tutorialStep]])
+        if (tutorialStep === 14) {
+          setTimeout(() => setTutorialStep((num) => num + 1), 3000)
+        } else {
+          setTutorialStep((num) => num + 1)
+        }
+        break
+      case 7:
+      case 10:
+      case 12:
+        setChat((prevMessages) => [...prevMessages, tutorial[tutorialStep]])
+        break
+      case 15:
+        setChat((prevMessages) => [...prevMessages, tutorial[tutorialStep]])
+        setTimeout(() => setTutorialStep(100), 3000)
+        break
+      default:
+        break
+    }
+  }, [tutorialStep])
+
   return (
     <div className="absolute bottom-[4rem] right-[3.1rem]">
-      <div className="flex h-[27rem] gap-[1.2rem]">
+      <div className="flex h-[calc(100vh-13rem)] gap-[1.2rem]">
         <div className={clsx('flex w-[57.1rem] flex-col justify-end')}>
           <div
             className={clsx(
-              'custom-scrollbar h-[22.5rem] overflow-auto rounded-t-[1rem] border-b border-b-383838/20 bg-black/25 px-[1.8rem] pb-[1rem] pt-[3.1rem]',
-              openChat ? 'block' : 'hidden',
+              'custom-scrollbar bg-141517 z-10 flex h-[calc(100%-4.5rem)] flex-col gap-[1.5rem] overflow-auto rounded-t-[1rem] border-b border-b-383838/20 px-[2rem] pb-[1rem] pt-[3.5rem]',
             )}
           >
-            <div className="flex flex-col gap-[0.5rem]">
-              {connectChat.map(({ msg, who }, index) => (
-                <CSText
-                  size="15"
-                  color={clsx(who === 'ai' ? 'black' : 'white')}
-                  key={index}
-                  weight="semiBold"
-                >
-                  {who === 'ai' ? `AI : ${msg}` : msg}
-                </CSText>
-              ))}
-              <div ref={messagesEndRef} />
-            </div>
+            {chat.map(({ text, select, who }, chatIndex) => (
+              <div key={chatIndex}>
+                {who !== 'user' && (
+                  <div className="flex gap-[1.1rem]">
+                    <AutoSizeImage
+                      src="/images/unity/nara_profile.png"
+                      className="h-[6.8rem] min-w-[6.8rem]"
+                    />
+
+                    <div>
+                      <CSText size="21" color="DD81FD">
+                        AI 상담사 나리
+                      </CSText>
+                      <div className="mt-[0.5rem] max-w-[33.5rem] rounded-r-2xl rounded-bl-2xl bg-white p-[1rem]">
+                        <CSText size="18" color="black" weight="bold">
+                          {text}
+                        </CSText>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-[1.5rem] grid grid-cols-2 gap-[2rem] pl-[7.9rem]">
+                  {select?.map((value, index) => (
+                    <div
+                      className="cursor-pointer rounded-[2rem] border border-white bg-transparent px-[1.5rem] py-[0.5rem] hover:opacity-70"
+                      key={index}
+                      onClick={() => selectTutorial(value)}
+                    >
+                      <CSText size="18" color="white">
+                        {value}
+                      </CSText>
+                    </div>
+                  ))}
+                </div>
+
+                {selectMsg[chatIndex] && (
+                  <div className="mt-[2.5rem] flex justify-end">
+                    <CSText
+                      size="18"
+                      color="black"
+                      weight="bold"
+                      className="rounded-t-2xl rounded-bl-2xl bg-[#FFE177] p-[1rem]"
+                    >
+                      {selectMsg[chatIndex]}
+                    </CSText>
+                  </div>
+                )}
+
+                {who === 'user' && (
+                  <div className="mt-[2.5rem] flex justify-end">
+                    <CSText
+                      size="18"
+                      color="black"
+                      weight="bold"
+                      className="rounded-t-2xl rounded-bl-2xl bg-[#FFE177] p-[1rem]"
+                    >
+                      {text}
+                    </CSText>
+                  </div>
+                )}
+              </div>
+            ))}
+            <div ref={messagesEndRef} />
           </div>
           <CSLabel>
             <CSInput
               type="text"
-              bgColor="black/25"
+              bgColor="141517"
               placeholder="궁금한 건 채팅으로 문의하세요."
               value={userMsg}
               setValue={setUserMsg}
               height="45"
               textColor="white"
-              className={clsx(
-                'px-[1.8rem] placeholder-white',
-                openChat ? 'rounded-b-[1rem]' : 'rounded-[1rem]',
-              )}
+              className={clsx('rounded-b-[1rem] px-[1.8rem] placeholder-white')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   sendMessage()
@@ -107,18 +212,12 @@ const Chat = ({ sendToGPT, aiMsg, userMsg, setUserMsg, setAiMsg }: TProps) => {
             />
           </CSLabel>
         </div>
-
-        <div className="flex w-[5.2rem] flex-col justify-end gap-[1.2rem]">
-          <div className="grid h-[5.2rem] w-full place-items-center rounded-[1.1rem] bg-383838">
-            <AutoSizeImage
-              src={'/images/unity/speech_icon.png'}
-              rounded="10"
-              className="h-[2.8rem] w-[3.2rem]"
-              onClick={() => setOpenChat(!openChat)}
-            />
-          </div>
-        </div>
       </div>
+      {5 <= tutorialStep && tutorialStep < 100 && (
+        <div className="fixed inset-0 flex flex-col items-center justify-center">
+          <div className="absolute inset-0 bg-black opacity-50" />
+        </div>
+      )}
     </div>
   )
 }

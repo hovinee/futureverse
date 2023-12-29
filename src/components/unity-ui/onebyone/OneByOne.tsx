@@ -1,6 +1,6 @@
 'use client'
 
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import AutoSizeImage from '@/components/ui/auto-size-image/AutoSizeImage'
 import './style.css'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -25,7 +25,7 @@ const OneByOne = ({
   useEffect(() => {
     const intervalId = setInterval(() => {
       setDots((prevDots) => (prevDots.length === 3 ? '.' : prevDots + '.'))
-    }, 500) // 1000ms = 1초마다 점을 추가
+    }, 500)
 
     return () => clearInterval(intervalId) // 컴포넌트 언마운트 시 인터벌 클리어
   }, [])

@@ -15,6 +15,9 @@ import CounselingModal from '@/components/unity-ui/modal/CounselingModal'
 import HealingModal from '@/components/unity-ui/modal/HealingModal'
 import CSText from '@/components/ui/text/CSText'
 import AutoSizeImage from '@/components/ui/auto-size-image/AutoSizeImage'
+import Aptitude from '@/components/unity-ui/aptitude/Aptitude'
+import Heart from '@/components/unity-ui/heart/Heart'
+import Progressbar from '@/components/progress-bar/ProgressBar'
 
 const Anneagram = () => {
   //unity build
@@ -31,6 +34,9 @@ const Anneagram = () => {
     frameworkUrl: `${cfWorkerUrl}/Build/Build.framework.js`,
     codeUrl: `${cfWorkerUrl}/Build/Build.wasm`,
   })
+
+  //splashEnd
+  const [splashEnd, setSplashEnd] = useState<boolean>(false)
 
   //상담소 또는 치유소 선택
   const [selectPlace, setSelectPlace] = useState<string>('')
@@ -49,6 +55,9 @@ const Anneagram = () => {
   //scene 종료
   const [sceneOpeningEnd, setSceneOpeningEnd] = useState('')
 
+  //튜토리얼
+  const [tutorialStep, setTutorialStep] = useState<number>(0)
+
   const sendToGPT = async (selectMessage?: string) => {
     const counseling = ['career', 'family', 'friend', 'love', 'psychology']
     const systemMsg = counseling[wantCounseling]
@@ -57,8 +66,13 @@ const Anneagram = () => {
       systemMsg,
       selectMessage ? selectMessage : userMsg,
     )
-    setAiMsg(message)
+
+    sendMessage('MessageReceiver', 'OnProcess', `gptmsg:${message}`)
   }
+
+  const OnSplashEnd = useCallback((data: any) => {
+    setSplashEnd(true)
+  }, [])
 
   const OnPointerClick = useCallback((data: any) => {
     setSelectPlace(data)
@@ -68,20 +82,56 @@ const Anneagram = () => {
     setSceneOpeningEnd(data)
   }, [])
 
+  const OnMsg = useCallback((data: any) => {
+    // console.log(data)
+    setAiMsg(data)
+  }, [])
+
+  const OnMsgEnd = useCallback((data: any) => {
+    setAiMsg('')
+    // setAiMsg(data)
+  }, [])
+
   const goToLobby = () => {
     sendMessage('MessageReceiver', 'OnClickedToLoadScene', 'Lobby')
     setSelectPlace('')
     setSceneOpeningEnd('')
     setAiMsg('')
+    setTutorialStep(0)
+  }
+
+  //방분위기선택
+  const roomMood = (num: number) => {
+    sendMessage(
+      'MessageReceiver',
+      'OnClickedButton',
+      `spaceRoom_change_theme_${num}`,
+    )
+  }
+
+  //춤추기
+  const letsDance = () => {
+    sendMessage('MessageReceiver', 'OnClickedButton', 'spaceRoom_dancing')
+  }
+
+  //하트
+  const sendToHeart = () => {
+    sendMessage('MessageReceiver', 'OnClickedButton', 'spaceRoom_heart')
   }
 
   useEffect(() => {
     addEventListener('OnSceneOpeningEnd', OnSceneOpeningEnd)
+    addEventListener('OnSplashEnd', OnSplashEnd)
     addEventListener('OnPointerClick', OnPointerClick)
+    addEventListener('OnMsg', OnMsg)
+    addEventListener('OnMsgEnd', OnMsgEnd)
 
     return () => {
       removeEventListener('OnSceneOpeningEnd', OnSceneOpeningEnd)
+      removeEventListener('OnSplashEnd', OnSplashEnd)
       removeEventListener('OnPointerClick', OnPointerClick)
+      removeEventListener('OnMsg', OnMsg)
+      removeEventListener('OnMsgEnd', OnMsgEnd)
     }
   }, [addEventListener, removeEventListener])
 
@@ -120,13 +170,14 @@ const Anneagram = () => {
       }
     }
   }, [selectPlace, counselingMethod])
-  console.log(sceneOpeningEnd)
+
   return (
-    <div className="fixed z-10 h-screen w-full">
+    <div className="absolute inset-0 z-10 bg-black">
       {!isLoaded && (
-        <p className="z-10 grid h-full w-full place-items-center bg-black text-35 text-white">
-          Loading Application... {Math.round(loadingProgression * 100)}%
-        </p>
+        <div className="fixed z-20 h-full w-full">
+          <AutoSizeImage src={'/images/unity/loading_bg.jpg'} full priority />
+          <Progressbar number={Math.round(loadingProgression * 100)} />
+        </div>
       )}
       <div className="relative h-full w-full">
         <Unity
@@ -135,12 +186,14 @@ const Anneagram = () => {
             height: '100%',
             justifySelf: 'center',
             alignSelf: 'center',
+            opacity: splashEnd ? 100 : 0,
+            transition: 'opacity 1s ease',
           }}
           unityProvider={unityProvider}
         />
 
         {sceneOpeningEnd === 'Lobby' && !selectPlace && (
-          <div className="absolute left-0 right-[5rem] top-[21rem] z-20 mx-auto flex h-[3.3rem] w-[75rem] justify-between">
+          <div className="absolute left-0 right-[5rem] top-[22vh] z-20 mx-auto flex h-[3.3rem] w-[75rem] justify-between">
             <div className="ml-[1rem] grid h-full w-[8rem] place-items-center rounded-[0.5rem] bg-black/80">
               <CSText size="21" color="white">
                 상담소
@@ -162,9 +215,9 @@ const Anneagram = () => {
             onClick={goToLobby}
           >
             <AutoSizeImage
-              src={'/images/unity/back_arrow.png'}
+              src="/images/unity/back_arrow.png"
               rounded="10"
-              className={'h-[2.1rem] w-[2.1rem] '}
+              className="h-[2.1rem] w-[2.1rem]"
             />
           </div>
         )}
@@ -192,8 +245,8 @@ const Anneagram = () => {
         {/* 상담소 선택 */}
         {sceneOpeningEnd === 'SpaceRoom' && (
           <>
-            <UnitySection>
-              <UnityHeader goToLobby={goToLobby} />
+            <UnityHeader goToLobby={goToLobby} tutorialStep={tutorialStep} />
+            {/* <UnitySection>
               {counselingMethod === 0 && (
                 <OneByOne
                   setWantCounseling={setWantCounseling}
@@ -202,13 +255,23 @@ const Anneagram = () => {
                   sendToGPT={sendToGPT}
                 />
               )}
-            </UnitySection>
-
+            </UnitySection> */}
+            <Aptitude tutorialStep={tutorialStep} />
+            <Heart
+              setTutorialStep={setTutorialStep}
+              tutorialStep={tutorialStep}
+              sendToHeart={sendToHeart}
+            />
             <UserProfile />
             <Menu
               sendToGPT={sendToGPT}
               setWantCounseling={setWantCounseling}
+              wantCounseling={wantCounseling}
               setAiMsg={setAiMsg}
+              setTutorialStep={setTutorialStep}
+              tutorialStep={tutorialStep}
+              roomMood={roomMood}
+              letsDance={letsDance}
             />
             <Chat
               sendToGPT={sendToGPT}
@@ -216,6 +279,8 @@ const Anneagram = () => {
               setAiMsg={setAiMsg}
               setUserMsg={setUserMsg}
               userMsg={userMsg}
+              setTutorialStep={setTutorialStep}
+              tutorialStep={tutorialStep}
             />
           </>
         )}

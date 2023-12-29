@@ -1,4 +1,5 @@
 import Overlay from '../overlay/Overlay'
+import AutoSizeImage from '../ui/auto-size-image/AutoSizeImage'
 import CSText from '../ui/text/CSText'
 
 interface Props {
@@ -7,20 +8,23 @@ interface Props {
 
 const Progressbar = ({ number }: Props) => {
   return (
-    <Overlay>
-      <div className="z-10 w-1/3 rounded-full bg-gray-200 dark:bg-gray-700">
+    <Overlay progress>
+      <div className="relative z-10 w-[40rem] rounded-full border border-white bg-transparent">
+        <div className="absolute inset-0 grid place-items-center text-16 text-white">
+          {number}%
+        </div>
         <div
-          className="h-2.5 rounded-full bg-blue-600 p-0.5 text-center text-xs font-medium leading-none  text-blue-100"
-          style={{ width: `${number}%` }}
-        />
+          className="grid h-[2rem] place-items-end rounded-full bg-white"
+          style={{ width: number <= 5 ? '5%' : `${number}%` }}
+        >
+          <AutoSizeImage
+            src={'/images/unity/ufo.png'}
+            className="mr-[-2rem] mt-[-2.2rem] h-[5.6rem] w-[5.6rem]"
+          />
+        </div>
       </div>
-      <CSText
-        size="18"
-        color="white"
-        weight="bold"
-        className="z-10 mt-[1.5rem]"
-      >
-        다운로드 중입니다..
+      <CSText size="18" color="white" weight="bold" className="z-10 mt-[2rem]">
+        응답하라 심리상담소로 이동 중...
       </CSText>
     </Overlay>
   )

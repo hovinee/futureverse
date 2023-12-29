@@ -3,7 +3,7 @@ interface TProps {
 }
 
 const UnitySection = ({ children }: TProps) => {
-  return <div className="-z-10d absolute inset-0">{children}</div>
+  return <div className="absolute inset-0 z-10">{children}</div>
 }
 
 export default UnitySection

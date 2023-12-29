@@ -10,7 +10,10 @@ interface TProps {
   wantCounseling: number
   setWantCounseling: Dispatch<SetStateAction<number>>
   setSelectCounseling: Dispatch<SetStateAction<boolean>>
+  setOpenMenu: Dispatch<SetStateAction<boolean>>
+  setTutorialStep: Dispatch<SetStateAction<number>>
   sendToGPT: (selectMesssage: string) => void
+  tutorialStep: number
 }
 
 const ChooseCounselingModal = ({
@@ -18,6 +21,9 @@ const ChooseCounselingModal = ({
   wantCounseling,
   setSelectCounseling,
   sendToGPT,
+  setOpenMenu,
+  setTutorialStep,
+  tutorialStep,
 }: TProps) => {
   const wantCounselingData = [
     { title: '진로', image_url: '/images/unity/counseling/want_future.png' },
@@ -28,16 +34,16 @@ const ChooseCounselingModal = ({
   ]
 
   const selectMesssage = `${wantCounselingData[wantCounseling].title}에 대해 상담하고 싶어`
+
+  const chooseCounseling = () => {
+    tutorialStep === 5 && setTutorialStep((prev) => prev + 1)
+    tutorialStep !== 5 && sendToGPT(selectMesssage)
+    setSelectCounseling(true), setOpenMenu(false)
+  }
+
   return (
-    <div className="grid h-full w-full place-items-center">
-      <div className="h-[32.8rem] w-[69.2rem] rounded-[1rem] bg-white/75">
-        <div className="flex justify-end pr-[1rem] pt-[1rem]">
-          <AutoSizeImage
-            src="/images/unity/close.png"
-            rounded="10"
-            className="h-[2rem] w-[2rem]"
-          />
-        </div>
+    <div className="z-20 grid h-full w-full place-items-center">
+      <div className="h-[32.8rem] w-[69.2rem] rounded-[1rem] bg-white/75 pt-[2rem]">
         <div className="flex flex-col items-center">
           <CSText size="24" color="black" weight="bold">
             원하시는 상담을 골라주세요
@@ -82,9 +88,7 @@ const ChooseCounselingModal = ({
             rounded="5"
             weight="semiBold"
             className="mx-auto mt-[2rem]"
-            onClick={() => {
-              setSelectCounseling(true), sendToGPT(selectMesssage)
-            }}
+            onClick={chooseCounseling}
           >
             선택하기
           </CSButton>

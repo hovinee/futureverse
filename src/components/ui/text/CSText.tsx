@@ -53,6 +53,8 @@ const fontColor: StringProps = {
   565656: 'text-565656',
   '7A7A7A': 'text-7A7A7A',
   '7E7E7E': 'text-7E7E7E',
+  DD81FD: 'text-DD81FD',
+  FFC700: 'text-FFC700',
   'white hover:D9D9D9': 'text-white hover:text-D9D9D9',
 }
 

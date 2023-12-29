@@ -28,6 +28,7 @@ const inputTextColor: StringProps = {
 const inputbgColor: StringProps = {
   F2F2F2: 'bg-F2F2F2 ',
   'black/25': 'bg-black/25 ',
+  141517: 'bg-141517',
 }
 
 const inputRounded: StringProps = {
