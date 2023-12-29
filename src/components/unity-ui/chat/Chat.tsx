@@ -118,7 +118,7 @@ const Chat = ({
         <div className={clsx('flex w-[57.1rem] flex-col justify-end')}>
           <div
             className={clsx(
-              'custom-scrollbar bg-141517 z-10 flex h-[calc(100%-4.5rem)] flex-col gap-[1.5rem] overflow-auto rounded-t-[1rem] border-b border-b-383838/20 px-[2rem] pb-[1rem] pt-[3.5rem]',
+              'custom-scrollbar z-10 flex h-[calc(100%-4.5rem)] flex-col gap-[3rem] overflow-auto rounded-t-[1rem] border-b border-b-383838/20 bg-141517 px-[2rem] pb-[1rem] pt-[2rem]',
             )}
           >
             {chat.map(({ text, select, who }, chatIndex) => (
@@ -143,27 +143,29 @@ const Chat = ({
                   </div>
                 )}
 
-                <div className="mt-[1.5rem] grid grid-cols-2 gap-[2rem] pl-[7.9rem]">
-                  {select?.map((value, index) => (
-                    <div
-                      className="cursor-pointer rounded-[2rem] border border-white bg-transparent px-[1.5rem] py-[0.5rem] hover:opacity-70"
-                      key={index}
-                      onClick={() => selectTutorial(value)}
-                    >
-                      <CSText size="18" color="white">
-                        {value}
-                      </CSText>
-                    </div>
-                  ))}
-                </div>
+                {select && (
+                  <div className="my-[2rem] grid grid-cols-2 gap-[2rem] pl-[7.9rem]">
+                    {select?.map((value, index) => (
+                      <div
+                        className="cursor-pointer rounded-[2rem] border border-white bg-transparent px-[1.5rem] py-[0.5rem] text-center hover:opacity-70"
+                        key={index}
+                        onClick={() => selectTutorial(value)}
+                      >
+                        <CSText size="18" color="white">
+                          {value}
+                        </CSText>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 {selectMsg[chatIndex] && (
-                  <div className="mt-[2.5rem] flex justify-end">
+                  <div className="flex justify-end">
                     <CSText
                       size="18"
                       color="black"
                       weight="bold"
-                      className="rounded-t-2xl rounded-bl-2xl bg-[#FFE177] p-[1rem]"
+                      className="max-w-[33.5rem] rounded-t-2xl rounded-bl-2xl bg-[#FFE177] p-[1rem]"
                     >
                       {selectMsg[chatIndex]}
                     </CSText>
@@ -171,12 +173,12 @@ const Chat = ({
                 )}
 
                 {who === 'user' && (
-                  <div className="mt-[2.5rem] flex justify-end">
+                  <div className="flex justify-end">
                     <CSText
                       size="18"
                       color="black"
                       weight="bold"
-                      className="rounded-t-2xl rounded-bl-2xl bg-[#FFE177] p-[1rem]"
+                      className="max-w-[33.5rem] rounded-t-2xl rounded-bl-2xl bg-[#FFE177] p-[1rem]"
                     >
                       {text}
                     </CSText>
