@@ -79,14 +79,7 @@ const OneByOne = ({
             </div>
           </div>
         </div>
-      ) : (
-        <ChooseCounselingModal
-          setWantCounseling={setWantCounseling}
-          wantCounseling={wantCounseling}
-          setSelectCounseling={setSelectCounseling}
-          sendToGPT={sendToGPT}
-        />
-      )}
+      ) : null}
     </>
   )
 }
