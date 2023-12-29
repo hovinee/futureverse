@@ -3,8 +3,9 @@
 import { useState } from 'react'
 
 import axios from 'axios'
-import Progressbar from '@/components/Progress-bar/ProgressBar'
+
 import CSButton from '../button/CSButton'
+import Progressbar from '@/components/progress-bar/ProgressBar'
 
 const DownLoadButton = () => {
   const [loading, setLoading] = useState<boolean>(false)
