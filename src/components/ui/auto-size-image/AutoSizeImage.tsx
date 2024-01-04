@@ -44,7 +44,7 @@ const AutoSizeImage = ({
           height={0}
           sizes="100%"
           className={clsx(
-            'h-full w-full object-cover',
+            'h-full w-full',
             roundedTop && borderTopRadius[roundedTop],
             rounded && borderRadius[rounded],
           )}

@@ -122,6 +122,10 @@ const config: Config = {
           },
         ],
       },
+      fontFamily: {
+        // 폰트패밀리
+        roboto: ['var(--roboto)'],
+      },
     },
   },
   plugins: [],

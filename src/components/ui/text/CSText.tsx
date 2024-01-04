@@ -3,7 +3,7 @@ import clsx from 'clsx'
 interface Props {
   weight?: string
   size: string
-  color: string
+  color?: string
   children: React.ReactNode
   className?: string
   onClick?: () => void
@@ -77,7 +77,7 @@ const CSText = ({
       onClick={onClick}
       className={clsx(
         fontSize[size],
-        fontColor[color],
+        color && fontColor[color],
         fontWeight[weight ? weight : 'normal'],
         className,
       )}

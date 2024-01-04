@@ -32,7 +32,7 @@ const Heart = ({ setTutorialStep, tutorialStep, sendToHeart }: TProps) => {
   const heartControls = useAnimation()
 
   const handleClick = () => {
-    tutorialStep === 12 && setTutorialStep((num) => num + 1)
+    tutorialStep === 14 && setTutorialStep((num) => num + 1)
     sendToHeart()
     // 애니메이션 시작
     heartControls.start({
@@ -50,7 +50,7 @@ const Heart = ({ setTutorialStep, tutorialStep, sendToHeart }: TProps) => {
         <div
           className={clsx(
             'relative w-[5.2rem] cursor-pointer',
-            tutorialStep === 12 && 'z-10',
+            tutorialStep === 14 && 'z-10',
           )}
           onClick={() => setCount((num) => num + 1)}
         >
@@ -82,7 +82,7 @@ const Heart = ({ setTutorialStep, tutorialStep, sendToHeart }: TProps) => {
               {count}
             </CSText>
           </div>
-          {tutorialStep === 12 && (
+          {tutorialStep === 14 && (
             <>
               <motion.div
                 className={clsx(
@@ -96,8 +96,8 @@ const Heart = ({ setTutorialStep, tutorialStep, sendToHeart }: TProps) => {
                   className="h-full w-full"
                 />
               </motion.div>
-              <div className="absolute right-[-35rem] top-[-13rem] grid h-[6rem] w-[28rem] place-items-center rounded-xl border border-[#E1792D] bg-white text-18 font-bold">
-                하트를 눌러보세요!
+              <div className="absolute right-[-35rem] top-[-13rem] w-[28rem] rounded-xl border border-[#E1792D] bg-white p-[2rem] text-18 font-bold">
+                좋아요를 클릭하면 AI 상담사 나리가 기뻐합니다!
               </div>
             </>
           )}

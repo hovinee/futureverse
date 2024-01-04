@@ -5,7 +5,7 @@ export const connectToGPT = async (systemMsg: string, useMsg: string) => {
     method: 'POST',
     body: JSON.stringify({
       systemMsg: systemMsg,
-      userMsg: `${useMsg} 반말로 그리고 답변은 최대한 전문적으로`,
+      userMsg: `${useMsg} 답변은 최대한 전문적해줘`,
     }),
   })
   const data = await res.json()

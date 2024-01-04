@@ -2,22 +2,22 @@
 
 import { Unity, useUnityContext } from 'react-unity-webgl'
 import React, { useState, useEffect, useCallback } from 'react'
-
 import Menu from '@/components/unity-ui/menu/Menu'
-import UserProfile from '@/components/unity-ui/user-profile/UserProfile'
+
 import Chat from '@/components/unity-ui/chat/Chat'
 import UnityHeader from '@/components/unity-ui/unity-header/UnityHeader'
 import UnitySection from '@/components/unity-ui/section/UnitySection'
-import OneByOne from '@/components/unity-ui/onebyone/OneByOne'
 import { cfWorkerUrl } from '@/utils/url'
 import { connectToGPT } from '@/lib/gpt'
 import CounselingModal from '@/components/unity-ui/modal/CounselingModal'
 import HealingModal from '@/components/unity-ui/modal/HealingModal'
 import CSText from '@/components/ui/text/CSText'
 import AutoSizeImage from '@/components/ui/auto-size-image/AutoSizeImage'
-import Aptitude from '@/components/unity-ui/aptitude/Aptitude'
 import Heart from '@/components/unity-ui/heart/Heart'
 import Progressbar from '@/components/progress/ProgressBar'
+import { TTutorial } from '@/utils/types'
+import { tutorial } from '@/data/unity/data'
+import UserHistory from '@/components/unity-ui/user-history/UserHistory'
 
 const Anneagram = () => {
   //unity build
@@ -51,6 +51,12 @@ const Anneagram = () => {
   const [wantCounseling, setWantCounseling] = useState<number>(0)
   const [aiMsg, setAiMsg] = useState<string>('')
   const [userMsg, setUserMsg] = useState<string>('')
+  const [chat, setChat] = useState<TTutorial[]>([
+    {
+      text: tutorial[0].text,
+      select: tutorial[0].select,
+    },
+  ])
 
   //scene 종료
   const [sceneOpeningEnd, setSceneOpeningEnd] = useState('')
@@ -58,10 +64,11 @@ const Anneagram = () => {
   //튜토리얼
   const [tutorialStep, setTutorialStep] = useState<number>(0)
 
-  const sendToGPT = async (selectMessage?: string) => {
-    const counseling = ['career', 'family', 'friend', 'love', 'psychology']
-    const systemMsg = counseling[wantCounseling]
+  //원하는 상담
+  const counseling = ['career', 'family', 'friend', 'love', 'psychology']
+  const systemMsg = counseling[wantCounseling]
 
+  const sendToGPT = async (selectMessage?: string) => {
     const message = await connectToGPT(
       systemMsg,
       selectMessage ? selectMessage : userMsg,
@@ -84,7 +91,7 @@ const Anneagram = () => {
   }, [])
 
   const OnMsg = useCallback((data: any) => {
-    // console.log(data)
+    console.log(data)
     setAiMsg(data)
   }, [])
 
@@ -99,6 +106,12 @@ const Anneagram = () => {
     setSceneOpeningEnd('')
     setAiMsg('')
     setTutorialStep(0)
+    setChat([
+      {
+        text: tutorial[0].text,
+        select: tutorial[0].select,
+      },
+    ])
   }
 
   //방분위기선택
@@ -246,24 +259,22 @@ const Anneagram = () => {
         {/* 상담소 선택 */}
         {sceneOpeningEnd === 'SpaceRoom' && (
           <>
-            <UnityHeader goToLobby={goToLobby} tutorialStep={tutorialStep} />
-            {/* <UnitySection>
-              {counselingMethod === 0 && (
-                <OneByOne
-                  setWantCounseling={setWantCounseling}
-                  wantCounseling={wantCounseling}
-                  aiMsg={aiMsg}
-                  sendToGPT={sendToGPT}
-                />
-              )}
-            </UnitySection> */}
-            <Aptitude tutorialStep={tutorialStep} />
+            <UnityHeader
+              goToLobby={goToLobby}
+              tutorialStep={tutorialStep}
+              setTutorialStep={setTutorialStep}
+            />
+
             <Heart
               setTutorialStep={setTutorialStep}
               tutorialStep={tutorialStep}
               sendToHeart={sendToHeart}
             />
-            <UserProfile />
+            <UserHistory
+              tutorialStep={tutorialStep}
+              setTutorialStep={setTutorialStep}
+              chat={chat}
+            />
             <Menu
               sendToGPT={sendToGPT}
               setWantCounseling={setWantCounseling}
@@ -273,6 +284,7 @@ const Anneagram = () => {
               tutorialStep={tutorialStep}
               roomMood={roomMood}
               letsDance={letsDance}
+              setChat={setChat}
             />
             <Chat
               sendToGPT={sendToGPT}
@@ -282,6 +294,9 @@ const Anneagram = () => {
               userMsg={userMsg}
               setTutorialStep={setTutorialStep}
               tutorialStep={tutorialStep}
+              sendtoUnity={sendMessage}
+              setChat={setChat}
+              chat={chat}
             />
           </>
         )}

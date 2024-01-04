@@ -2,17 +2,20 @@
 
 import AutoSizeImage from '@/components/ui/auto-size-image/AutoSizeImage'
 import CSText from '@/components/ui/text/CSText'
+import { TTutorial } from '@/utils/types'
 import clsx from 'clsx'
 import { motion, useAnimation } from 'framer-motion'
 import { Dispatch, SetStateAction, useEffect } from 'react'
 
 interface TProps {
-  goToLobby: () => void
   tutorialStep: number
   setTutorialStep: Dispatch<SetStateAction<number>>
+  chat: TTutorial[]
 }
 
-const UnityHeader = ({ goToLobby, tutorialStep, setTutorialStep }: TProps) => {
+const UserHistory = ({ tutorialStep, setTutorialStep, chat }: TProps) => {
+  const userChat = chat.filter((item) => item.who === 'user')
+
   const controls = useAnimation()
 
   useEffect(() => {
@@ -27,23 +30,49 @@ const UnityHeader = ({ goToLobby, tutorialStep, setTutorialStep }: TProps) => {
 
     return () => clearInterval(intervalId)
   }, [controls])
+
   return (
     <div
-      className="absolute left-[3rem] top-[3rem]"
-      onClick={tutorialStep === 16 ? () => setTutorialStep(100) : goToLobby}
+      className={clsx(
+        'absolute left-[3rem] top-[10rem]',
+        tutorialStep === 15 && 'z-10',
+      )}
     >
-      <div
-        className={clsx(
-          'relative w-[4.6rem] cursor-pointer',
-          tutorialStep === 16 && 'z-10',
-        )}
-      >
-        <AutoSizeImage src="/images/unity/exit.png" full />
-
-        {tutorialStep === 16 && (
+      <div className="h-[42.1rem] w-[28rem] overflow-auto rounded-[1rem] bg-black px-[2rem] pt-[2rem] ">
+        <div className="flex gap-[1.3rem] border-b border-b-[#2E3033] pb-[2rem]">
+          <AutoSizeImage
+            src={'/images/unity/nara_profile.png'}
+            rounded="10"
+            className={'h-[5.8rem] w-[5.8rem] '}
+          />
+          <div className="flex flex-col ">
+            <CSText size="16" color="white">
+              AI 상담사 나라
+            </CSText>
+            <CSText size="20" color="white" className="mt-[0.3rem]">
+              일일 친구 상담소
+            </CSText>
+          </div>
+        </div>
+        <CSText size="20" color="white" className="mt-[0.3rem]">
+          오늘의 상담일지
+        </CSText>
+        {userChat.map((history, index) => (
+          <CSText
+            size="20"
+            color="white"
+            className="mt-[0.3rem] line-clamp-2"
+            key={index}
+          >
+            {history.text}
+          </CSText>
+        ))}
+        {tutorialStep === 15 && (
           <>
             <motion.div
-              className={clsx('absolute right-[-5rem] top-[3.5rem] w-[7rem]')}
+              className={clsx(
+                'absolute bottom-[-6.5rem] right-[-5rem] w-[7rem] ',
+              )}
               animate={controls}
             >
               <img
@@ -58,6 +87,7 @@ const UnityHeader = ({ goToLobby, tutorialStep, setTutorialStep }: TProps) => {
                   src={'/images/unity/close.png'}
                   rounded="10"
                   className="h-[1.6rem] w-[1.6rem]"
+                  onClick={() => setTutorialStep((num) => num + 1)}
                 />
               </div>
               <CSText
@@ -66,7 +96,7 @@ const UnityHeader = ({ goToLobby, tutorialStep, setTutorialStep }: TProps) => {
                 color="black"
                 className="mt-[1rem]"
               >
-                나가기 버튼을 누르면 다시 로비로 이동합니다.
+                상담 일지를 통해 나의 상담 내용을 파악할 수 있습니다.
               </CSText>
             </div>
           </>
@@ -76,4 +106,4 @@ const UnityHeader = ({ goToLobby, tutorialStep, setTutorialStep }: TProps) => {
   )
 }
 
-export default UnityHeader
+export default UserHistory

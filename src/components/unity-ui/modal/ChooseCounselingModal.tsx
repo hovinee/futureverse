@@ -3,6 +3,8 @@
 import AutoSizeImage from '@/components/ui/auto-size-image/AutoSizeImage'
 import CSButton from '@/components/ui/button/CSButton'
 import CSText from '@/components/ui/text/CSText'
+import { wantCounselingData } from '@/data/unity/data'
+import { TTutorial } from '@/utils/types'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction } from 'react'
 
@@ -12,32 +14,30 @@ interface TProps {
   setSelectCounseling: Dispatch<SetStateAction<boolean>>
   setOpenMenu: Dispatch<SetStateAction<boolean>>
   setTutorialStep: Dispatch<SetStateAction<number>>
-  sendToGPT: (selectMesssage: string) => void
+  setChat: Dispatch<SetStateAction<TTutorial[]>>
   tutorialStep: number
+  sendToGPT: (selectMesssage: string) => void
 }
 
 const ChooseCounselingModal = ({
   setWantCounseling,
   wantCounseling,
   setSelectCounseling,
-  sendToGPT,
   setOpenMenu,
   setTutorialStep,
   tutorialStep,
+  sendToGPT,
+  setChat,
 }: TProps) => {
-  const wantCounselingData = [
-    { title: '진로', image_url: '/images/unity/counseling/want_future.png' },
-    { title: '심리', image_url: '/images/unity/counseling/want_mind.png' },
-    { title: '친구', image_url: '/images/unity/counseling/want_friend.png' },
-    { title: '연인', image_url: '/images/unity/counseling/want_love.png' },
-    { title: '가족', image_url: '/images/unity/counseling/want_family.png' },
-  ]
-
-  const selectMesssage = `${wantCounselingData[wantCounseling].title}에 대해 상담하고 싶어`
-
   const chooseCounseling = () => {
-    tutorialStep === 5 && setTutorialStep((prev) => prev + 1)
+    const selectMesssage = `${wantCounselingData[wantCounseling].title}에 대해 상담하고 싶어`
+
+    setChat((prevMessages) => [
+      ...prevMessages,
+      { text: selectMesssage, who: 'user' },
+    ])
     tutorialStep !== 5 && sendToGPT(selectMesssage)
+    tutorialStep === 5 && setTutorialStep((prev) => prev + 1)
     setSelectCounseling(true), setOpenMenu(false)
   }
 
@@ -57,21 +57,51 @@ const ChooseCounselingModal = ({
               >
                 <div
                   className={clsx(
-                    'h-[9.8rem] w-[9.8rem] rounded-full border',
-                    index === wantCounseling && 'border-black',
+                    'grid h-[9.8rem] w-[9.8rem] cursor-pointer place-items-center rounded-full',
+                    index === wantCounseling ? 'bg-383838' : 'bg-white',
                   )}
-                  key={index}
                   onClick={() => setWantCounseling(index)}
                 >
-                  <AutoSizeImage
-                    src={image_url}
-                    rounded="10"
-                    className="h-full w-full"
-                  />
+                  {index === 0 && (
+                    <AutoSizeImage
+                      src={image_url[index === wantCounseling ? 1 : 0]}
+                      rounded="10"
+                      className="h-[5.5rem] w-[5.2rem]"
+                    />
+                  )}
+                  {index === 1 && (
+                    <AutoSizeImage
+                      src={image_url[index === wantCounseling ? 1 : 0]}
+                      rounded="10"
+                      className="mb-[1rem] h-[5.4rem] w-[7.1rem]"
+                    />
+                  )}
+                  {index === 2 && (
+                    <AutoSizeImage
+                      src={image_url[index === wantCounseling ? 1 : 0]}
+                      rounded="10"
+                      className="h-[5.9rem] w-[4.9rem]"
+                    />
+                  )}
+                  {index === 3 && (
+                    <div className="w-[5.8rem]">
+                      <AutoSizeImage
+                        src={image_url[index === wantCounseling ? 1 : 0]}
+                        full
+                      />
+                    </div>
+                  )}
+                  {index === 4 && (
+                    <AutoSizeImage
+                      src={image_url[index === wantCounseling ? 1 : 0]}
+                      rounded="10"
+                      className="h-[5rem] w-[7rem]"
+                    />
+                  )}
                 </div>
                 <CSText
                   size="20"
-                  color={clsx(index === wantCounseling ? 'black' : 'B8B8B8')}
+                  color="black"
                   weight={clsx(index === wantCounseling ? 'bold' : 'normal')}
                 >
                   {title}

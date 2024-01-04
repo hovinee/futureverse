@@ -5,31 +5,28 @@ import CSInput from '@/components/ui/input/CSInput'
 import CSLabel from '@/components/ui/label/CSLabel'
 import CSText from '@/components/ui/text/CSText'
 import clsx from 'clsx'
-import {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { tutorial } from '@/data/unity/data'
+import { exampleJobs, tutorial } from '@/data/unity/data'
+import { AnimatePresence, motion, useAnimation } from 'framer-motion'
+import { ReactUnityEventParameter } from 'react-unity-webgl/distribution/types/react-unity-event-parameters'
+import { TTutorial } from '@/utils/types'
 
 interface TProps {
-  sendToGPT: () => void
+  sendToGPT: (message?: string) => void
   aiMsg: string
   userMsg: string
   setUserMsg: Dispatch<SetStateAction<string>>
   setAiMsg: Dispatch<SetStateAction<string>>
   tutorialStep: number
   setTutorialStep: Dispatch<SetStateAction<number>>
-}
-
-interface TTutorial {
-  text: string
-  select?: string[]
-  who?: string
+  setChat: Dispatch<SetStateAction<TTutorial[]>>
+  chat: TTutorial[]
+  sendtoUnity: (
+    gameObjectName: string,
+    methodName: string,
+    parameter?: ReactUnityEventParameter,
+  ) => void
 }
 
 const Chat = ({
@@ -40,14 +37,12 @@ const Chat = ({
   setAiMsg,
   tutorialStep,
   setTutorialStep,
+  sendtoUnity,
+  chat,
+  setChat,
 }: TProps) => {
-  const [chat, setChat] = useState<TTutorial[]>([
-    {
-      text: '안녕? 어서와~ 난 나라야. 오늘 내가 너의 1일 친구가 되어 줄게. 뭐든 털어놔!',
-      select: ['응 좋아!', '고민좀 해볼게'],
-    },
-  ])
   const [selectMsg, setSelectMsg] = useState<string[]>([])
+  const [openJob, setOpenJob] = useState<boolean>(false)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
   const selectTutorial = (msg: string) => {
@@ -69,7 +64,7 @@ const Chat = ({
     }
 
     scrollToBottom()
-  }, [chat])
+  }, [chat, openJob])
 
   const sendMessage = () => {
     if (userMsg) {
@@ -83,37 +78,75 @@ const Chat = ({
     }
   }
 
+  const exampleJob = (message: string) => {
+    sendToGPT(message)
+    setChat((prevMessages) => [
+      ...prevMessages,
+      {
+        text: message,
+        who: 'user',
+      },
+    ])
+    setAiMsg('')
+    setUserMsg('')
+    setOpenJob(false)
+  }
+
+  const stopMessage = () => {
+    setAiMsg('')
+    sendtoUnity('MessageReceiver', 'OnclickedButton', 'gpt_discard')
+  }
+
+  const controls = useAnimation()
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      controls.start({
+        scale: [1, 1.2, 1], // 시작, 중간, 끝 스케일 값 설정
+        transition: {
+          duration: 1, // 애니메이션 지속 시간 (1초)
+        },
+      })
+    }, 1000)
+
+    return () => clearInterval(intervalId)
+  }, [controls])
   useEffect(() => {
     switch (tutorialStep) {
       case 6:
       case 8:
       case 9:
       case 11:
-      case 13:
-      case 14:
         setChat((prevMessages) => [...prevMessages, tutorial[tutorialStep]])
-        if (tutorialStep === 14) {
-          setTimeout(() => setTutorialStep((num) => num + 1), 3000)
-        } else {
-          setTutorialStep((num) => num + 1)
-        }
+        setTutorialStep((num) => num + 1)
         break
       case 7:
       case 10:
       case 12:
-        setChat((prevMessages) => [...prevMessages, tutorial[tutorialStep]])
-        break
+      case 13:
+      case 14:
       case 15:
+      case 16:
         setChat((prevMessages) => [...prevMessages, tutorial[tutorialStep]])
-        setTimeout(() => setTutorialStep(100), 3000)
         break
       default:
         break
     }
   }, [tutorialStep])
 
+  const textVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.05, // i는 각 글자의 인덱스로, 각 글자가 순차적으로 나타나도록 지연 시간을 설정합니다.
+      },
+    }),
+  }
+
   return (
-    <div className="absolute bottom-[4rem] right-[3.1rem]">
+    <div className="absolute bottom-[4rem] right-[3.1rem] flex gap-[2rem]">
       <div className="flex h-[calc(100vh-13rem)] gap-[1.2rem]">
         <div className={clsx('flex w-[57.1rem] flex-col justify-end')}>
           <div
@@ -121,78 +154,127 @@ const Chat = ({
               'custom-scrollbar z-10 flex h-[calc(100%-4.5rem)] flex-col gap-[3rem] overflow-auto rounded-t-[1rem] border-b border-b-383838/20 bg-141517 px-[2rem] pb-[1rem] pt-[2rem]',
             )}
           >
-            {chat.map(({ text, select, who }, chatIndex) => (
-              <div key={chatIndex}>
-                {who !== 'user' && (
-                  <div className="flex gap-[1.1rem]">
-                    <AutoSizeImage
-                      src="/images/unity/nara_profile.png"
-                      className="h-[6.8rem] min-w-[6.8rem]"
-                    />
+            {chat.map(({ text, select, who, select_image }, chatIndex) => {
+              const letters = Array.from(text)
+              return (
+                <div key={chatIndex}>
+                  {who !== 'user' && (
+                    <div className="flex gap-[1.1rem]">
+                      <AutoSizeImage
+                        src="/images/unity/nara_profile.png"
+                        className="h-[6.8rem] min-w-[6.8rem]"
+                      />
 
-                    <div>
-                      <CSText size="21" color="DD81FD">
-                        AI 상담사 나리
-                      </CSText>
-                      <div className="mt-[0.5rem] max-w-[33.5rem] rounded-r-2xl rounded-bl-2xl bg-white p-[1rem]">
-                        <CSText size="18" color="black" weight="bold">
-                          {text}
+                      <div>
+                        <CSText size="21" color="DD81FD">
+                          AI 상담사 나리
                         </CSText>
+                        <div className="mt-[0.5rem] max-w-[33.5rem] rounded-r-2xl rounded-bl-2xl bg-white p-[1rem]">
+                          {who === 'ai' ? (
+                            <AnimatePresence>
+                              {letters.map((letter, index) => (
+                                <motion.span
+                                  key={index}
+                                  custom={index}
+                                  initial="hidden"
+                                  animate="visible"
+                                  exit="hidden"
+                                  variants={textVariants}
+                                  className="text-18 font-bold text-black"
+                                >
+                                  {letter}
+                                </motion.span>
+                              ))}
+                            </AnimatePresence>
+                          ) : (
+                            <CSText size="18" color="black" weight="bold">
+                              {text}
+                            </CSText>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {select && (
-                  <div className="my-[2rem] grid grid-cols-2 gap-[2rem] pl-[7.9rem]">
-                    {select?.map((value, index) => (
-                      <div
-                        className="cursor-pointer rounded-[2rem] border border-white bg-transparent px-[1.5rem] py-[0.5rem] text-center hover:opacity-70"
-                        key={index}
-                        onClick={() => selectTutorial(value)}
+                  {select && (
+                    <div className="my-[2rem] pl-[7.9rem]">
+                      {select?.map((value, index) => (
+                        <div
+                          className="mb-[1rem] mr-[1rem] inline-block cursor-pointer rounded-[2rem] border border-white bg-transparent px-[1.5rem] py-[0.5rem] text-center hover:opacity-70"
+                          key={index}
+                          onClick={() => selectTutorial(value)}
+                        >
+                          <div className="flex gap-[0.7rem]">
+                            {chatIndex === 2 && (
+                              <div className="w-[2.2rem]">
+                                <AutoSizeImage
+                                  src={select_image![index]}
+                                  full
+                                />
+                              </div>
+                            )}
+                            <CSText size="18" color="white">
+                              {value}
+                            </CSText>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {selectMsg[chatIndex] && (
+                    <div className="flex justify-end">
+                      <CSText
+                        size="18"
+                        color="black"
+                        weight="bold"
+                        className="max-w-[33.5rem] rounded-t-2xl rounded-bl-2xl bg-[#FFE177] p-[1rem]"
                       >
-                        <CSText size="18" color="white">
-                          {value}
-                        </CSText>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                        {selectMsg[chatIndex]}
+                      </CSText>
+                    </div>
+                  )}
 
-                {selectMsg[chatIndex] && (
-                  <div className="flex justify-end">
-                    <CSText
-                      size="18"
-                      color="black"
-                      weight="bold"
-                      className="max-w-[33.5rem] rounded-t-2xl rounded-bl-2xl bg-[#FFE177] p-[1rem]"
-                    >
-                      {selectMsg[chatIndex]}
-                    </CSText>
+                  {who === 'user' && (
+                    <div className="flex justify-end">
+                      <CSText
+                        size="18"
+                        color="black"
+                        weight="bold"
+                        className="max-w-[33.5rem] rounded-t-2xl rounded-bl-2xl bg-[#FFE177] p-[1rem]"
+                      >
+                        {text}
+                      </CSText>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+            {openJob && (
+              <div className="grid grid-cols-3 gap-[1rem] rounded-2xl bg-141517">
+                {exampleJobs.map(({ job, description }, index) => (
+                  <div
+                    key={index}
+                    className="grid h-[3rem] place-items-center rounded-2xl bg-slate-800  text-16 text-white"
+                    onClick={() => exampleJob(description)}
+                  >
+                    {job}
                   </div>
-                )}
-
-                {who === 'user' && (
-                  <div className="flex justify-end">
-                    <CSText
-                      size="18"
-                      color="black"
-                      weight="bold"
-                      className="max-w-[33.5rem] rounded-t-2xl rounded-bl-2xl bg-[#FFE177] p-[1rem]"
-                    >
-                      {text}
-                    </CSText>
-                  </div>
-                )}
+                ))}
               </div>
-            ))}
+            )}
+
             <div ref={messagesEndRef} />
           </div>
           <CSLabel>
             <CSInput
               type="text"
               bgColor="141517"
-              placeholder="궁금한 건 채팅으로 문의하세요."
+              placeholder={
+                tutorialStep === 100
+                  ? '궁금한 건 채팅으로 문의하세요.'
+                  : '튜토리얼을 진행해주세요!'
+              }
               value={userMsg}
               setValue={setUserMsg}
               height="45"
@@ -203,18 +285,79 @@ const Chat = ({
                   sendMessage()
                 }
               }}
+              disabled={tutorialStep !== 100}
             />
-            <Image
-              src={'/images/unity/top_arrow.png'}
-              className="absolute right-[1.3rem] top-1/2 h-[2.8rem] w-[2.8rem] -translate-y-1/2"
-              width={0}
-              height={0}
-              onClick={sendMessage}
-              alt={'top_arrow'}
-            />
+            <div
+              className={clsx(
+                'absolute right-[1.3rem] top-1/2 flex -translate-y-1/2 gap-[1rem]',
+                tutorialStep === 13 && 'z-10',
+              )}
+            >
+              <div className="grid h-[2.8rem] w-[2.8rem] place-items-center rounded-full bg-383838">
+                <Image
+                  src={`/images/unity/${aiMsg ? 'stop' : 'send'}.png`}
+                  className="h-[1.4rem] w-[1.4rem]"
+                  width={0}
+                  height={0}
+                  onClick={aiMsg ? stopMessage : sendMessage}
+                  alt="send"
+                />
+              </div>
+              <div className="grid h-[2.8rem] w-[2.8rem] place-items-center rounded-full bg-red-400">
+                <Image
+                  src={`/images/unity/question.png`}
+                  className="h-[1.6rem] w-[1.6rem]"
+                  width={0}
+                  height={0}
+                  onClick={() => setOpenJob(!openJob)}
+                  alt="question"
+                />
+                {tutorialStep === 13 && (
+                  <>
+                    <motion.div
+                      className={clsx(
+                        'absolute right-[-3.5rem] top-[-1rem] w-[7rem] ',
+                      )}
+                      animate={controls}
+                    >
+                      <img
+                        src="/images/unity/finger_up.png"
+                        alt="Finger"
+                        className="h-full w-full"
+                      />
+                    </motion.div>
+                    <div className="absolute left-[-5rem] top-[-13rem] w-[15rem] rounded-xl border border-[#E1792D] bg-white px-[1rem] pb-[2rem]">
+                      <div
+                        className="mt-[1rem] flex w-full justify-end"
+                        onClick={() =>
+                          tutorialStep === 13 &&
+                          setTutorialStep((num) => num + 1)
+                        }
+                      >
+                        <AutoSizeImage
+                          src={'/images/unity/close.png'}
+                          rounded="10"
+                          className="h-[1.6rem] w-[1.6rem] cursor-pointer"
+                        />
+                      </div>
+                      <CSText
+                        size="16"
+                        weight="bold"
+                        color="black"
+                        className="mt-[1rem] text-center"
+                      >
+                        진로상담 직업 예시 질문을 파악할 수 있습니다.
+                      </CSText>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
           </CSLabel>
         </div>
       </div>
+
+      {/* 튜토리얼 진행 */}
       {5 <= tutorialStep && tutorialStep < 100 && (
         <div className="fixed inset-0 flex flex-col items-center justify-center">
           <div className="absolute inset-0 bg-black opacity-50" />

@@ -7,11 +7,14 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import ChooseCounselingModal from '../modal/ChooseCounselingModal'
 import UnitySection from '../section/UnitySection'
 import ChooseMoodModal from '../modal/ChooseMoodModal'
+import CSText from '@/components/ui/text/CSText'
+import { TTutorial } from '@/utils/types'
 
 interface TProps {
   sendToGPT: (selectMesssage: string) => void
   setWantCounseling: Dispatch<SetStateAction<number>>
   setAiMsg: Dispatch<SetStateAction<string>>
+  setChat: Dispatch<SetStateAction<TTutorial[]>>
   setTutorialStep: Dispatch<SetStateAction<number>>
   tutorialStep: number
   wantCounseling: number
@@ -28,26 +31,11 @@ const Menu = ({
   setTutorialStep,
   roomMood,
   letsDance,
+  setChat,
 }: TProps) => {
   const [openMenu, setOpenMenu] = useState<boolean>(false)
   const [openMood, setOpenMood] = useState<boolean>(false)
   const [selectCounseling, setSelectCounseling] = useState<boolean>(false)
-
-  const category = [
-    { title: '진로', image_url: '/images/unity/category/future.png' },
-    { title: '심리', image_url: '/images/unity/category/mind.png' },
-    { title: '친구', image_url: '/images/unity/category/friend.png' },
-    { title: '연인', image_url: '/images/unity/category/love.png' },
-    { title: '가족', image_url: '/images/unity/category/family.png' },
-  ]
-
-  const changeCategory = (index: number) => {
-    const selectMesssage = `${category[index].title}에 대해 상담하고 싶어`
-    sendToGPT(selectMesssage)
-    setWantCounseling(index)
-    setOpenMenu(false)
-    setAiMsg('')
-  }
 
   const controls = useAnimation()
 
@@ -67,16 +55,15 @@ const Menu = ({
   return (
     <>
       <div className="absolute bottom-[4rem] left-[3rem]">
-        <div className="flex items-center justify-center gap-[4em]">
+        <div className="flex items-center justify-center gap-[2.5rem]">
           <div
             className={clsx(
-              'relative w-[5.2rem] cursor-pointer',
+              'relative w-[4.6rem] cursor-pointer',
               tutorialStep === 5 && 'z-10 cursor-pointer',
             )}
             onClick={() => setOpenMenu(!openMenu)}
           >
             <AutoSizeImage src="/images/unity/menu.png" full />
-
             {tutorialStep === 5 && (
               <>
                 <motion.div
@@ -91,8 +78,8 @@ const Menu = ({
                     className="h-full w-full"
                   />
                 </motion.div>
-                <div className="absolute right-[-35rem] top-[-13rem] grid h-[6rem] w-[28rem] place-items-center rounded-xl border border-[#E1792D] bg-white text-18 font-bold">
-                  상담 종류의 아이콘을 눌러보세요
+                <div className="absolute right-[-35rem] top-[-13rem] w-[28rem] rounded-xl border border-[#E1792D] bg-white p-[2rem] text-18 font-bold">
+                  상담 종류의 아이콘을 클릭하여 원하시는 상담을 선택해주세요.
                 </div>
               </>
             )}
@@ -100,7 +87,7 @@ const Menu = ({
 
           <div
             className={clsx(
-              'relative w-[5.2rem] cursor-pointer',
+              'relative w-[4.6rem] cursor-pointer',
               tutorialStep === 7 && 'z-10',
             )}
             onClick={() => setOpenMood(!openMood)}
@@ -125,15 +112,15 @@ const Menu = ({
                     className="h-full w-full"
                   />
                 </motion.div>
-                <div className="absolute right-[-35rem] top-[-13rem] grid h-[6rem] w-[28rem] place-items-center rounded-xl border border-[#E1792D] bg-white text-18 font-bold">
-                  방 분위기 아이콘을 눌러보세요
+                <div className="absolute right-[-35rem] top-[-13rem] w-[28rem] rounded-xl border border-[#E1792D] bg-white p-[2rem] text-18 font-bold">
+                  방 분위기 아이콘을 눌러 방 분위기를 바꿀 수 있어요!
                 </div>
               </>
             )}
           </div>
           <div
             className={clsx(
-              'relative w-[5.2rem] cursor-pointer',
+              'relative w-[4.6rem] cursor-pointer',
               tutorialStep === 10 && 'z-10',
             )}
             onClick={() => {
@@ -163,6 +150,60 @@ const Menu = ({
               </>
             )}
           </div>
+          <div
+            className={clsx(
+              'relative w-[4.6rem] cursor-pointer',
+              tutorialStep === 12 && 'z-10',
+            )}
+            onClick={() => {
+              tutorialStep === 12
+                ? setTutorialStep((num) => num + 1)
+                : window.open(
+                    'https://chat.openai.com/g/g-WuMyoPNMV-ducogen-career-counselor',
+                  )
+            }}
+          >
+            <AutoSizeImage full src="/images/unity/aptitude.png" />
+
+            {tutorialStep === 12 && (
+              <>
+                <motion.div
+                  className={clsx(
+                    'absolute right-[-5rem] top-[-6.5rem] w-[7rem] ',
+                  )}
+                  animate={controls}
+                >
+                  <img
+                    src="/images/unity/finger.png"
+                    alt="Finger"
+                    className="h-full w-full"
+                  />
+                </motion.div>
+                <div className="absolute right-[-35rem] top-[-13rem] w-[28rem] rounded-xl border border-[#E1792D] bg-white px-[1rem] pb-[2rem]">
+                  <div
+                    className="mt-[1rem] flex w-full justify-end"
+                    onClick={() =>
+                      tutorialStep === 12 && setTutorialStep((num) => num + 1)
+                    }
+                  >
+                    <AutoSizeImage
+                      src={'/images/unity/close.png'}
+                      rounded="10"
+                      className="h-[1.6rem] w-[1.6rem]"
+                    />
+                  </div>
+                  <CSText
+                    size="18"
+                    weight="bold"
+                    color="black"
+                    className="mt-[1rem] text-center"
+                  >
+                    클릭시 홀랜드 검사 페이지로 이동합니다.
+                  </CSText>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
       {openMenu && (
@@ -171,10 +212,11 @@ const Menu = ({
             setWantCounseling={setWantCounseling}
             wantCounseling={wantCounseling}
             setSelectCounseling={setSelectCounseling}
-            sendToGPT={sendToGPT}
             setOpenMenu={setOpenMenu}
             setTutorialStep={setTutorialStep}
             tutorialStep={tutorialStep}
+            sendToGPT={sendToGPT}
+            setChat={setChat}
           />
         </UnitySection>
       )}

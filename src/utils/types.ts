@@ -94,3 +94,10 @@ export interface LabKid {
 }
 
 export type TLabKidContents = Omit<LabKid, 'banner'>
+
+export interface TTutorial {
+  text: string
+  select?: string[]
+  select_image?: string[]
+  who?: string
+}
