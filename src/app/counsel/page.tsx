@@ -73,7 +73,7 @@ const Anneagram = () => {
       systemMsg,
       selectMessage ? selectMessage : userMsg,
     )
-
+    console.log(message, 'message')
     sendMessage('MessageReceiver', 'OnProcess', `gptmsg:${message}`)
     sendMessage('MessageReceiver', 'OnclickedButton', 'gpt_discard')
   }

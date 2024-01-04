@@ -6,7 +6,7 @@ interface Props {
   className?: string
   onClick?: () => void
   rounded?: string
-  roundedTop?: number
+  roundedTop?: string
   full?: boolean
   priority?: boolean
 }
@@ -23,6 +23,7 @@ const borderRadius: StringProps = {
 
 const borderTopRadius: StringProps = {
   '6': 'rounded-t-[0.6rem]',
+  '10': 'rounded-t-[1rem]',
   18: 'rounded-t-[1.8rem]',
 }
 

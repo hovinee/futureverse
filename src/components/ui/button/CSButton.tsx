@@ -47,6 +47,7 @@ const buttonColor: StringProps = {
 
 const buttonRounded: StringProps = {
   '5': 'rounded-[0.5rem]',
+  '10': 'rounded-[1rem]',
   '13': 'rounded-[1.3rem]',
   '30': 'rounded-[3rem]',
 }
