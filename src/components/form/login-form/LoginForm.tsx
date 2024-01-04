@@ -53,8 +53,9 @@ const SignInForm = () => {
         <CSInput
           type="text"
           setValue={setEmail}
-          className="mt-[4.7rem]"
+          className="mt-[4.7rem] pl-[1rem]"
           placeholder="이메일"
+          rounded="10"
         />
 
         <CSLabel className="mt-[2.7rem]">
@@ -63,6 +64,8 @@ const SignInForm = () => {
             setValue={setPassword}
             watchEnabled={watchEnabled}
             placeholder="비밀번호"
+            rounded="10"
+            className="pl-[1rem]"
           />
           <Image
             src={`/images/eye-${watchEnabled ? 'open' : 'close'}.png`}

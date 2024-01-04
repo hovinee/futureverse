@@ -38,8 +38,10 @@ const VerificationCode = ({
               setValue={setVerificationCode}
               disabled={verifiedCode}
               placeholder="인증번호"
+              rounded="10"
+              className="pl-[1rem]"
             />
-            <div className=" absolute right-[1.3rem] top-1/2 -translate-y-1/2">
+            <div className="absolute right-[1.3rem] top-1/2 -translate-y-1/2">
               <Timer />
             </div>
           </CSLabel>

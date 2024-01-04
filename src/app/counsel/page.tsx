@@ -75,7 +75,7 @@ const Anneagram = () => {
     )
     console.log(message, 'message')
     sendMessage('MessageReceiver', 'OnProcess', `gptmsg:${message}`)
-    sendMessage('MessageReceiver', 'OnclickedButton', 'gpt_discard')
+    sendMessage('MessageReceiver', 'OnClickedButton', 'gpt_discard')
   }
 
   const OnSplashEnd = useCallback((data: any) => {

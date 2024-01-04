@@ -127,7 +127,8 @@ const SignUpForm = () => {
           type="text"
           setValue={setName}
           placeholder="이름"
-          className="mt-[4.7rem]"
+          className="mt-[4.7rem] pl-[1rem]"
+          rounded="10"
         />
 
         <CSLabel className="mt-[2.7rem]">
@@ -136,12 +137,14 @@ const SignUpForm = () => {
             setValue={setEmail}
             disabled={verifiedCode}
             placeholder="이메일"
+            rounded="10"
+            className="pl-[1rem]"
           />
           <CSText
             size="14"
             weight="bold"
             color="00A886"
-            className="absolute right-[1.3rem] top-1/2 -translate-y-1/2"
+            className="absolute right-[1.3rem] top-1/2 -translate-y-1/2 cursor-pointer"
             onClick={handleVerificationCode}
           >
             {verficationEnabled ? '재전송' : '인증'}
@@ -162,7 +165,7 @@ const SignUpForm = () => {
           <CSText
             size="11"
             weight="normal"
-            color="00923A"
+            color="red"
             className="font-inter mt-[0.5rem]"
           >
             이미 인증하신 이메일 주소 입니다.
@@ -184,6 +187,8 @@ const SignUpForm = () => {
             setValue={setPassword}
             watchEnabled={watchEnabled}
             placeholder="비밀번호"
+            rounded="10"
+            className="pl-[1rem]"
           />
           <Image
             src={`/images/eye-${watchEnabled ? 'open' : 'close'}.png`}
@@ -211,6 +216,8 @@ const SignUpForm = () => {
             setValue={setPasswordCheck}
             watchEnabled={watchEnabled}
             placeholder="비밀번호 확인"
+            rounded="10"
+            className="pl-[1rem]"
           />
           <Image
             src={`/images/eye-${watchEnabled ? 'open' : 'close'}.png`}

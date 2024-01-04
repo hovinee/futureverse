@@ -65,19 +65,15 @@ const HealingModal = ({
                 >
                   <div className="mt-[2rem]">
                     <div className="w-[30rem]">
-                      {/* <CSText size="16" color="black" weight="bold">
-                      {counseling ? '왁자지껄 상담소' : '힐링가득 치유소'}
-                    </CSText>
-                    */}
                       <AutoSizeImage src={thumbnail} full />
-                    </div>
-                    <div className="h-[8rem] w-full rounded-b-[1rem] bg-white pl-[1.9rem] pt-[1.5rem]">
-                      <CSText size="21" color="black" weight="bold">
-                        {title}
-                      </CSText>
-                      <CSText size="14" color="black" className="mt-[0.5rem]">
-                        {sub_title}
-                      </CSText>
+                      <div className="h-[8rem] w-full rounded-b-[1rem] bg-white pl-[1.9rem] pt-[1.5rem]">
+                        <CSText size="21" color="black" weight="bold">
+                          {title}
+                        </CSText>
+                        <CSText size="14" color="black" className="mt-[0.5rem]">
+                          {sub_title}
+                        </CSText>
+                      </div>
                     </div>
                   </div>
                 </div>

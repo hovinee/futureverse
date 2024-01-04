@@ -94,7 +94,7 @@ const Chat = ({
 
   const stopMessage = () => {
     setAiMsg('')
-    sendtoUnity('MessageReceiver', 'OnclickedButton', 'gpt_discard')
+    sendtoUnity('MessageReceiver', 'OnClickedButton', 'gpt_discard')
   }
 
   const controls = useAnimation()
