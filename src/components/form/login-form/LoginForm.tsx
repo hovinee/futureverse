@@ -11,6 +11,11 @@ import CSText from '@/components/ui/text/CSText'
 import CSInput from '@/components/ui/input/CSInput'
 import Section from '@/components/ui/section/Section'
 import CSButton from '@/components/ui/button/CSButton'
+import dynamic from 'next/dynamic'
+
+const Loading = dynamic(() => import('../../loading/Loading'), {
+  ssr: false,
+})
 
 const SignInForm = () => {
   const router = useRouter()
@@ -20,21 +25,26 @@ const SignInForm = () => {
   const [error, setError] = useState<string>('')
 
   const [watchEnabled, setWatchEnabled] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
   const handleSumit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
+    setLoading(true)
     try {
       const res = await signIn('credentials', {
         email,
         password,
         redirect: false,
       })
-      if (res && res.error) {
+      if (res?.error) {
+        setLoading(false)
         setError('올바른 비밀번호를 입력해주세요')
         return
+      } else if (res?.ok) {
+        setLoading(false)
+        alert('로그인 되었습니다.')
+        router.replace('/')
       }
-      router.replace('/')
     } catch (error) {
       console.log(error)
     }
@@ -116,6 +126,7 @@ const SignInForm = () => {
           </CSText>
         </Link>
       </form>
+      {loading && <Loading />}
     </Section>
   )
 }

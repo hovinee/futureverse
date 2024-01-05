@@ -4,6 +4,8 @@ import { Unity, useUnityContext } from 'react-unity-webgl'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import clsx from 'clsx'
+import Progressbar from '@/components/progress/ProgressBar'
+import AutoSizeImage from '@/components/ui/auto-size-image/AutoSizeImage'
 
 const Home = () => {
   const router = useRouter()
@@ -45,11 +47,30 @@ const Home = () => {
   return (
     <>
       <div className="absolute inset-0 z-10 bg-black">
-        {!isLoaded && (
-          <p className="z-10 grid h-full w-full place-items-center bg-black text-35 text-white">
-            Loading Application... {Math.round(loadingProgression * 100)}%
-          </p>
-        )}
+        <div
+          className={clsx(
+            'fixed z-20 grid h-full w-full place-items-center bg-white',
+            splashEnd ? 'hidden' : 'block',
+          )}
+        >
+          <div>
+            <AutoSizeImage
+              src={'/images/unity/path_logo.png'}
+              className="h-[26.3rem] w-[38.8rem]"
+              priority
+            />
+
+            <div className="relative z-10 mt-[3rem] w-[40rem] rounded-full  border bg-[#D3D3D3]">
+              <div className="absolute inset-0 grid place-items-center text-16 text-white">
+                {Math.round(loadingProgression * 100)}%
+              </div>
+              <div
+                className="grid h-[2rem] place-items-end rounded-full bg-gradient-to-r from-[#44D1A7] to-[#088AE7]"
+                style={{ width: `${Math.round(loadingProgression * 100)}%` }}
+              />
+            </div>
+          </div>
+        </div>
 
         <Unity
           style={{

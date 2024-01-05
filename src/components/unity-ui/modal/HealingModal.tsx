@@ -6,10 +6,11 @@ import CSText from '@/components/ui/text/CSText'
 import { thumbnailCounseling, thumbnailHealing } from '@/data/unity/data'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction, useState } from 'react'
+import { ReactUnityEventParameter } from 'react-unity-webgl/distribution/types/react-unity-event-parameters'
 
 interface TProps {
   setHealingMethod: Dispatch<SetStateAction<number>>
-  setSelectPlace: Dispatch<SetStateAction<string>>
+  setSelectPlace: Dispatch<SetStateAction<ReactUnityEventParameter>>
   counseling?: boolean
 }
 

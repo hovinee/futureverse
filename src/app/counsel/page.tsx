@@ -18,6 +18,7 @@ import Progressbar from '@/components/progress/ProgressBar'
 import { TTutorial } from '@/utils/types'
 import { tutorial } from '@/data/unity/data'
 import UserHistory from '@/components/unity-ui/user-history/UserHistory'
+import { ReactUnityEventParameter } from 'react-unity-webgl/distribution/types/react-unity-event-parameters'
 
 const Anneagram = () => {
   //unity build
@@ -39,7 +40,7 @@ const Anneagram = () => {
   const [splashEnd, setSplashEnd] = useState<boolean>(false)
 
   //상담소 또는 치유소 선택
-  const [selectPlace, setSelectPlace] = useState<string>('')
+  const [selectPlace, setSelectPlace] = useState<ReactUnityEventParameter>('')
 
   //상담 방법 선택
   const [counselingMethod, setCounselingMethod] = useState<number>(0)
@@ -73,16 +74,15 @@ const Anneagram = () => {
       systemMsg,
       selectMessage ? selectMessage : userMsg,
     )
-    console.log(message, 'message')
-    sendMessage('MessageReceiver', 'OnProcess', `gptmsg:${message}`)
     sendMessage('MessageReceiver', 'OnClickedButton', 'gpt_discard')
+    sendMessage('MessageReceiver', 'OnProcess', `gptmsg:${message}`)
   }
 
   const OnSplashEnd = useCallback((data: any) => {
     setSplashEnd(true)
   }, [])
 
-  const OnPointerClick = useCallback((data: any) => {
+  const OnPointerClick = useCallback((data: ReactUnityEventParameter) => {
     setSelectPlace(data)
   }, [])
 
@@ -91,7 +91,6 @@ const Anneagram = () => {
   }, [])
 
   const OnMsg = useCallback((data: any) => {
-    console.log(data)
     setAiMsg(data)
   }, [])
 

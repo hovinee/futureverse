@@ -22,7 +22,7 @@ export type TCourseRocommend = Pick<
   'title' | 'intro' | 'tag' | 'price' | 'thumbnail' | 'path'
 >
 
-export type TMyCourse = Pick<TCourse, 'title' | 'path'>
+export type TMyCourse = Pick<TCourse, 'title' | 'path' | 'video_uid'>
 
 export interface Footer {
   meta: string
