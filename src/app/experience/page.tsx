@@ -26,11 +26,11 @@ const Experience = () => {
           </CSText>
         </div>
       </BannerSection>
-      <div className="mt-[6.3rem] px-[3.5rem] xl:px-[9rem]">
+      <div className="mx-auto mt-[6.3rem] max-w-[128rem] px-[3.5rem] xl:px-[9rem]">
         <CSText size="21" weight="bold" color="black">
           실시간 인기체험
         </CSText>
-        <div className="mt-[1.8rem] hidden w-full grid-cols-2 gap-x-[1rem] gap-y-[3rem] pb-[9rem] md:grid-cols-3 xl:grid xl:gap-y-[5rem] ">
+        <div className=" mt-[1.8rem] hidden w-full  grid-cols-2 gap-x-[2.4rem] gap-y-[3rem] pb-[9rem] md:grid-cols-3 xl:grid xl:gap-y-[5rem]">
           {data.contents.map((value, index) => (
             <Link href={value.path} key={index}>
               <div className="relative cursor-pointer">
@@ -64,7 +64,7 @@ const Experience = () => {
         <CSText size="21" weight="bold" color="black" className="mt-[5.4rem]">
           전체보기
         </CSText>
-        <div className="mt-[1.8rem] grid w-full grid-cols-2 gap-x-[1rem] gap-y-[3rem] pb-[9rem] lg:grid-cols-3 ">
+        <div className="mt-[1.8rem] grid w-full grid-cols-2 gap-x-[2.4rem] gap-y-[3rem] pb-[9rem] lg:grid-cols-3 ">
           {data.contents.map((value, index) => (
             <Link href={value.path} key={index}>
               <div className="relative cursor-pointer">

@@ -27,20 +27,21 @@ const UnityHeader = ({ goToLobby, tutorialStep, setTutorialStep }: TProps) => {
 
     return () => clearInterval(intervalId)
   }, [controls])
+
   return (
     <div
       className="absolute left-[3rem] top-[3rem]"
-      onClick={tutorialStep === 16 ? () => setTutorialStep(100) : goToLobby}
+      onClick={tutorialStep === 12 ? () => setTutorialStep(100) : goToLobby}
     >
       <div
         className={clsx(
           'relative w-[4.6rem] cursor-pointer',
-          tutorialStep === 16 && 'z-10',
+          tutorialStep === 12 && 'z-10',
         )}
       >
         <AutoSizeImage src="/images/unity/exit.png" full />
 
-        {tutorialStep === 16 && (
+        {tutorialStep === 12 && (
           <>
             <motion.div
               className={clsx('absolute right-[-5rem] top-[3.5rem] w-[7rem]')}
@@ -52,20 +53,8 @@ const UnityHeader = ({ goToLobby, tutorialStep, setTutorialStep }: TProps) => {
                 className="h-full w-full"
               />
             </motion.div>
-            <div className="absolute bottom-[-15rem] right-[-35rem] w-[28rem] rounded-xl border border-[#E1792D] bg-white px-[1rem] pb-[2rem]">
-              <div className="mt-[1rem] flex w-full justify-end">
-                <AutoSizeImage
-                  src={'/images/unity/close.png'}
-                  rounded="10"
-                  className="h-[1.6rem] w-[1.6rem]"
-                />
-              </div>
-              <CSText
-                size="18"
-                weight="bold"
-                color="black"
-                className="mt-[1rem]"
-              >
+            <div className="absolute bottom-[-15rem] right-[-35rem] w-[28rem] rounded-xl border border-[#E1792D] bg-white px-[1rem] py-[2rem]">
+              <CSText size="18" weight="bold" color="black">
                 나가기 버튼을 누르면 다시 로비로 이동합니다.
               </CSText>
             </div>

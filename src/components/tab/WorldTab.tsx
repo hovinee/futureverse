@@ -1,109 +1,108 @@
-'use client'
-
 import { motion, AnimatePresence } from 'framer-motion'
 import CSText from '../ui/text/CSText'
 import { useState } from 'react'
-import { TCourse } from '@/utils/types'
+import clsx from 'clsx'
 import AutoSizeImage from '../ui/auto-size-image/AutoSizeImage'
 
-interface TProps {
-  course: TCourse
-}
+const tabs = [{ label: '월드소개' }, { label: '월드리뷰' }]
 
-const tabs = [{ label: '강좌소개' }, { label: '수강리뷰' }]
-
-const Tab = ({ course }: TProps) => {
+const WorldTab = () => {
   const [selectedTab, setSelectedTab] = useState(tabs[0])
-
+  console.log(selectedTab)
   return (
-    <div className="mt-[5.7rem] flex w-full flex-col">
+    <div className="mt-[2rem] flex w-full flex-col pr-[1rem]">
       <nav>
-        <ul className="flex gap-[3.3rem]">
-          {tabs.map((item) => (
+        <ul className="flex gap-[3.3rem] ">
+          {tabs.map((item, index) => (
             <li
               key={item.label}
-              className={'relative cursor-pointer'}
+              className="relative cursor-pointer"
               onClick={() => setSelectedTab(item)}
             >
-              <CSText size="21" color="00A886">
+              <CSText
+                size="21"
+                color={clsx(
+                  selectedTab.label === item.label ? 'black' : 'B1B1B1',
+                )}
+                weight="bold"
+              >
                 {item.label}
               </CSText>
-              {item === selectedTab ? (
-                <motion.div
-                  className="absolute left-0 right-0 mt-[0.9rem] h-[3px] bg-00A886"
-                  layoutId="underline"
-                />
-              ) : null}
             </li>
           ))}
         </ul>
       </nav>
-      <main className="mt-[5.3rem] w-full">
+      <main className="w-full py-[3rem]">
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedTab ? selectedTab.label : 'empty'}
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -10, opacity: 0 }}
-            className="min-h-[40rem]"
             transition={{ duration: 0.2 }}
           >
-            {selectedTab.label === '강좌소개' ? (
+            {selectedTab.label === '월드소개' ? (
               <>
-                <CSText weight="bold" color="black" size="16">
-                  강의 개요
-                </CSText>
-                <CSText color="black" size="16" className="mt-[2.5rem]">
-                  {course.summary}
+                <div className="mb-[1rem] flex items-center gap-[1.6rem]">
+                  <AutoSizeImage
+                    src={'/images/unity/profile.png'}
+                    className="h-[5.7rem] w-[5.7rem]"
+                  />
+                  <div>
+                    <CSText size="18" color="black" weight="bold">
+                      Global Luna
+                    </CSText>
+                    <CSText size="16" color="B1B1B1" className="mt-[0.3rem]">
+                      Version Update Information.
+                    </CSText>
+                  </div>
+                </div>
+                <CSText
+                  size="18"
+                  color="black"
+                  weight="bold"
+                  className="mb-[0.5rem]"
+                >
+                  12/07/2021 Winter theme renewal
                 </CSText>
                 <CSText
-                  weight="bold"
+                  size="18"
                   color="black"
-                  size="16"
-                  className="mt-[2.5rem]"
+                  weight="bold"
+                  className="mb-[0.5rem]"
                 >
-                  학습 목표
-                </CSText>
-                <CSText color="black" size="16" className="mt-[2.5rem]">
-                  {course.purpose}
+                  09/10/2021 Autumn theme renewal
                 </CSText>
                 <CSText
-                  weight="bold"
+                  size="18"
                   color="black"
-                  size="16"
-                  className="mt-[2.5rem]"
+                  weight="bold"
+                  className="mb-[0.5rem]"
                 >
-                  학습 대상
-                </CSText>
-                <CSText color="black" size="16" className="mt-[2.5rem]">
-                  {course.target}
+                  07/10/2021 Summer theme renewal
                 </CSText>
               </>
             ) : (
               <>
-                <div className="flex h-[11.6rem] w-full flex-col items-center justify-center rounded-[1rem] border shadow-md">
-                  <div className="flex items-center gap-[2.3rem]">
-                    <CSText weight="bold" color="black" size="35">
-                      4.8
-                    </CSText>
-                    <div className="flex gap-[1.1rem]">
-                      {[0, 0, 0, 0, 0].map((_value, index) => (
-                        <AutoSizeImage
-                          key={index}
-                          src={'/images/star.png'}
-                          className="h-[2rem] w-[2rem]"
-                        />
-                      ))}
-                      <CSText color="555555" size="15">
-                        (22)
-                      </CSText>
-                    </div>
-                  </div>
-                  <CSText color="black" size="16">
-                    수강생의 98%가 만족했어요
+                <div className="flex items-center gap-[0.7rem]">
+                  <CSText weight="bold" color="black" size="18">
+                    4.8
                   </CSText>
+                  <div className="flex items-center gap-[0.5rem]">
+                    {[0, 0, 0, 0, 0].map((_value, index) => (
+                      <AutoSizeImage
+                        key={index}
+                        src={'/images/star.png'}
+                        className="h-[1.6rem] w-[1.6rem]"
+                      />
+                    ))}
+                    <CSText color="555555" size="15">
+                      (22)
+                    </CSText>
+                  </div>
                 </div>
-                <div className="mt-[6.2rem] flex justify-between">
+
+                <div className="mt-[2rem] flex justify-between">
                   <CSText color="black" size="15">
                     전체리뷰 22개
                   </CSText>
@@ -133,7 +132,7 @@ const Tab = ({ course }: TProps) => {
                             <div key={index}>
                               <AutoSizeImage
                                 src={'/images/star.png'}
-                                className="h-[2.4rem] w-[2.4rem]"
+                                className="h-[2rem] w-[2rem]"
                               />
                             </div>
                           ))}
@@ -159,11 +158,11 @@ const Tab = ({ course }: TProps) => {
                       <div className="mt-[3.6rem] flex justify-end gap-[1.3rem]">
                         <AutoSizeImage
                           src={'/images/thumb_up.png'}
-                          className="h-[2.4rem] w-[2.4rem]"
+                          className="h-[2rem] w-[2rem]"
                         />
                         <AutoSizeImage
                           src={'/images/thumb_down.png'}
-                          className="h-[2.4rem] w-[2.4rem]"
+                          className="h-[2rem] w-[2rem]"
                         />
                       </div>
                     </div>
@@ -178,4 +177,4 @@ const Tab = ({ course }: TProps) => {
   )
 }
 
-export default Tab
+export default WorldTab

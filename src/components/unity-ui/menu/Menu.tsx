@@ -88,7 +88,7 @@ const Menu = ({
           <div
             className={clsx(
               'relative w-[4.6rem] cursor-pointer',
-              tutorialStep === 7 && 'z-10',
+              tutorialStep === 6 && 'z-10',
             )}
             onClick={() => setOpenMood(!openMood)}
           >
@@ -98,7 +98,7 @@ const Menu = ({
               src="/images/unity/room.png"
             />
 
-            {tutorialStep === 7 && (
+            {tutorialStep === 6 && (
               <>
                 <motion.div
                   className={clsx(
@@ -121,16 +121,16 @@ const Menu = ({
           <div
             className={clsx(
               'relative w-[4.6rem] cursor-pointer',
-              tutorialStep === 10 && 'z-10',
+              tutorialStep === 7 && 'z-10',
             )}
             onClick={() => {
-              tutorialStep === 10 && setTutorialStep((num) => num + 1)
+              tutorialStep === 7 && setTutorialStep((num) => num + 1)
               letsDance()
             }}
           >
             <AutoSizeImage full src="/images/unity/dance.png" />
 
-            {tutorialStep === 10 && (
+            {tutorialStep === 7 && (
               <>
                 <motion.div
                   className={clsx(
@@ -153,10 +153,10 @@ const Menu = ({
           <div
             className={clsx(
               'relative w-[4.6rem] cursor-pointer',
-              tutorialStep === 12 && 'z-10',
+              tutorialStep === 8 && 'z-10',
             )}
             onClick={() => {
-              tutorialStep === 12
+              tutorialStep === 8
                 ? setTutorialStep((num) => num + 1)
                 : window.open(
                     'https://chat.openai.com/g/g-WuMyoPNMV-ducogen-career-counselor',
@@ -165,7 +165,7 @@ const Menu = ({
           >
             <AutoSizeImage full src="/images/unity/aptitude.png" />
 
-            {tutorialStep === 12 && (
+            {tutorialStep === 8 && (
               <>
                 <motion.div
                   className={clsx(
@@ -180,18 +180,6 @@ const Menu = ({
                   />
                 </motion.div>
                 <div className="absolute right-[-35rem] top-[-13rem] w-[28rem] rounded-xl border border-[#E1792D] bg-white px-[1rem] pb-[2rem]">
-                  <div
-                    className="mt-[1rem] flex w-full justify-end"
-                    onClick={() =>
-                      tutorialStep === 12 && setTutorialStep((num) => num + 1)
-                    }
-                  >
-                    <AutoSizeImage
-                      src={'/images/unity/close.png'}
-                      rounded="10"
-                      className="h-[1.6rem] w-[1.6rem]"
-                    />
-                  </div>
                   <CSText
                     size="18"
                     weight="bold"

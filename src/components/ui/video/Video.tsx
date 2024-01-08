@@ -12,10 +12,11 @@ interface VideoProps {
   styles?: CSSProperties
   videoOptions?: Omit<VideoJsPlayerOptions, 'sources'>
   uid: string
+  registeredCourse?: boolean
 }
 
 const Video = React.forwardRef<HTMLDivElement | null, VideoProps>(
-  ({ sources, styles, videoOptions, uid }, refs) => {
+  ({ sources, styles, videoOptions, uid, registeredCourse }, refs) => {
     const videoRef = useRef<HTMLDivElement | null>(null)
     const [target, setTarget] = useState<HTMLDivElement | null>(
       videoRef.current,
@@ -24,6 +25,7 @@ const Video = React.forwardRef<HTMLDivElement | null, VideoProps>(
       videoTarget: target,
       options: { sources, ...videoOptions },
       uid,
+      registeredCourse,
     })
 
     useEffect(() => {

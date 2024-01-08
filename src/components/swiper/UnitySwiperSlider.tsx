@@ -6,7 +6,6 @@ import 'swiper/css/effect-cards'
 import { EffectCards } from 'swiper/modules'
 import CSText from '../ui/text/CSText'
 import AutoSizeImage from '../ui/auto-size-image/AutoSizeImage'
-
 import { useState } from 'react'
 import { Dispatch, SetStateAction } from 'react'
 import CSButton from '../ui/button/CSButton'
@@ -17,10 +16,11 @@ import {
   thumbnailHealing,
 } from '@/data/unity/data'
 import clsx from 'clsx'
+import { ReactUnityEventParameter } from 'react-unity-webgl/distribution/types/react-unity-event-parameters'
 
 interface TProps {
   selectMethod: Dispatch<SetStateAction<number>>
-  setSelectPlace: Dispatch<SetStateAction<string>>
+  setSelectPlace: Dispatch<SetStateAction<ReactUnityEventParameter>>
   counseling?: boolean
   healing?: boolean
 }

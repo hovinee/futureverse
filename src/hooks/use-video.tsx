@@ -10,6 +10,7 @@ interface VideoProps {
   options?: VideoJsPlayerOptions
   plugins?: string[]
   uid: string
+  registeredCourse?: boolean
 }
 
 const DEFAULT_OPTIONS: VideoJsPlayerOptions = {}
@@ -25,7 +26,13 @@ const DEFAULT_OPTIONS: VideoJsPlayerOptions = {}
  * @returns {Object} { player: videojs player }
  */
 
-const useVideo = ({ options, videoTarget, plugins = [], uid }: VideoProps) => {
+const useVideo = ({
+  options,
+  videoTarget,
+  plugins = [],
+  uid,
+  registeredCourse,
+}: VideoProps) => {
   const [totalTime, setTotalTime] = useState<number>(0)
 
   const currentTime =
@@ -62,29 +69,29 @@ const useVideo = ({ options, videoTarget, plugins = [], uid }: VideoProps) => {
     ))
   }
 
-  const updateCourseDate = useCallback(async () => {
-    if (uid) {
-      await updateCourse(uid, totalTime, currentTime)
-    }
-  }, [uid, totalTime, currentTime])
+  // const updateCourseDate = useCallback(async () => {
+  //   if (uid) {
+  //     await updateCourse(uid, totalTime, currentTime)
+  //   }
+  // }, [uid, totalTime, currentTime])
 
-  useEffect(() => {
-    const handleWindowLoad = async () => {
-      // window.load 이벤트 발생 시 실행
-      await updateCourseDate()
-    }
+  // useEffect(() => {
+  //   const handleWindowLoad = async () => {
+  //     // window.load 이벤트 발생 시 실행
+  //     await updateCourseDate()
+  //   }
 
-    // 처음 로드될 때 실행
-    updateCourseDate()
+  //   // 처음 로드될 때 실행
+  //   updateCourseDate()
 
-    // window.load 이벤트 리스너 등록
-    window.addEventListener('unload', handleWindowLoad)
+  //   // window.load 이벤트 리스너 등록
+  //   window.addEventListener('unload', handleWindowLoad)
 
-    // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener('unload', handleWindowLoad)
-    }
-  }, [updateCourseDate])
+  //   // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
+  //   return () => {
+  //     window.removeEventListener('unload', handleWindowLoad)
+  //   }
+  // }, [updateCourseDate])
 
   // loadedmetadata 이벤트 핸들러
   const handletotalDuration = () => {
@@ -92,6 +99,10 @@ const useVideo = ({ options, videoTarget, plugins = [], uid }: VideoProps) => {
     if (playerRef.current) {
       const totalDuration = playerRef.current?.duration()
       setTotalTime(totalDuration)
+      if (!registeredCourse) {
+        playerRef.current.duration(60)
+      }
+      //preivew 길이 제한
     }
   }
 

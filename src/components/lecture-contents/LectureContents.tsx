@@ -2,19 +2,16 @@
 
 import { TCourse } from '@/utils/types'
 import AutoSizeImage from '../ui/auto-size-image/AutoSizeImage'
-
 import CSText from '../ui/text/CSText'
-import { useRouter } from 'next/navigation'
 import { signCourse } from '@/app/api/post'
 import CSButton from '../ui/button/CSButton'
 
 interface TProps {
   course: TCourse
+  registeredCourse?: boolean
 }
 
-const LectureContent = ({ course }: TProps) => {
-  const router = useRouter()
-
+const LectureContent = ({ course, registeredCourse }: TProps) => {
   const registerCourse = async () => {
     if (course.video_uid) {
       const result = await signCourse(course.video_uid)
@@ -56,9 +53,6 @@ const LectureContent = ({ course }: TProps) => {
         </div>
       </div>
       <div className="mt-[2rem] flex items-center gap-[2.3rem] lg:mt-[8rem] lg:flex-col lg:items-start lg:gap-[0.6rem]">
-        <CSText size="31" color="black" weight="bold" className="lg:order-2">
-          ₩ {course.price}
-        </CSText>
         <div className="flex gap-2 lg:order-1">
           <AutoSizeImage
             src={'/images/star.png'}
@@ -70,17 +64,19 @@ const LectureContent = ({ course }: TProps) => {
         </div>
       </div>
       <div className="mt-[2.3rem] flex items-end gap-[2.6rem]">
-        <CSButton
-          width="215"
-          height="45"
-          bgColor="00A886"
-          size="24"
-          color="white"
-          rounded="5"
-          onClick={registerCourse}
-        >
-          수강신청
-        </CSButton>
+        {!registeredCourse && (
+          <CSButton
+            width="215"
+            height="45"
+            bgColor="00A886"
+            size="24"
+            color="white"
+            rounded="5"
+            onClick={registerCourse}
+          >
+            수강신청
+          </CSButton>
+        )}
         <div className="flex gap-[1.4rem] lg:hidden">
           <div className="flex gap-[0.3rem]">
             <AutoSizeImage

@@ -3,7 +3,7 @@ import Anchor from '../ui/anchor/Anchor'
 import CSText from '../ui/text/CSText'
 
 interface MenuItem {
-  path: string
+  path?: string
   title: string
 }
 
@@ -18,7 +18,7 @@ const Submenu = ({ menu, className, onFocus, ...rest }: TProps) => {
   return (
     <ul
       className={clsx(
-        'duration-400 visible absolute left-0 top-full z-20 w-[11.4rem] bg-[#00A886] px-[2.3rem] py-[1.5rem] opacity-0 transition-all ',
+        'duration-400 visible absolute left-0 top-full z-20 hidden w-[11.4rem] bg-[#00A886] px-[2.3rem] py-[1.5rem] transition-all ',
         className,
       )}
       {...rest}
@@ -28,6 +28,7 @@ const Submenu = ({ menu, className, onFocus, ...rest }: TProps) => {
           <Anchor
             className="text-secondary flex items-center py-[0.5rem]"
             path={value.path}
+            title={value.title}
           >
             <CSText size="12" color="white">
               {value.title}

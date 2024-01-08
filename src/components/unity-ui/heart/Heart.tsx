@@ -32,7 +32,7 @@ const Heart = ({ setTutorialStep, tutorialStep, sendToHeart }: TProps) => {
   const heartControls = useAnimation()
 
   const handleClick = () => {
-    tutorialStep === 14 && setTutorialStep((num) => num + 1)
+    tutorialStep === 10 && setTutorialStep((num) => num + 1)
     sendToHeart()
     // 애니메이션 시작
     heartControls.start({
@@ -50,7 +50,7 @@ const Heart = ({ setTutorialStep, tutorialStep, sendToHeart }: TProps) => {
         <div
           className={clsx(
             'relative w-[5.2rem] cursor-pointer',
-            tutorialStep === 14 && 'z-10',
+            tutorialStep === 10 && 'z-10',
           )}
           onClick={() => setCount((num) => num + 1)}
         >
@@ -82,7 +82,7 @@ const Heart = ({ setTutorialStep, tutorialStep, sendToHeart }: TProps) => {
               {count}
             </CSText>
           </div>
-          {tutorialStep === 14 && (
+          {tutorialStep === 10 && (
             <>
               <motion.div
                 className={clsx(

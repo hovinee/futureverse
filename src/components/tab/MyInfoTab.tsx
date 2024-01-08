@@ -18,7 +18,7 @@ const MyInfoTab = ({ myCourses }: TProps) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0])
 
   return (
-    <div className="mt-[4.3rem] flex w-full flex-col">
+    <div className="mt-[4.3rem] flex w-full flex-col overflow-auto ">
       <nav>
         <ul className="flex gap-[3.3rem] border-b border-[#BFBFBF] pb-[0.9rem]">
           {tabs.map((item) => (
@@ -40,7 +40,7 @@ const MyInfoTab = ({ myCourses }: TProps) => {
           ))}
         </ul>
       </nav>
-      <main className="h-[62.5rem] w-full overflow-auto py-[3rem]">
+      <main className="w-full py-[3rem]">
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedTab ? selectedTab.label : 'empty'}

@@ -3,14 +3,17 @@
 import clsx from 'clsx'
 import AutoSizeImage from '../ui/auto-size-image/AutoSizeImage'
 import CSText from '../ui/text/CSText'
-import { useState } from 'react'
+import { SetStateAction, useState, Dispatch } from 'react'
 
-const MyInfoPCHeroSection = () => {
-  const list = ['나의 강좌', '최근 본 영상', '진로상담 결과']
+interface TProps {
+  list: string[]
+  selectList: number
+  setSelectList: Dispatch<SetStateAction<number>>
+}
 
-  const [selectList, setSelectList] = useState<number>(0)
+const MyInfoPCHeroSection = ({ selectList, setSelectList, list }: TProps) => {
   return (
-    <section className="bg-00A886/20 hidden h-full w-[27.7rem] flex-col pb-[10rem] lg:flex xl:w-[66.3rem]">
+    <section className="hidden h-full w-[27.7rem] flex-col bg-00A886/20 pb-[10rem] lg:flex xl:w-[66.3rem]">
       <div className="flex-1 ">
         <div className="mt-[8rem] flex items-end justify-center gap-[1.8rem] xl:mr-[14.4rem] xl:justify-end">
           <div className="grid h-[6.1rem] w-[6.1rem] place-items-center rounded-full bg-white">
@@ -48,9 +51,9 @@ const MyInfoPCHeroSection = () => {
           {list.map((value, index) => (
             <div
               className={clsx(
-                'hover:border-b-00A886 ml-auto flex h-[5.1rem] w-[24.2rem] cursor-pointer items-center border-b-2 pl-[7.9rem] hover:rounded-tl-[1rem] hover:bg-white xl:w-[34.3rem]',
+                'ml-auto flex h-[5.1rem] w-[24.2rem] cursor-pointer items-center border-b-2 pl-[7.9rem] hover:rounded-tl-[1rem] hover:border-b-00A886 hover:bg-white xl:w-[34.3rem]',
                 selectList === index &&
-                  'border-b-00A886 rounded-tl-[1rem] bg-white',
+                  'rounded-tl-[1rem] border-b-00A886 bg-white',
               )}
               key={index}
               onClick={() => setSelectList(index)}

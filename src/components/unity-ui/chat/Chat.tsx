@@ -20,6 +20,8 @@ interface TProps {
   setAiMsg: Dispatch<SetStateAction<string>>
   tutorialStep: number
   setTutorialStep: Dispatch<SetStateAction<number>>
+  analysis: boolean
+  setAnalysis: Dispatch<SetStateAction<boolean>>
   setChat: Dispatch<SetStateAction<TTutorial[]>>
   chat: TTutorial[]
   sendtoUnity: (
@@ -40,15 +42,16 @@ const Chat = ({
   sendtoUnity,
   chat,
   setChat,
+  analysis,
+  setAnalysis,
 }: TProps) => {
-  const [selectMsg, setSelectMsg] = useState<string[]>([])
   const [openJob, setOpenJob] = useState<boolean>(false)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
   const selectTutorial = (msg: string) => {
-    setSelectMsg((prev) => [...prev, msg])
     setTutorialStep((num) => num + 1)
-    setChat((prevMessages) => [...prevMessages, tutorial[tutorialStep + 1]])
+    setChat((prevMessages) => [...prevMessages, { text: msg, who: 'user' }])
+    // setChat((prevMessages) => [...prevMessages, tutorial[tutorialStep + 1]])
   }
 
   useEffect(() => {
@@ -66,6 +69,12 @@ const Chat = ({
     scrollToBottom()
   }, [chat, openJob])
 
+  const stopMessage = () => {
+    setAiMsg('')
+    setAnalysis(false)
+    sendtoUnity('MessageReceiver', 'OnClickedButton', 'gpt_discard')
+  }
+
   const sendMessage = () => {
     if (userMsg) {
       sendToGPT()
@@ -73,6 +82,7 @@ const Chat = ({
         ...prevMessages,
         { text: userMsg, who: 'user' },
       ])
+      setAnalysis(true)
       setAiMsg('')
       setUserMsg('')
     }
@@ -90,11 +100,7 @@ const Chat = ({
     setAiMsg('')
     setUserMsg('')
     setOpenJob(false)
-  }
-
-  const stopMessage = () => {
-    setAiMsg('')
-    sendtoUnity('MessageReceiver', 'OnClickedButton', 'gpt_discard')
+    setAnalysis(true)
   }
 
   const controls = useAnimation()
@@ -111,26 +117,14 @@ const Chat = ({
 
     return () => clearInterval(intervalId)
   }, [controls])
+
   useEffect(() => {
-    switch (tutorialStep) {
-      case 6:
-      case 8:
-      case 9:
-      case 11:
-        setChat((prevMessages) => [...prevMessages, tutorial[tutorialStep]])
-        setTutorialStep((num) => num + 1)
-        break
-      case 7:
-      case 10:
-      case 12:
-      case 13:
-      case 14:
-      case 15:
-      case 16:
-        setChat((prevMessages) => [...prevMessages, tutorial[tutorialStep]])
-        break
-      default:
-        break
+    if (tutorialStep < 100) {
+      sendtoUnity(
+        'MessageReceiver',
+        'OnProcess',
+        `gptmsg:${tutorial[tutorialStep].text}`,
+      )
     }
   }, [tutorialStep])
 
@@ -144,7 +138,6 @@ const Chat = ({
       },
     }),
   }
-
   return (
     <div className="absolute bottom-[4rem] right-[3.1rem] flex gap-[2rem]">
       <div className="flex h-[calc(100vh-13rem)] gap-[1.2rem]">
@@ -155,10 +148,10 @@ const Chat = ({
             )}
           >
             {chat.map(({ text, select, who, select_image }, chatIndex) => {
-              const letters = Array.from(text)
+              const letters = Array.from(text!)
               return (
                 <div key={chatIndex}>
-                  {who !== 'user' && (
+                  {who === 'ai' && (
                     <div className="flex gap-[1.1rem]">
                       <AutoSizeImage
                         src="/images/unity/nara_profile.png"
@@ -170,27 +163,21 @@ const Chat = ({
                           AI 상담사 나리
                         </CSText>
                         <div className="mt-[0.5rem] max-w-[33.5rem] rounded-r-2xl rounded-bl-2xl bg-white p-[1rem]">
-                          {who === 'ai' ? (
-                            <AnimatePresence>
-                              {letters.map((letter, index) => (
-                                <motion.span
-                                  key={index}
-                                  custom={index}
-                                  initial="hidden"
-                                  animate="visible"
-                                  exit="hidden"
-                                  variants={textVariants}
-                                  className="text-18 font-bold text-black"
-                                >
-                                  {letter}
-                                </motion.span>
-                              ))}
-                            </AnimatePresence>
-                          ) : (
-                            <CSText size="18" color="black" weight="bold">
-                              {text}
-                            </CSText>
-                          )}
+                          <AnimatePresence>
+                            {letters.map((letter, index) => (
+                              <motion.span
+                                key={index}
+                                custom={index}
+                                initial="hidden"
+                                animate="visible"
+                                exit="hidden"
+                                variants={textVariants}
+                                className="text-18 font-bold text-black"
+                              >
+                                {letter}
+                              </motion.span>
+                            ))}
+                          </AnimatePresence>
                         </div>
                       </div>
                     </div>
@@ -205,33 +192,20 @@ const Chat = ({
                           onClick={() => selectTutorial(value)}
                         >
                           <div className="flex gap-[0.7rem]">
-                            {chatIndex === 2 && (
+                            {/* {chatIndex === 2 && (
                               <div className="w-[2.2rem]">
                                 <AutoSizeImage
                                   src={select_image![index]}
                                   full
                                 />
                               </div>
-                            )}
+                            )} */}
                             <CSText size="18" color="white">
                               {value}
                             </CSText>
                           </div>
                         </div>
                       ))}
-                    </div>
-                  )}
-
-                  {selectMsg[chatIndex] && (
-                    <div className="flex justify-end">
-                      <CSText
-                        size="18"
-                        color="black"
-                        weight="bold"
-                        className="max-w-[33.5rem] rounded-t-2xl rounded-bl-2xl bg-[#FFE177] p-[1rem]"
-                      >
-                        {selectMsg[chatIndex]}
-                      </CSText>
                     </div>
                   )}
 
@@ -251,16 +225,25 @@ const Chat = ({
               )
             })}
             {openJob && (
-              <div className="grid grid-cols-3 gap-[1rem] rounded-2xl bg-141517">
-                {exampleJobs.map(({ job, description }, index) => (
-                  <div
-                    key={index}
-                    className="grid h-[3rem] place-items-center rounded-2xl bg-slate-800  text-16 text-white"
-                    onClick={() => exampleJob(description)}
-                  >
-                    {job}
-                  </div>
-                ))}
+              <div>
+                <CSText size="21" color="white" weight="bold">
+                  Guide.
+                </CSText>
+                <CSText size="18" color="white" className="mt-[1rem]">
+                  직업을 선택하시면 질문 예시 확인이 가능합니다. 예시 질문을
+                  통해 내가 원하는 진로 질문을 파악해 보세요!
+                </CSText>
+                <div className="mt-[1rem] grid grid-cols-3 gap-[1rem] rounded-2xl bg-141517">
+                  {exampleJobs.map(({ job, description }, index) => (
+                    <div
+                      key={index}
+                      className="grid h-[3rem] cursor-pointer place-items-center rounded-2xl bg-slate-800 text-16 text-white"
+                      onClick={() => exampleJob(description)}
+                    >
+                      {job}
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
 
@@ -290,35 +273,40 @@ const Chat = ({
             <div
               className={clsx(
                 'absolute right-[1.3rem] top-1/2 flex -translate-y-1/2 gap-[1rem]',
-                tutorialStep === 13 && 'z-10',
+                tutorialStep === 9 && 'z-10',
               )}
             >
               <div className="grid h-[2.8rem] w-[2.8rem] place-items-center rounded-full bg-383838">
                 <Image
-                  src={`/images/unity/${aiMsg ? 'stop' : 'send'}.png`}
-                  className="h-[1.4rem] w-[1.4rem]"
+                  src={`/images/unity/${
+                    aiMsg || analysis ? 'stop' : 'send'
+                  }.png`}
+                  className="h-[1.4rem] w-[1.4rem] cursor-pointer"
                   width={0}
                   height={0}
-                  onClick={aiMsg ? stopMessage : sendMessage}
+                  onClick={aiMsg || analysis ? stopMessage : sendMessage}
                   alt="send"
                 />
               </div>
               <div className="grid h-[2.8rem] w-[2.8rem] place-items-center rounded-full bg-red-400">
                 <Image
                   src={`/images/unity/question.png`}
-                  className="h-[1.6rem] w-[1.6rem]"
+                  className="h-[1.6rem] w-[1.6rem] cursor-pointer"
                   width={0}
                   height={0}
                   onClick={() => setOpenJob(!openJob)}
                   alt="question"
                 />
-                {tutorialStep === 13 && (
+                {tutorialStep === 9 && (
                   <>
                     <motion.div
                       className={clsx(
-                        'absolute right-[-3.5rem] top-[-1rem] w-[7rem] ',
+                        'absolute right-[-3.5rem] top-[-1rem] w-[7rem] cursor-pointer',
                       )}
                       animate={controls}
+                      onClick={() =>
+                        tutorialStep === 9 && setTutorialStep((num) => num + 1)
+                      }
                     >
                       <img
                         src="/images/unity/finger_up.png"
@@ -326,20 +314,7 @@ const Chat = ({
                         className="h-full w-full"
                       />
                     </motion.div>
-                    <div className="absolute left-[-5rem] top-[-13rem] w-[15rem] rounded-xl border border-[#E1792D] bg-white px-[1rem] pb-[2rem]">
-                      <div
-                        className="mt-[1rem] flex w-full justify-end"
-                        onClick={() =>
-                          tutorialStep === 13 &&
-                          setTutorialStep((num) => num + 1)
-                        }
-                      >
-                        <AutoSizeImage
-                          src={'/images/unity/close.png'}
-                          rounded="10"
-                          className="h-[1.6rem] w-[1.6rem] cursor-pointer"
-                        />
-                      </div>
+                    <div className="absolute left-[-5rem] top-[-13rem] w-[15rem] rounded-xl border border-[#E1792D] bg-white px-[1rem] py-[1rem]">
                       <CSText
                         size="16"
                         weight="bold"

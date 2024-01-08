@@ -18,6 +18,8 @@ import Progressbar from '@/components/progress/ProgressBar'
 import { TTutorial } from '@/utils/types'
 import { tutorial } from '@/data/unity/data'
 import UserHistory from '@/components/unity-ui/user-history/UserHistory'
+import { ReactUnityEventParameter } from 'react-unity-webgl/distribution/types/react-unity-event-parameters'
+import AnalysisModal from '@/components/unity-ui/modal/AnalysisModal'
 
 const Anneagram = () => {
   //unity build
@@ -39,7 +41,7 @@ const Anneagram = () => {
   const [splashEnd, setSplashEnd] = useState<boolean>(false)
 
   //상담소 또는 치유소 선택
-  const [selectPlace, setSelectPlace] = useState<string>('')
+  const [selectPlace, setSelectPlace] = useState<ReactUnityEventParameter>('')
 
   //상담 방법 선택
   const [counselingMethod, setCounselingMethod] = useState<number>(0)
@@ -51,12 +53,8 @@ const Anneagram = () => {
   const [wantCounseling, setWantCounseling] = useState<number>(0)
   const [aiMsg, setAiMsg] = useState<string>('')
   const [userMsg, setUserMsg] = useState<string>('')
-  const [chat, setChat] = useState<TTutorial[]>([
-    {
-      text: tutorial[0].text,
-      select: tutorial[0].select,
-    },
-  ])
+  const [chat, setChat] = useState<TTutorial[]>([])
+  const [analysis, setAnalysis] = useState<boolean>(false)
 
   //scene 종료
   const [sceneOpeningEnd, setSceneOpeningEnd] = useState('')
@@ -73,16 +71,15 @@ const Anneagram = () => {
       systemMsg,
       selectMessage ? selectMessage : userMsg,
     )
-    console.log(message, 'message')
-    sendMessage('MessageReceiver', 'OnProcess', `gptmsg:${message}`)
     sendMessage('MessageReceiver', 'OnClickedButton', 'gpt_discard')
+    sendMessage('MessageReceiver', 'OnProcess', `gptmsg:${message}`)
   }
 
   const OnSplashEnd = useCallback((data: any) => {
     setSplashEnd(true)
   }, [])
 
-  const OnPointerClick = useCallback((data: any) => {
+  const OnPointerClick = useCallback((data: ReactUnityEventParameter) => {
     setSelectPlace(data)
   }, [])
 
@@ -90,15 +87,25 @@ const Anneagram = () => {
     setSceneOpeningEnd(data)
   }, [])
 
+  const OnMsgStart = useCallback(() => {
+    setAnalysis(false)
+  }, [])
+
   const OnMsg = useCallback((data: any) => {
-    console.log(data)
     setAiMsg(data)
   }, [])
 
-  const OnMsgEnd = useCallback((data: any) => {
+  const OnMsgEnd = useCallback(() => {
+    if (tutorialStep < 100) {
+      setChat((prevArray) => {
+        const lastItem = prevArray[prevArray.length - 1]
+        lastItem.select = tutorial[tutorialStep]?.select
+        return [...prevArray]
+      })
+    }
+
     setAiMsg('')
-    // setAiMsg(data)
-  }, [])
+  }, [tutorialStep])
 
   const goToLobby = () => {
     sendMessage('MessageReceiver', 'OnClickedToLoadScene', 'Lobby')
@@ -106,12 +113,7 @@ const Anneagram = () => {
     setSceneOpeningEnd('')
     setAiMsg('')
     setTutorialStep(0)
-    setChat([
-      {
-        text: tutorial[0].text,
-        select: tutorial[0].select,
-      },
-    ])
+    setChat([])
   }
 
   //방분위기선택
@@ -138,16 +140,24 @@ const Anneagram = () => {
     addEventListener('OnSplashEnd', OnSplashEnd)
     addEventListener('OnPointerClick', OnPointerClick)
     addEventListener('OnMsg', OnMsg)
-    addEventListener('OnMsgEnd', OnMsgEnd)
+    addEventListener('OnMsgStart', OnMsgStart)
 
     return () => {
       removeEventListener('OnSceneOpeningEnd', OnSceneOpeningEnd)
       removeEventListener('OnSplashEnd', OnSplashEnd)
       removeEventListener('OnPointerClick', OnPointerClick)
       removeEventListener('OnMsg', OnMsg)
-      removeEventListener('OnMsgEnd', OnMsgEnd)
+      removeEventListener('OnMsgStart', OnMsgStart)
     }
   }, [addEventListener, removeEventListener])
+
+  useEffect(() => {
+    addEventListener('OnMsgEnd', OnMsgEnd)
+
+    return () => {
+      removeEventListener('OnMsgEnd', OnMsgEnd)
+    }
+  }, [addEventListener, removeEventListener, tutorialStep])
 
   //상담소 이동
   useEffect(() => {
@@ -297,7 +307,10 @@ const Anneagram = () => {
               sendtoUnity={sendMessage}
               setChat={setChat}
               chat={chat}
+              analysis={analysis}
+              setAnalysis={setAnalysis}
             />
+            {analysis && <AnalysisModal />}
           </>
         )}
       </div>

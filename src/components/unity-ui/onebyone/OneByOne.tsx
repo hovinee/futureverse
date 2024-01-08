@@ -30,18 +30,6 @@ const OneByOne = ({
     return () => clearInterval(intervalId) // 컴포넌트 언마운트 시 인터벌 클리어
   }, [])
 
-  const textVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.05, // i는 각 글자의 인덱스로, 각 글자가 순차적으로 나타나도록 지연 시간을 설정합니다.
-      },
-    }),
-  }
-  const letters = Array.from(aiMsg)
-
   return (
     <>
       {selectCounseling ? (
@@ -53,29 +41,9 @@ const OneByOne = ({
               className="h-[21.3rem] w-full"
             />
             <div className="absolute inset-y-0 left-0 right-8 p-[3rem] backdrop-blur-[0.1rem]">
-              {aiMsg ? (
-                <div className="custom-scrollbar h-full overflow-auto">
-                  <AnimatePresence>
-                    {letters.map((letter, index) => (
-                      <motion.span
-                        key={index}
-                        custom={index}
-                        initial="hidden"
-                        animate="visible"
-                        exit="hidden"
-                        variants={textVariants}
-                        className="text-24 text-white"
-                      >
-                        {letter}
-                      </motion.span>
-                    ))}
-                  </AnimatePresence>
-                </div>
-              ) : (
-                <CSText size="24" color="white">
-                  {dots}
-                </CSText>
-              )}
+              <CSText size="24" color="white">
+                {dots}
+              </CSText>
             </div>
           </div>
         </div>

@@ -54,7 +54,7 @@ const ChooseMoodModal = ({
                   )}
                   key={index}
                   onClick={() => {
-                    tutorialStep === 7 && setTutorialStep((prev) => prev + 1)
+                    tutorialStep === 6 && setTutorialStep((prev) => prev + 1)
                     setOpenMood(false)
                     roomMood(index)
                   }}
