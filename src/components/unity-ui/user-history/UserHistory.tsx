@@ -35,7 +35,7 @@ const UserHistory = ({ tutorialStep, setTutorialStep, chat }: TProps) => {
     <div
       className={clsx(
         'absolute left-[3rem] top-[10rem]',
-        tutorialStep === 15 && 'z-10',
+        tutorialStep === 11 && 'z-10',
       )}
     >
       <div className="h-[42.1rem] w-[28rem] overflow-auto rounded-[1rem] bg-black px-[2rem] pt-[2rem] ">
@@ -67,13 +67,14 @@ const UserHistory = ({ tutorialStep, setTutorialStep, chat }: TProps) => {
             {history.text}
           </CSText>
         ))}
-        {tutorialStep === 15 && (
+        {tutorialStep === 11 && (
           <>
             <motion.div
               className={clsx(
-                'absolute bottom-[-6.5rem] right-[-5rem] w-[7rem] ',
+                'absolute bottom-[-6.5rem] right-[-5rem] w-[7rem] cursor-pointer',
               )}
               animate={controls}
+              onClick={() => setTutorialStep((num) => num + 1)}
             >
               <img
                 src="/images/unity/finger_up.png"
@@ -81,15 +82,7 @@ const UserHistory = ({ tutorialStep, setTutorialStep, chat }: TProps) => {
                 className="h-full w-full"
               />
             </motion.div>
-            <div className="absolute bottom-[-15rem] right-[-35rem] w-[28rem] rounded-xl border border-[#E1792D] bg-white px-[1rem] pb-[2rem]">
-              <div className="mt-[1rem] flex w-full justify-end">
-                <AutoSizeImage
-                  src={'/images/unity/close.png'}
-                  rounded="10"
-                  className="h-[1.6rem] w-[1.6rem]"
-                  onClick={() => setTutorialStep((num) => num + 1)}
-                />
-              </div>
+            <div className="absolute bottom-[-15rem] right-[-35rem] w-[28rem] rounded-xl border border-[#E1792D] bg-white px-[1rem] py-[2rem]">
               <CSText
                 size="18"
                 weight="bold"
