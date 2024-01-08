@@ -6,7 +6,7 @@ type TProps = React.HTMLAttributes<HTMLAnchorElement> & {
   path?: string
   children: ReactNode
   className?: string
-  title: string
+  title?: string
 }
 
 const Anchor = ({ path, children, className, title, ...rest }: TProps) => {

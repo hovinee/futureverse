@@ -10,7 +10,7 @@ interface VideoProps {
   options?: VideoJsPlayerOptions
   plugins?: string[]
   uid: string
-  registeredCourse: boolean
+  registeredCourse?: boolean
 }
 
 const DEFAULT_OPTIONS: VideoJsPlayerOptions = {}

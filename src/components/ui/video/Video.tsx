@@ -12,7 +12,7 @@ interface VideoProps {
   styles?: CSSProperties
   videoOptions?: Omit<VideoJsPlayerOptions, 'sources'>
   uid: string
-  registeredCourse: boolean
+  registeredCourse?: boolean
 }
 
 const Video = React.forwardRef<HTMLDivElement | null, VideoProps>(
