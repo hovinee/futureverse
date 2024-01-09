@@ -111,13 +111,12 @@ const Subscirbe = () => {
                     {`${price} 의 모든 기능 +`}
                   </CSText>
                   {plan.map((value, index) => (
-                    <li className="flex items-center gap-[0.5rem]">
+                    <li className="flex items-center gap-[0.5rem]" key={index}>
                       <svg
                         width="12"
                         height="12"
                         viewBox="0 0 24 24"
                         fill="none"
-                        key={index}
                       >
                         <path
                           d="M20.664 5.253a1 1 0 0 1 .083 1.411l-10.666 12a1 1 0 0 1-1.495 0l-5.333-6a1 1 0 0 1 1.494-1.328l4.586 5.159 9.92-11.16a1 1 0 0 1 1.411-.082Z"
