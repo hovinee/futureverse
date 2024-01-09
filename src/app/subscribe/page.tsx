@@ -3,7 +3,44 @@ import CSText from '@/components/ui/text/CSText'
 import clsx from 'clsx'
 
 const Subscirbe = () => {
-  const price = ['Free', 'Basic', 'Pro', 'Enterprise']
+  const prices = [
+    {
+      price: 'Free',
+      plan: [
+        '치유소 무료 체험 1회 제공',
+        '1:1 상담소 무료 체험 1회 제공',
+        '직업 선호도 유형 체험',
+      ],
+    },
+    {
+      price: 'Basic',
+      plan: [
+        '치유소 무제한 제공',
+        '1:1 상담 무제한 제공',
+        '직업 선호도 유형 체험 및 결과지 제공',
+      ],
+    },
+    {
+      price: 'Pro',
+      plan: [
+        '치유소 무제한 제공',
+        '1:1 상담 무제한 제공',
+        '직업 선호도 유형 체험 및 결과지 제공',
+        '이세계 캠퍼스 전 강좌 무제한 수강',
+      ],
+    },
+    {
+      price: 'Enterprise',
+      plan: [
+        '치유소 무제한 제공',
+        '1:1 상담, 집단 상담 무제한 제공',
+        '직업 선호도 유형 체험 및 결과지 제공',
+        '이세계 캠퍼스 전 강좌 무제한 수강',
+        '진로체험교육 다운로드 제공',
+      ],
+    },
+  ]
+
   return (
     <section className="bg-[#f8f9fc] px-[1.8rem]">
       <div className="mx-auto max-w-[114rem] py-[8rem]">
@@ -16,7 +53,7 @@ const Subscirbe = () => {
           적합한 플랜을 합리적인 가격으로 이용해보세요!
         </CSText>
         <div className="mt-24 grid grid-cols-4 gap-12">
-          {price.map((price, index) => (
+          {prices.map(({ price, plan }, index) => (
             <div
               className={clsx(
                 'relative flex h-full min-h-[53.8rem] flex-col rounded-lg bg-white px-[2.6rem] pb-[2.4rem] pt-[4.4rem] shadow-lg',
@@ -66,18 +103,30 @@ const Subscirbe = () => {
               </div>
               <div className="flex flex-1">
                 <ul className="mt-[2rem] list-none text-base font-medium leading-normal text-[#5E6066]">
-                  <CSText size="14" className=" text-[#8c9097]" weight="bold">
+                  <CSText
+                    size="14"
+                    className=" mb-[0.5rem] text-[#8c9097]"
+                    weight="bold"
+                  >
                     {`${price} 의 모든 기능 +`}
                   </CSText>
-                  <li className="mt-[1rem] flex items-center gap-[0.5rem]">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                      <path
-                        d="M20.664 5.253a1 1 0 0 1 .083 1.411l-10.666 12a1 1 0 0 1-1.495 0l-5.333-6a1 1 0 0 1 1.494-1.328l4.586 5.159 9.92-11.16a1 1 0 0 1 1.411-.082Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span className="text-14">데이터 대시보드</span>
-                  </li>
+                  {plan.map((value, index) => (
+                    <li className="flex items-center gap-[0.5rem]">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        key={index}
+                      >
+                        <path
+                          d="M20.664 5.253a1 1 0 0 1 .083 1.411l-10.666 12a1 1 0 0 1-1.495 0l-5.333-6a1 1 0 0 1 1.494-1.328l4.586 5.159 9.92-11.16a1 1 0 0 1 1.411-.082Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                      <span className="text-xl">{value}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
               <div className="flex flex-1 flex-col justify-end">

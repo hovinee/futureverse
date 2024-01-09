@@ -32,12 +32,21 @@ const MainMenu = () => {
     {
       id: 4,
       label: '진로교육',
-      path: '/courses',
+      path: '/digital-literacy',
+      submenu: [
+        { title: '디지털 \n리터러시', path: '/digital-literacy' },
+        { title: '크리에이터', path: '/courses' },
+      ],
     },
     {
       id: 5,
       label: '3D광장',
       path: '/main',
+    },
+    {
+      id: 6,
+      label: '가격 플랜',
+      path: '/subscribe',
     },
   ]
 
@@ -66,12 +75,7 @@ const MainMenu = () => {
                   className="h-[2rem] w-[13.6rem]"
                 />
               </div>
-              {submenu && (
-                <Submenu
-                  menu={submenu}
-                  className="rounded-[1rem] group-hover:pointer-events-auto group-hover:visible group-hover:block"
-                />
-              )}
+              {submenu && <Submenu menu={submenu} />}
             </li>
           )
         })}

@@ -1,5 +1,4 @@
 import { UserModel } from '@/models/user'
-import { types } from 'joi'
 
 export interface TCourse {
   thumbnail: string
@@ -19,7 +18,7 @@ export interface TCourse {
 
 export type TCourseRocommend = Pick<
   TCourse,
-  'title' | 'intro' | 'tag' | 'price' | 'thumbnail' | 'path'
+  'title' | 'intro' | 'tag' | 'price' | 'thumbnail' | 'path' | 'video_uid'
 >
 
 export type TMyCourse = Pick<TCourse, 'title' | 'path' | 'video_uid'>
@@ -100,4 +99,11 @@ export interface TTutorial {
   select?: string[]
   select_image?: string[]
   who?: string
+}
+
+export type TDigitalLiteracy = Pick<
+  TCourse,
+  'title' | 'intro' | 'thumbnail'
+> & {
+  url: string
 }

@@ -18,7 +18,7 @@ const Submenu = ({ menu, className, onFocus, ...rest }: TProps) => {
   return (
     <ul
       className={clsx(
-        'duration-400 visible absolute left-0 top-full z-20 hidden w-[11.4rem] bg-[#00A886] px-[2.3rem] py-[1.5rem] transition-all ',
+        'absolute left-0 top-full z-20 hidden w-[11.4rem] rounded-[1rem] bg-[#00A886] px-[2.3rem] py-[1.5rem] transition-all group-hover:visible group-hover:block',
         className,
       )}
       {...rest}
@@ -26,11 +26,15 @@ const Submenu = ({ menu, className, onFocus, ...rest }: TProps) => {
       {menu.map((value, index) => (
         <li key={index} className="relative">
           <Anchor
-            className="text-secondary flex items-center py-[0.5rem]"
+            className="text-secondary flex items-center py-[0.5rem] "
             path={value.path}
             title={value.title}
           >
-            <CSText size="12" color="white">
+            <CSText
+              size="12"
+              color="white"
+              className="whitespace-pre-line hover:text-white/50"
+            >
               {value.title}
             </CSText>
           </Anchor>
