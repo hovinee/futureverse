@@ -1,6 +1,13 @@
 import fs from 'fs'
 import path from 'path'
-import { Experience, Footer, LabKid, Main, TCourse } from '../utils/types'
+import {
+  Experience,
+  Footer,
+  LabKid,
+  Main,
+  TCourse,
+  TDigitalLiteracy,
+} from '../utils/types'
 import { getSlugs } from './util'
 
 const directory = path.join(process.cwd(), 'src/data')
@@ -94,4 +101,12 @@ export function getLabKidBySlug(slug: string): LabKid {
   return {
     ...labkid,
   }
+}
+
+export function getDigitalLiteracy(): TDigitalLiteracy[] {
+  const fullPath = path.join(directory, 'digital-literacy.json')
+  const fileContents = JSON.parse(
+    fs.readFileSync(fullPath, 'utf8'),
+  ) as TDigitalLiteracy[]
+  return [...fileContents]
 }

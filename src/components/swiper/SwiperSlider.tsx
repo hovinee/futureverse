@@ -18,6 +18,7 @@ import CSSpan from '../ui/span/CSSpan'
 import { TCourseRocommend, TExperienceContents } from '@/utils/types'
 import clsx from 'clsx'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 interface TProps {
   contents?: TExperienceContents['contents']
@@ -25,6 +26,7 @@ interface TProps {
   rank?: TCourseRocommend[]
 }
 const SwiperSlider = ({ contents, recommend, rank }: TProps) => {
+  const router = useRouter()
   SwiperCore.use([Navigation, Scrollbar])
 
   return (
@@ -98,44 +100,36 @@ const SwiperSlider = ({ contents, recommend, rank }: TProps) => {
             navigation={{ nextEl: '.arrow-right', prevEl: '.arrow-left' }}
           >
             {recommend.map((value, index) => (
-              <SwiperSlide key={index} className="cursor-pointer">
-                <Link href={value.path}>
-                  <AutoSizeImage src={value.thumbnail} full rounded="10" />
+              <SwiperSlide
+                key={index}
+                className="cursor-pointer"
+                onClick={() => {
+                  value.video_uid
+                    ? router.push(value.path)
+                    : alert('현재 강의 준비중 입니다.')
+                }}
+              >
+                <AutoSizeImage src={value.thumbnail} full rounded="10" />
 
-                  <div className="h-[4.6rem]">
-                    <CSText
-                      size="16"
-                      weight="bold"
-                      className="mt-[1rem]"
-                      color="black"
-                    >
-                      {value.title}
-                    </CSText>
-                  </div>
-                  <div className="h-[4.1rem]">
-                    <CSText
-                      size="12"
-                      className="mt-[0.8rem] line-clamp-2"
-                      color="757575"
-                    >
-                      {value.intro}
-                    </CSText>
-                  </div>
-                  <div className="mt-[1rem] flex items-center gap-[0.8rem]">
-                    <div
-                      className={clsx(
-                        'grid h-[2.6rem] w-[5.2rem] place-items-center rounded-[0.7rem] text-14 text-white',
-                        value.tag === 'BEST' && 'bg-[#00A886]',
-                        value.tag === 'HOT' && 'bg-[#FF6C0E]',
-                      )}
-                    >
-                      {value.tag}
-                    </div>
-                    <CSText size="16" weight="bold" color="black">
-                      ₩ {value.price}
-                    </CSText>
-                  </div>
-                </Link>
+                <div className="h-[4.6rem]">
+                  <CSText
+                    size="16"
+                    weight="bold"
+                    className="mt-[1rem]"
+                    color="black"
+                  >
+                    {value.title}
+                  </CSText>
+                </div>
+                <div className="h-[4.1rem]">
+                  <CSText
+                    size="12"
+                    className="mt-[0.8rem] line-clamp-2"
+                    color="757575"
+                  >
+                    {value.intro}
+                  </CSText>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -184,7 +178,7 @@ const SwiperSlider = ({ contents, recommend, rank }: TProps) => {
                   className="h-[23.1rem] w-full"
                   rounded="10"
                 />
-                <div className="mt-[1.1rem] flex h-[12.1rem] w-full gap-[1.1rem]">
+                <div className="mt-[1.1rem] flex h-[9rem] w-full gap-[1.1rem]">
                   <div className="flex h-full min-w-[3.3rem] justify-center rounded-[0.5rem] bg-[#00A886]">
                     <CSText weight="bold" size="31" color="white">
                       {index + 1}
@@ -200,14 +194,6 @@ const SwiperSlider = ({ contents, recommend, rank }: TProps) => {
                       color="757575"
                     >
                       {value.intro}
-                    </CSText>
-                    <CSText
-                      size="16"
-                      weight="bold"
-                      color="black"
-                      className="mt-[1.5rem]"
-                    >
-                      ₩ {value.price}
                     </CSText>
                   </div>
                 </div>
