@@ -15,6 +15,8 @@ export interface CommentDoc
   createdAt: Date
 }
 
+export interface CommentResponse {}
+
 export interface AddCommentDTO {
   id: string
   message: string

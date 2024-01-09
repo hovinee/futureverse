@@ -67,7 +67,6 @@ export const updateCourse = async (
 // try {
 //   const dto: UpdateFeedMsgDTO = {
 //     id: '659bb6141b6fe09194bc1920',
-//     world: 'train',
 //     message: 'test!!!',
 //   }
 //   var res = await fetch(`${getBaseUrl}/api/post/update-feed-msg`, {

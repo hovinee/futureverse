@@ -36,7 +36,7 @@ export interface UpdateFeedLikeDTO extends UpdateFeedDTO {
   isLike: boolean
 }
 
-export interface GetFeedsResponse {
+export interface FeedResponse {
   id: string
   author: string
   authorType: string

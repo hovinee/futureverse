@@ -18,18 +18,15 @@ import Feed, {
   AddFeedDTO,
   DeleteFeedDTO,
   FeedDoc,
-  FeedModel,
-  GetFeedsResponse,
+  FeedResponse,
   UpdateFeedLikeDTO,
   UpdateFeedMsgDTO,
 } from '@/models/feed'
 import { timeAgo } from '@/utils/time'
-import feed from '@/models/feed'
 import mongoose from 'mongoose'
 import {
   AddCommentDTO,
   CommentDoc,
-  CommentModel,
   DeleteCommentDTO,
   UpdateCommentLikeDTO,
   UpdateCommentMsgDTO,
@@ -78,9 +75,19 @@ export async function createFeed(req: NextRequest) {
       likeGivers: [],
     })
 
-    console.log(newFeed)
+    const response: FeedResponse = {
+      id: newFeed._id,
+      author: user.name,
+      authorType: 'user',
+      message: reqData.message,
+      comments: [],
+      likeCount: 0,
+      isLike: newFeed.isLike,
+      createdAt: timeAgo(newFeed.createdAt.toString()),
+      isMine: true,
+    }
 
-    return ResponseHelper.success()
+    return ResponseHelper.success({ data: response })
   } catch (err: any) {
     return ResponseHelper.internalError(err.message)
   }
@@ -99,7 +106,7 @@ export async function getAllFeed(req: NextRequest) {
     if (!user) return ResponseHelper.error('user not found', 404)
 
     const feeds = await getFeeds(world)
-    const response: GetFeedsResponse[] = feeds.map((feed) => ({
+    const response: FeedResponse[] = feeds.map((feed) => ({
       id: feed._id,
       author: feed.author.name,
       comments:
@@ -147,9 +154,8 @@ export async function updateFeedMsg(req: NextRequest) {
     if (!feed) return ResponseHelper.error('feed not found', 404)
 
     const response = await updateFeed(feed._id, reqData)
-    console.log(response)
 
-    return ResponseHelper.success()
+    return ResponseHelper.success({ data: response.message })
   } catch (err: any) {
     return ResponseHelper.internalError(err.message)
   }
@@ -216,9 +222,30 @@ export async function createComment(req: NextRequest) {
       likeGivers: [],
     })
 
-    const response = await updateFeed(feed._id, {
+    const updated = await updateFeed(feed._id, {
       $push: { comments: newComment },
     })
+
+    const response: FeedResponse = {
+      id: updated._id,
+      author: updated.author.name,
+      comments:
+        updated.comments?.map((comment: CommentDoc) => ({
+          id: updated._id.toString(),
+          author: updated.author.name,
+          message: updated.message,
+          likeCount: updated.likeGivers?.length || 0,
+          isLike: updated.likeGivers.includes(user._id),
+          createdAt: timeAgo(updated.createdAt.toString()),
+          isMine: updated.author._id.toString() === user._id.toString(),
+        })) || [],
+      message: updated.message,
+      authorType: updated.authorType,
+      likeCount: updated.likeGivers.length,
+      createdAt: timeAgo(updated.createdAt),
+      isLike: updated.likeGivers.includes(user._id),
+      isMine: updated.author._id.toString() === user._id.toString(),
+    }
 
     return ResponseHelper.success({ data: response })
   } catch (err: any) {
@@ -247,9 +274,8 @@ export async function updateCommentMsg(req: NextRequest) {
     if (!comment) return ResponseHelper.error('comment not found', 404)
 
     const response = await updateComment(comment._id, reqData)
-    console.log(response)
 
-    return ResponseHelper.success()
+    return ResponseHelper.success(response.message)
   } catch (err: any) {
     return ResponseHelper.internalError(err.message)
   }
