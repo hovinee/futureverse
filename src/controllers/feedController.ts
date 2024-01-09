@@ -105,6 +105,7 @@ export async function getAllFeed(req: NextRequest) {
       comments:
         feed.comments?.map((comment: CommentDoc) => ({
           id: comment._id.toString(),
+          author: comment.author.name,
           message: comment.message,
           likeCount: comment.likeGivers?.length || 0,
           isLike: comment.likeGivers.includes(user._id),

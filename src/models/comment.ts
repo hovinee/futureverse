@@ -1,5 +1,6 @@
 import mongoose, { models, Schema, Types } from 'mongoose'
 import { UserModel } from '@/models/user'
+import { ObjectId } from 'bson'
 
 export interface CommentModel {
   author: Types.ObjectId
@@ -7,7 +8,10 @@ export interface CommentModel {
   likeGivers: Types.ObjectId[]
 }
 
-export interface CommentDoc extends CommentModel, mongoose.Document {
+export interface CommentDoc
+  extends Omit<CommentModel, 'author'>,
+    mongoose.Document {
+  author: { _id: ObjectId; name: string }
   createdAt: Date
 }
 
@@ -34,6 +38,7 @@ export interface DeleteCommentDTO {
 
 export interface GetCommentsResponse {
   id: string
+  author: string
   message: string
   likeCount: number
   isLike: boolean
