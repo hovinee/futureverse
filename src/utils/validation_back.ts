@@ -1,6 +1,7 @@
 import { UserModel } from '@/models/user'
 
 import Joi from 'joi'
+import { AddFeedDTO } from '@/models/feed'
 
 export const loginSchema = Joi.object({
   email: Joi.string()
@@ -51,4 +52,13 @@ export function validateUserRegister(user: UserModel) {
 
 export function validateUserLogin(user: Omit<UserModel, 'userName'>) {
   return loginSchema.validate(user)
+}
+
+const addFeedDTOValidationSchema = Joi.object<AddFeedDTO>({
+  world: Joi.string().valid('whale', 'train'),
+  message: Joi.string().required(),
+})
+
+export const validateAddFeedDTO = (data: AddFeedDTO) => {
+  return addFeedDTOValidationSchema.validate(data)
 }
