@@ -1,12 +1,11 @@
 'use client'
 
-import Tab from '@/components/tab/Tab'
 import WorldTab from '@/components/tab/WorldTab'
 import AutoSizeImage from '@/components/ui/auto-size-image/AutoSizeImage'
 import CSButton from '@/components/ui/button/CSButton'
 import CSSpan from '@/components/ui/span/CSSpan'
 import CSText from '@/components/ui/text/CSText'
-import { thumbnailCounseling, thumbnailHealing } from '@/data/unity/data'
+import { thumbnailHealing } from '@/data/unity/data'
 import clsx from 'clsx'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { ReactUnityEventParameter } from 'react-unity-webgl/distribution/types/react-unity-event-parameters'
@@ -14,17 +13,11 @@ import { ReactUnityEventParameter } from 'react-unity-webgl/distribution/types/r
 interface TProps {
   setHealingMethod: Dispatch<SetStateAction<number>>
   setSelectPlace: Dispatch<SetStateAction<ReactUnityEventParameter>>
-  counseling?: boolean
 }
 
-const HealingModal = ({
-  setHealingMethod,
-  setSelectPlace,
-  counseling,
-}: TProps) => {
+const HealingModal = ({ setHealingMethod, setSelectPlace }: TProps) => {
   const [selectHealing, setSelectHealing] = useState<boolean>(false)
   const [healingNum, setHealingNum] = useState<number>(0)
-  const thumbnail = counseling ? thumbnailCounseling : thumbnailHealing
 
   const handleHealing = (num: number) => {
     setSelectHealing(true)
@@ -57,27 +50,33 @@ const HealingModal = ({
               금주의 인기 치유소
             </CSText>
             <div className="grid grid-cols-4 gap-[1.5rem]">
-              {thumbnail.map(({ thumbnail, title, sub_title }, index) => (
-                <div
-                  key={index}
-                  className="cursor-pointer"
-                  onClick={() => handleHealing(index)}
-                >
-                  <div className="mt-[2rem]">
-                    <div className="w-[30rem]">
-                      <AutoSizeImage src={thumbnail} full />
-                      <div className="h-[8rem] w-full rounded-b-[1rem] bg-white pl-[1.9rem] pt-[1.5rem]">
-                        <CSText size="21" color="black" weight="bold">
-                          {title}
-                        </CSText>
-                        <CSText size="14" color="black" className="mt-[0.5rem]">
-                          {sub_title}
-                        </CSText>
+              {thumbnailHealing.map(
+                ({ thumbnail, title, sub_title }, index) => (
+                  <div
+                    key={index}
+                    className="cursor-pointer"
+                    onClick={() => handleHealing(index)}
+                  >
+                    <div className="mt-[2rem]">
+                      <div className="w-[30rem]">
+                        <AutoSizeImage src={thumbnail} full />
+                        <div className="h-[8rem] w-full rounded-b-[1rem] bg-white pl-[1.9rem] pt-[1.5rem]">
+                          <CSText size="21" color="black" weight="bold">
+                            {title}
+                          </CSText>
+                          <CSText
+                            size="14"
+                            color="black"
+                            className="mt-[0.5rem]"
+                          >
+                            {sub_title}
+                          </CSText>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           </>
         )}
@@ -86,26 +85,25 @@ const HealingModal = ({
           <div className="flex h-full gap-[1.5rem]">
             <div className="flex flex-col">
               <AutoSizeImage
-                src={thumbnail[0].thumbnail}
+                src={thumbnailHealing[0].thumbnail}
                 className="h-[45rem] w-[80rem]"
               />
               <div className="mt-[1.5rem] grid flex-1 grid-cols-4 gap-[1.5rem]">
-                <div className="h-full rounded-xl bg-[#D9D9D9]" />
-                <div className="h-full rounded-xl bg-[#D9D9D9]" />
-                <div className="h-full rounded-xl bg-[#D9D9D9]" />
-                <div className="h-full rounded-xl bg-[#D9D9D9]" />
+                {thumbnailHealing[0].sub_image.map((image, index) => (
+                  <AutoSizeImage src={image} full key={index} />
+                ))}
               </div>
             </div>
             <div className="flex h-full w-[47.5rem] flex-col rounded-[1rem] bg-white p-[3rem]">
               <div>
                 <CSText size="31" color="black" weight="bold">
-                  {thumbnail[0].title}
+                  {thumbnailHealing[0].title}
                 </CSText>
                 <CSText size="18" color="black" className="mt-[1rem]">
-                  {thumbnail[0].description}
+                  {thumbnailHealing[0].description}
                 </CSText>
                 <div className="flex gap-[0.5rem]">
-                  {thumbnail[0].tag.map((value, index) => (
+                  {thumbnailHealing[0].tag.map((value, index) => (
                     <CSText
                       size="16"
                       className="mt-[0.8rem] rounded-[1rem] border border-[#DCDCDC] px-[1rem] text-[#AFAFAF]"

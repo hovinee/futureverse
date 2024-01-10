@@ -26,15 +26,16 @@ const Courses = () => {
       <BannerSection image_url={'/images/course/course_banner.png'}>
         <div className="lg-[6.2rem] absolute inset-0 flex flex-col justify-center pl-[5.2rem] xl:pl-[6.2rem]">
           <CSText size="35" color="white" weight="bold">
-            진로교육
+            LEARN 배움
           </CSText>
           <CSText
             size="18"
             color="white"
             className="mt-[1.7rem] w-[29rem] lg:w-[38rem] xl:w-full xl:whitespace-pre-line"
           >
-            원하는 진로에 맞는 최적의 교육을 만나보세요. VR로 만나는 다양하고
-            재밌는 진로 교육 프로그램들이 준비 되어 있습니다.
+            {
+              '원하는 진로에 맞는 최적의 교육을 만나보세요. \n 다양하고 재밌는 진로 교육 프로그램들이 준비 되어 있습니다.'
+            }
           </CSText>
         </div>
       </BannerSection>

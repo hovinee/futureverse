@@ -43,6 +43,12 @@ export const selectCounselingImage = [
 export const thumbnailHealing = [
   {
     thumbnail: '/images/unity/healing/whale_thumbnail.png',
+    sub_image: [
+      '/images/unity/healing/whale_image.png',
+      '/images/unity/healing/whale_image_2.png',
+      '/images/unity/healing/whale_image_3.png',
+      '/images/unity/healing/whale_image_4.png',
+    ],
     title: '고래의 꿈',
     sub_title: '고래가 떠다니는 신비로운 섬!',
     description:
@@ -51,6 +57,12 @@ export const thumbnailHealing = [
   },
   {
     thumbnail: '/images/unity/healing/station_thumbnail.png',
+    sub_image: [
+      '/images/unity/healing/whale_image.png',
+      '/images/unity/healing/whale_image_2.png',
+      '/images/unity/healing/whale_image_3.png',
+      '/images/unity/healing/whale_image_4.png',
+    ],
     title: '가인역',
     sub_title: '꿈과 희망의 역으로 향하는 행복기차',
     description:
@@ -59,6 +71,12 @@ export const thumbnailHealing = [
   },
   {
     thumbnail: '/images/unity/healing/camping_thumbnail.png',
+    sub_image: [
+      '/images/unity/healing/whale_image.png',
+      '/images/unity/healing/whale_image_2.png',
+      '/images/unity/healing/whale_image_3.png',
+      '/images/unity/healing/whale_image_4.png',
+    ],
     title: '캠핑장',
     sub_title: '심리적 안정감과 평안, 낭만이 가득한 캠핑장',
     description:
@@ -67,6 +85,12 @@ export const thumbnailHealing = [
   },
   {
     thumbnail: '/images/unity/healing/santa_thumbnail.png',
+    sub_image: [
+      '/images/unity/healing/whale_image.png',
+      '/images/unity/healing/whale_image_2.png',
+      '/images/unity/healing/whale_image_3.png',
+      '/images/unity/healing/whale_image_4.png',
+    ],
     title: '산타마을',
     sub_title: '산타를 기다리면 준비하는 크리스마스',
     description:
