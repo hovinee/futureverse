@@ -108,3 +108,12 @@ export type TDigitalLiteracy = Pick<
 > & {
   url: string
 }
+
+export interface TTumbnailContent {
+  thumbnail: string
+  sub_image: string[]
+  title: string
+  sub_title: string
+  description: string
+  tag: string[]
+}

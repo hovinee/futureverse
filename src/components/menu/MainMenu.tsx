@@ -10,7 +10,7 @@ const MainMenu = () => {
     {
       id: 1,
       label: 'ABOUT 패스파인더 메타',
-      sub_label: '(구 마인드케어GPT)',
+
       path: 'https://www.pathfindermeta.com',
     },
     {
@@ -20,14 +20,12 @@ const MainMenu = () => {
     },
     {
       id: 3,
-      label: 'GO 진로상담&치유',
-      sub_label: '(해당 월드 바로가기. 패스파인더 메타)',
+      label: 'GO 상담월드',
       path: '/counsel',
     },
     {
       id: 4,
       label: 'XR 직업체험',
-      sub_label: '(랩키드 미래 직업 시리즈)',
       path: '/experience',
       submenu: [
         { title: '랩키드 3', path: '/experience/labkid-03' },
@@ -72,19 +70,9 @@ const MainMenu = () => {
                 path={path}
                 className="relative hover:opacity-50"
               >
-                <CSText size="16" color="black" weight="semiBold">
+                <CSText size="16" color="white" weight="semiBold">
                   {label}
                 </CSText>
-                {sub_label && (
-                  <CSText
-                    size="11"
-                    color="black"
-                    weight="semiBold"
-                    className="absolute top-full min-w-[18rem] text-center"
-                  >
-                    {sub_label}
-                  </CSText>
-                )}
               </NavLink>
 
               {submenu && <Submenu menu={submenu} />}

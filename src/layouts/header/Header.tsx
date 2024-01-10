@@ -14,16 +14,13 @@ const Header = () => {
   const { sticky, measuredRef } = useSticky()
   const path = usePathname()
   const { data: user } = useSession()
-
   const [openMenu, setOpenMenu] = useState<boolean>(false)
 
-  const header =
-    'z-10 h-[8.4rem] px-[3.5rem] flex w-full items-center justify-between'
-  // path === '/'
-  //   ? 'fixed z-10 h-[8.4rem] bg-black pl-[9rem] shadow-2xl shadow-black/50'
-  //   : `${!sticky && 'absolute bg-transparent'} ${
-  //       sticky && 'fixed bg-black shadow-2xl shadow-black'
-  //     } inset-0 bottom-auto z-10 h-[8.4rem] pl-[9rem]`
+  const header = clsx(
+    'fixed z-10 h-[8.4rem] bg-black px-[3.5rem] flex w-full items-center justify-between',
+    path === '/' && !sticky && 'absolute bg-transparent',
+    sticky && 'fixed bg-black shadow-2xl shadow-black',
+  )
 
   const handleLogout = () => {
     signOut()
@@ -32,16 +29,19 @@ const Header = () => {
 
   return (
     <>
-      <header
-        className={clsx('border-b-4 border-b-00A886', header)}
-        ref={measuredRef}
-      >
+      <header className={header} ref={measuredRef}>
         <div className="flex items-center gap-[4.4rem] ">
           <Link href={'/'}>
-            <AutoSizeImage
-              src={'/images/logo.png'}
-              className="h-[3.6rem] w-[22.2rem]"
-            />
+            <div className="w-[10rem]">
+              <AutoSizeImage
+                src={clsx(
+                  !sticky && path === '/'
+                    ? '/images/unity/logo_black.png'
+                    : '/images/unity/path_logo.png',
+                )}
+                full
+              />
+            </div>
           </Link>
           <MainMenu />
         </div>

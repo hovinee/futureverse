@@ -9,7 +9,7 @@ const digitalLiteracy = () => {
   const data = getDigitalLiteracy()
 
   return (
-    <main className="mx-auto w-full max-w-[140rem]">
+    <main className="mx-auto mt-[8.4rem] w-full max-w-[140rem]">
       <DigitalSwiperSlider />
       <section className="relative mt-[4rem] h-auto w-full bg-[#E6E6E6] px-[4.8rem] py-[6rem]">
         <CSText size="31" color="black" weight="bold">
@@ -27,7 +27,7 @@ const digitalLiteracy = () => {
       </section>
       <section className="mt-[4rem] grid grid-cols-2 gap-x-[4rem]">
         <div className="relative">
-          <AutoSizeImage src="/images/digital-literacy-1.png" full />
+          <AutoSizeImage src="/images/digital-literacy_3.png" full />
           <div className="absolute bottom-0 right-0">
             <CSText size="14" color="white">
               출처: 마이크로소프트
@@ -35,10 +35,10 @@ const digitalLiteracy = () => {
           </div>
         </div>
         <div className="flex flex-col justify-center gap-[1rem]">
-          <CSText size="31" color="black" weight="bold">
+          <CSText size="31" color="white" weight="bold">
             디지털 활용 능력 추천 강좌
           </CSText>
-          <CSText size="18" color="black">
+          <CSText size="18" color="white">
             디지털 기술 사용의 기초를 배우고자 하는 기본적인 읽기 능력을 갖춘
             모든 사람을 위한 프로그램입니다. LinkedIn 학습 과정을 시작하세요.
           </CSText>
