@@ -1,46 +1,51 @@
+'use client'
+
+import Payments from '@/components/payments/Payments'
 import CSButton from '@/components/ui/button/CSButton'
 import CSText from '@/components/ui/text/CSText'
 import clsx from 'clsx'
+import { useState } from 'react'
+
+const prices = [
+  {
+    price: 'Free',
+    plan: [
+      '치유소 무료 체험 1회 제공',
+      '1:1 상담소 무료 체험 1회 제공',
+      '직업 선호도 유형 체험',
+    ],
+  },
+  {
+    price: 'Basic',
+    plan: [
+      '치유소 무제한 제공',
+      '1:1 상담 무제한 제공',
+      '직업 선호도 유형 체험 및 결과지 제공',
+    ],
+  },
+  {
+    price: 'Pro',
+    plan: [
+      '치유소 무제한 제공',
+      '1:1 상담 무제한 제공',
+      '직업 선호도 유형 체험 및 결과지 제공',
+      '이세계 캠퍼스 전 강좌 무제한 수강',
+    ],
+  },
+  {
+    price: 'Enterprise',
+    plan: [
+      '치유소 무제한 제공',
+      '1:1 상담, 집단 상담 무제한 제공',
+      '직업 선호도 유형 체험 및 결과지 제공',
+      '이세계 캠퍼스 전 강좌 무제한 수강',
+      '진로체험교육 다운로드 제공',
+    ],
+  },
+]
 
 const Subscirbe = () => {
-  const prices = [
-    {
-      price: 'Free',
-      plan: [
-        '치유소 무료 체험 1회 제공',
-        '1:1 상담소 무료 체험 1회 제공',
-        '직업 선호도 유형 체험',
-      ],
-    },
-    {
-      price: 'Basic',
-      plan: [
-        '치유소 무제한 제공',
-        '1:1 상담 무제한 제공',
-        '직업 선호도 유형 체험 및 결과지 제공',
-      ],
-    },
-    {
-      price: 'Pro',
-      plan: [
-        '치유소 무제한 제공',
-        '1:1 상담 무제한 제공',
-        '직업 선호도 유형 체험 및 결과지 제공',
-        '이세계 캠퍼스 전 강좌 무제한 수강',
-      ],
-    },
-    {
-      price: 'Enterprise',
-      plan: [
-        '치유소 무제한 제공',
-        '1:1 상담, 집단 상담 무제한 제공',
-        '직업 선호도 유형 체험 및 결과지 제공',
-        '이세계 캠퍼스 전 강좌 무제한 수강',
-        '진로체험교육 다운로드 제공',
-      ],
-    },
-  ]
-
+  const [subscribe, setSubscribe] = useState<boolean>(false)
   return (
     <section className="bg-[#f8f9fc] px-[1.8rem]">
       <div className="mx-auto max-w-[114rem] py-[8rem]">
@@ -81,25 +86,54 @@ const Subscirbe = () => {
                 >
                   {price}
                 </CSText>
-                <CSText
-                  size="24"
-                  className={clsx(
-                    'mt-[2rem]',
-                    price === 'Free' && 'text-[#8c9097]',
-                    price === 'Basic' && 'text-black',
-                    price === 'Pro' && 'text-black',
-                    price === 'Enterprise' && 'text-[#5e6066]',
-                  )}
-                  weight="bold"
-                >
-                  {price === 'Free' && '무료'}
-                  {price === 'Basic' && '5 만원'}
-                  {price === 'Pro' && '10 만원'}
-                  {price === 'Enterprise' && '도입문의'}
-                  {(price === 'Basic' || price === 'Pro') && (
-                    <span className="text-16 text-[#8c9097]"> /월</span>
-                  )}
-                </CSText>
+                <div className="mt-[2rem] flex items-center gap-[0.5rem]">
+                  <CSText
+                    size="24"
+                    className={clsx(
+                      price === 'Free' && 'text-[#8c9097]',
+                      price === 'Basic' && 'text-black',
+                      price === 'Pro' && 'text-black',
+                      price === 'Enterprise' && 'text-[#5e6066]',
+                    )}
+                    weight="bold"
+                  >
+                    {price === 'Free' && '무료'}
+                    {price === 'Basic' && '5 만원'}
+                    {price === 'Pro' && '10 만원'}
+                    {price === 'Enterprise' && '도입문의'}
+                    {(price === 'Basic' || price === 'Pro') && (
+                      <span className="text-16 text-[#8c9097]"> /월</span>
+                    )}
+                  </CSText>
+                </div>
+                {(price === 'Basic' || price === 'Pro') && (
+                  <div className="flex items-end gap-[0.5rem]">
+                    <CSText
+                      size="16"
+                      className={clsx('text-[#8c9097] line-through')}
+                      weight="bold"
+                    >
+                      {price === 'Basic' && '60 만원'}
+                      {price === 'Pro' && '120 만원'}
+                    </CSText>
+
+                    <CSText
+                      size="21"
+                      className={clsx(
+                        price === 'Basic' && 'text-[#05b8a2]',
+                        price === 'Pro' && 'text-[#6758ff]',
+                      )}
+                      weight="bold"
+                    >
+                      {price === 'Basic' && '54 만원'}
+                      {price === 'Pro' && '108 만원'}
+
+                      {(price === 'Basic' || price === 'Pro') && (
+                        <span className="text-16 text-[#8c9097]">/년</span>
+                      )}
+                    </CSText>
+                  </div>
+                )}
               </div>
               <div className="flex flex-1">
                 <ul className="mt-[2rem] list-none text-base font-medium leading-normal text-[#5E6066]">
@@ -149,6 +183,9 @@ const Subscirbe = () => {
                   size="16"
                   color={clsx(price === 'Free' ? 'B8B8B8' : 'white')}
                   weight="bold"
+                  onClick={() =>
+                    (price === 'Basic' || price === 'Pro') && setSubscribe(true)
+                  }
                 >
                   {price === 'Free' && '무료로 시작하기'}
                   {(price === 'Basic' || price === 'Pro') && '업그레이드'}
@@ -158,6 +195,7 @@ const Subscirbe = () => {
             </div>
           ))}
         </div>
+        {subscribe && <Payments />}
       </div>
     </section>
   )

@@ -21,7 +21,7 @@ const courses = [
     title: '디지털 리터러시의 강좌를 찾아보세요.',
     description:
       '인터넷 및 소프트웨어를 사용하여 다른 사람과 협력하고\n 정보를 발견 및 전달하는 능력을 배우세요.',
-    src: '/images/digital-literacy.png',
+    src: '/images/digital-literacy_2.png',
   },
   {
     title: '디지털 리터러시의 강좌를 찾아보세요.',
@@ -33,7 +33,7 @@ const courses = [
     title: '디지털 리터러시의 강좌를 찾아보세요.',
     description:
       '인터넷 및 소프트웨어를 사용하여 다른 사람과 협력하고\n 정보를 발견 및 전달하는 능력을 배우세요.',
-    src: '/images/computer.jpg',
+    src: '/images/digital-literacy.png',
   },
 ]
 
@@ -66,17 +66,13 @@ const DigitalSwiperSlider = () => {
             </motion.div>
             <div className="absolute bottom-0 left-0 right-0 top-0 flex flex-col justify-center bg-black bg-opacity-20 text-white">
               <div className="pl-[4.8rem]">
-                <CSText
-                  weight="bold"
-                  size="35"
-                  color={clsx(index === 0 ? 'black' : 'white')}
-                >
+                <CSText weight="bold" size="35" color="white">
                   {course.title}
                 </CSText>
                 <CSText
                   weight="normal"
                   size="21"
-                  color={clsx(index === 0 ? 'black' : 'white')}
+                  color="white"
                   className="mt-[1rem] whitespace-pre-line"
                 >
                   {course.description}

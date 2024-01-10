@@ -3,10 +3,10 @@ import path from 'path'
 import {
   Experience,
   Footer,
-  LabKid,
   Main,
   TCourse,
   TDigitalLiteracy,
+  TLabKid,
 } from '../utils/types'
 import { getSlugs } from './util'
 
@@ -90,11 +90,11 @@ export function getExperienceData(): Experience {
   return { ...data }
 }
 
-export function getLabKidBySlug(slug: string): LabKid {
+export function getLabKidBySlug(slug: string): TLabKid {
   const realSlug = slug.replace(/\.json$/, '')
   const fullPath = path.join(labkidDirectory, `${realSlug}.json`)
-  const fileContents = JSON.parse(fs.readFileSync(fullPath, 'utf8')) as LabKid
-  let labkid: LabKid
+  const fileContents = JSON.parse(fs.readFileSync(fullPath, 'utf8')) as TLabKid
+  let labkid: TLabKid
 
   labkid = { ...fileContents }
 

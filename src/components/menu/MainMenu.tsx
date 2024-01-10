@@ -9,17 +9,25 @@ const MainMenu = () => {
   const menu = [
     {
       id: 1,
-      label: '패스파인더란?',
+      label: 'ABOUT 패스파인더 메타',
+      sub_label: '(구 마인드케어GPT)',
       path: 'https://www.pathfindermeta.com',
     },
     {
       id: 2,
-      label: '진로상담',
-      path: '/counsel',
+      label: 'GO 패스파인더 메타',
+      path: '/main',
     },
     {
       id: 3,
-      label: '진로체험',
+      label: 'GO 진로상담&치유',
+      sub_label: '(해당 월드 바로가기. 패스파인더 메타)',
+      path: '/counsel',
+    },
+    {
+      id: 4,
+      label: 'XR 직업체험',
+      sub_label: '(랩키드 미래 직업 시리즈)',
       path: '/experience',
       submenu: [
         { title: '랩키드 3', path: '/experience/labkid-03' },
@@ -30,22 +38,19 @@ const MainMenu = () => {
       ],
     },
     {
-      id: 4,
-      label: '진로교육',
+      id: 5,
+      label: 'LEARN 배움',
+      sub_label: '(AI·메타버스 캠퍼스)',
       path: '/digital-literacy',
       submenu: [
         { title: '디지털 \n리터러시', path: '/digital-literacy' },
         { title: '크리에이터', path: '/courses' },
       ],
     },
-    {
-      id: 5,
-      label: '3D광장',
-      path: '/main',
-    },
+
     {
       id: 6,
-      label: '가격 플랜',
+      label: '구독 플랜',
       path: '/subscribe',
     },
   ]
@@ -53,28 +58,35 @@ const MainMenu = () => {
   return (
     <nav>
       <ul>
-        {menu.map(({ id, label, path, submenu }) => {
+        {menu.map(({ id, label, path, submenu, sub_label }) => {
           return (
             <li
               key={id}
               className={clsx(
-                'group inline-block px-[2.5rem] py-[29px]',
-                'relative',
+                'group relative inline-flex h-[8.4rem] items-center px-[3rem]',
               )}
               role="none"
             >
-              <NavLink id={`nav-${id}`} path={path}>
+              <NavLink
+                id={`nav-${id}`}
+                path={path}
+                className="relative hover:opacity-50"
+              >
                 <CSText size="16" color="black" weight="semiBold">
                   {label}
                 </CSText>
+                {sub_label && (
+                  <CSText
+                    size="11"
+                    color="black"
+                    weight="semiBold"
+                    className="absolute top-full min-w-[18rem] text-center"
+                  >
+                    {sub_label}
+                  </CSText>
+                )}
               </NavLink>
 
-              <div className="absolute bottom-[-0.2rem] left-0 hidden group-hover:pointer-events-auto group-hover:block">
-                <AutoSizeImage
-                  src={'/images/nav_hover.png'}
-                  className="h-[2rem] w-[13.6rem]"
-                />
-              </div>
               {submenu && <Submenu menu={submenu} />}
             </li>
           )

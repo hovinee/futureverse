@@ -7,15 +7,17 @@ type TProps = {
   children: React.ReactNode
   id?: string
   path: string
+  className: string
 }
 
-const NavLink = ({ children, id, path, ...rest }: TProps) => {
+const NavLink = ({ children, id, path, className, ...rest }: TProps) => {
   return (
     <Anchor
       path={path}
       id={id}
       className={clsx(
-        'flex items-center font-medium leading-snug text-white 2xl:text-[16px]',
+        'flex flex-col items-center font-medium leading-snug text-white 2xl:text-[16px]',
+        className,
       )}
       role="menuitem"
       tabIndex={0}

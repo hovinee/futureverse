@@ -18,7 +18,7 @@ const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false)
 
   const header =
-    'z-10 h-[8.4rem] px-[3.5rem] flex w-full items-center justify-between xl:px-[30rem]'
+    'z-10 h-[8.4rem] px-[3.5rem] flex w-full items-center justify-between'
   // path === '/'
   //   ? 'fixed z-10 h-[8.4rem] bg-black pl-[9rem] shadow-2xl shadow-black/50'
   //   : `${!sticky && 'absolute bg-transparent'} ${
@@ -36,7 +36,7 @@ const Header = () => {
         className={clsx('border-b-4 border-b-00A886', header)}
         ref={measuredRef}
       >
-        <div className="flex items-center gap-[4.4rem]">
+        <div className="flex items-center gap-[4.4rem] ">
           <Link href={'/'}>
             <AutoSizeImage
               src={'/images/logo.png'}
@@ -53,7 +53,7 @@ const Header = () => {
               onClick={() => setOpenMenu(!openMenu)}
             />
             {openMenu && (
-              <ul className="absolute w-[15rem] bg-white pt-[1rem] shadow-lg">
+              <ul className="absolute right-full w-[15rem] bg-white pt-[1rem] shadow-lg">
                 <Link href="/my-info">
                   <li
                     className="cursor-pointer border-b py-[0.5rem] text-center text-16 hover:opacity-75"

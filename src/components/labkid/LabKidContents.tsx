@@ -112,6 +112,11 @@ const LabKidContents = ({ contents, season }: Props) => {
           <CSText size="31" color="black" className="mt-[0.7rem]">
             {contents[chapterNum].title}
           </CSText>
+          <AutoSizeImage
+            src={contents[chapterNum].thumbnail}
+            className="mt-[2.5rem] h-[34.3rem] w-full"
+            rounded="10"
+          />
           {source.src && (
             <div className="mt-[3rem]">
               <Video

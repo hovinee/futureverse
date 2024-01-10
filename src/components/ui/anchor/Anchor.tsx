@@ -1,3 +1,5 @@
+'use client'
+
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { ReactNode } from 'react'
 import Link from 'next/link'
@@ -14,7 +16,7 @@ const Anchor = ({ path, children, className, title, ...rest }: TProps) => {
 
   const requestPlan = () => {
     if (title === '랩키드 6' || title === '랩키드 7')
-      return alert('PRO 플랜을 가입해주세요!')
+      return window.open('https://labkidvr.com/labkid-vr/vr-introduce/')
   }
 
   return (

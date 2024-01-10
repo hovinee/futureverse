@@ -26,7 +26,14 @@ const digitalLiteracy = () => {
         </CSText>
       </section>
       <section className="mt-[4rem] grid grid-cols-2 gap-x-[4rem]">
-        <AutoSizeImage src="/images/digital-literacy-1.png" full />
+        <div className="relative">
+          <AutoSizeImage src="/images/digital-literacy-1.png" full />
+          <div className="absolute bottom-0 right-0">
+            <CSText size="14" color="white">
+              출처: 마이크로소프트
+            </CSText>
+          </div>
+        </div>
         <div className="flex flex-col justify-center gap-[1rem]">
           <CSText size="31" color="black" weight="bold">
             디지털 활용 능력 추천 강좌

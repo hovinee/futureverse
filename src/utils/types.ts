@@ -70,7 +70,7 @@ export interface Experience {
 
 export type TExperienceContents = Omit<Experience, 'banner'>
 
-export interface LabKid {
+export interface TLabKid {
   banner: {
     title: string
     season: string[]
@@ -89,10 +89,11 @@ export interface LabKid {
       description: string
     }
     video_uid: string
+    thumbnail: string
   }[]
 }
 
-export type TLabKidContents = Omit<LabKid, 'banner'>
+export type TLabKidContents = Omit<TLabKid, 'banner'>
 
 export interface TTutorial {
   text?: string
