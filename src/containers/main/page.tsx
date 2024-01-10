@@ -2,30 +2,25 @@
 
 import GridCuration from '@/components/grid-curation/GridCuration'
 import CSText from '@/components/ui/text/CSText'
+import { thumbnailCounseling, thumbnailHealing } from '@/data/unity/data'
 import clsx from 'clsx'
 import { useState } from 'react'
 
-const curation = [
-  'AI상담소',
-  '라이브 모드',
-  '집단 상담',
-  '금주의 인기 월드 힐링',
-  '추천 치유소',
-  'TO BE CONTINUE',
-]
+const curation = ['상담 월드', '힐링 월드', '진단']
+const curationCategory = ['전체', '상담 월드', '힐링 월드', '진단']
 
 const MainArea = () => {
   const [category, setCategory] = useState<number>(0)
   return (
-    <div className="relative mx-auto max-w-[114rem] rounded-lg">
-      <CSText size="21" color="black" weight="bold">
+    <div className="relative mx-auto rounded-lg px-[9rem]">
+      <CSText size="21" color="white" weight="bold">
         둘러보기
       </CSText>
-      {['전체', '진로상담', '치유소'].map((title, index) => (
+      {curationCategory.map((title, index) => (
         <div
           key={index}
           className={clsx(
-            'ml-[0.6rem] mt-[1rem] inline-block cursor-pointer rounded-full border p-[1rem]',
+            'ml-[0.6rem] mt-[1rem] inline-block cursor-pointer rounded-full border border-black p-[1rem]',
             category === index ? 'bg-00A886' : 'bg-white',
           )}
           onClick={() => setCategory(index)}
@@ -43,12 +38,40 @@ const MainArea = () => {
       ))}
       <div className="mt-[3rem] flex flex-col gap-[6rem]">
         {curation.map((title, index) => (
-          <div key={index} className="flex flex-col gap-[1.5rem]">
-            <CSText size="18" color="black" weight="bold">
-              {title}
-            </CSText>
-            <GridCuration />
-          </div>
+          <>
+            {category === 0 && (
+              <>
+                <div key={index} className="flex flex-col gap-[1.5rem]">
+                  <CSText size="18" color="white" weight="bold">
+                    {title}
+                  </CSText>
+
+                  <GridCuration
+                    tumbnailContent={
+                      index === 0 ? thumbnailCounseling : thumbnailHealing
+                    }
+                  />
+                </div>
+              </>
+            )}
+            {category !== 0 && (
+              <>
+                {category - 1 === index && (
+                  <div key={index} className="flex flex-col gap-[1.5rem]">
+                    <CSText size="18" color="white" weight="bold">
+                      {title}
+                    </CSText>
+
+                    <GridCuration
+                      tumbnailContent={
+                        index === 0 ? thumbnailCounseling : thumbnailHealing
+                      }
+                    />
+                  </div>
+                )}
+              </>
+            )}
+          </>
         ))}
       </div>
     </div>

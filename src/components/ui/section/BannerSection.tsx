@@ -1,5 +1,8 @@
+'use client'
+
 import clsx from 'clsx'
 import AutoSizeImage from '../auto-size-image/AutoSizeImage'
+import { usePathname } from 'next/navigation'
 
 interface Props {
   children: React.ReactNode
@@ -8,11 +11,14 @@ interface Props {
 }
 
 const BannerSection = ({ children, image_url, lecture }: Props) => {
+  const path = usePathname()
+  console.log(path)
   return (
     <section
       className={clsx(
-        'h-[50rem] xl:h-[100%]',
+        ' h-[50rem] xl:h-[60rem]',
         lecture && 'lg:h-[64rem] xl:h-[64rem]',
+        path === '/' ? 'mt-0' : 'mt-[8.4rem]',
       )}
     >
       <div className="relative h-full w-full">

@@ -1,7 +1,27 @@
 export const thumbnailCounseling = [
   {
     thumbnail: '/images/unity/counseling/ai__thumbnail.png',
-    title: '24시 AI 개인상담',
+    sub_image: [
+      '/images/unity/healing/whale_image.png',
+      '/images/unity/healing/whale_image_2.png',
+      '/images/unity/healing/whale_image_3.png',
+      '/images/unity/healing/whale_image_4.png',
+    ],
+    title: '상담센터 로비',
+    sub_title: '고래가 떠다니는 신비로운 섬!',
+    description:
+      '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
+    tag: ['봄', '파도', '발자국', '치유의 글귀'],
+  },
+  {
+    thumbnail: '/images/unity/counseling/ai__thumbnail.png',
+    sub_image: [
+      '/images/unity/healing/whale_image.png',
+      '/images/unity/healing/whale_image_2.png',
+      '/images/unity/healing/whale_image_3.png',
+      '/images/unity/healing/whale_image_4.png',
+    ],
+    title: '상담소 AI',
     sub_title: '고래가 떠다니는 신비로운 섬!',
     description:
       '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
@@ -9,7 +29,13 @@ export const thumbnailCounseling = [
   },
   {
     thumbnail: '/images/unity/counseling/live_thumbnail.png',
-    title: '라이브 모드 개인상담',
+    sub_image: [
+      '/images/unity/healing/whale_image.png',
+      '/images/unity/healing/whale_image_2.png',
+      '/images/unity/healing/whale_image_3.png',
+      '/images/unity/healing/whale_image_4.png',
+    ],
+    title: '상담훈련소 AI',
     sub_title: '고래가 떠다니는 신비로운 섬!',
     description:
       '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
@@ -17,7 +43,13 @@ export const thumbnailCounseling = [
   },
   {
     thumbnail: '/images/unity/counseling/group__thumbnail.png',
-    title: '집단상담',
+    sub_image: [
+      '/images/unity/healing/whale_image.png',
+      '/images/unity/healing/whale_image_2.png',
+      '/images/unity/healing/whale_image_3.png',
+      '/images/unity/healing/whale_image_4.png',
+    ],
+    title: '채널. 라이브상담',
     sub_title: '고래가 떠다니는 신비로운 섬!',
     description:
       '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
