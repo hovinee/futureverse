@@ -3,7 +3,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { ReactNode } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 type TProps = React.HTMLAttributes<HTMLAnchorElement> & {
   path?: string
@@ -14,7 +13,6 @@ type TProps = React.HTMLAttributes<HTMLAnchorElement> & {
 
 const Anchor = ({ path, children, className, title, ...rest }: TProps) => {
   if (!path) return null
-  const router = useRouter()
 
   const requestPlan = () => {
     if (title === '랩키드 6' || title === '랩키드 7')
