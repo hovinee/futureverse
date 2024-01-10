@@ -30,13 +30,9 @@ const HealingModal = ({
     setSelectHealing(true)
     setHealingNum(num)
   }
+
   return (
     <div className="grid h-full w-full place-items-center">
-      {/* <UnitySwiperSlider
-        selectMethod={setHealingMethod}
-        setSelectPlace={setSelectPlace}
-        healing
-      /> */}
       <div
         className={clsx(
           'relative h-[80rem] max-w-[150rem] rounded-lg bg-white/80',

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ariakit/react": "^0.3.10",
+    "@tosspayments/payment-widget-sdk": "^0.10.2",
     "@types/bcrypt": "5.0.2",
     "@types/mongoose": "^5.11.97",
     "@types/nodemailer": "6.4.14",
