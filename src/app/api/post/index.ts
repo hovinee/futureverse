@@ -1,3 +1,5 @@
+import { AddCommentDTO } from '@/models/comment'
+import { AddFeedDTO, UpdateFeedLikeDTO } from '@/models/feed'
 import { getBaseUrl } from '@/utils/url'
 
 export const signCourse = async (uid: string): Promise<Response> => {
@@ -37,32 +39,37 @@ export const updateCourse = async (
   })
 }
 
-// 특정 월드에 게시글 작성
-// try {
-//   const dto: AddFeedDTO = { world: 'train', message: 'test' }
-//   var res = await fetch(`${getBaseUrl}/api/post/new-feed`, {
-//     method: 'POST',
-//     cache: 'no-cache',
-//     headers: headers(),
-//     body: JSON.stringify(dto),
-//   })
-//   console.log(await res.json())
-// } catch (err: any) {
-//   console.log(err.message)
-// }
+//특정 월드에 게시글 작성
+export const writeFeed = async () => {
+  try {
+    const dto: AddFeedDTO = { world: 'train', message: 'test' }
+    var res = await fetch(`${getBaseUrl}/api/post/new-feed`, {
+      method: 'POST',
+      cache: 'no-cache',
+      body: JSON.stringify(dto),
+    })
+    const result = await res.json()
+    console.log(result)
+    return result
+  } catch (err: any) {
+    console.log(err.message)
+  }
+}
 
 // 특정 월드의 모든 게시글 조회
-// try {
-//   var res = await fetch(`${getBaseUrl}/api/get/feeds/?world=train`, {
-//     method: 'GET',
-//     cache: 'no-cache',
-//     headers: headers(),
-//   })
-//   console.log(await res.json())
-// } catch (err: any) {
-//   console.log(err.message)
-// }
-
+export const getFeeds = async () => {
+  try {
+    var res = await fetch(`${getBaseUrl}/api/get/feeds/?world=train`, {
+      method: 'GET',
+      cache: 'no-cache',
+    })
+    const result = await res.json()
+    console.log(result)
+    return result
+  } catch (err: any) {
+    console.log(err.message)
+  }
+}
 // 게시글 글 수정
 // try {
 //   const dto: UpdateFeedMsgDTO = {
@@ -81,38 +88,44 @@ export const updateCourse = async (
 // }
 
 // 게시글 좋아요 수정
-// try {
-//   const dto: UpdateFeedLikeDTO = {
-//     id: '659bb6141b6fe09194bc1920',
-//     isLike: true,
-//   }
-//   var res = await fetch(`${getBaseUrl}/api/post/update-feed-like`, {
-//     method: 'POST',
-//     cache: 'no-cache',
-//     headers: headers(),
-//     body: JSON.stringify(dto),
-//   })
-//   console.log(await res.json())
-// } catch (err: any) {
-//   console.log(err.message)
-// }
+export const updateFeedLike = async () => {
+  try {
+    const dto: UpdateFeedLikeDTO = {
+      id: '659bb6141b6fe09194bc1920',
+      isLike: true,
+    }
+    var res = await fetch(`${getBaseUrl}/api/post/update-feed-like`, {
+      method: 'POST',
+      cache: 'no-cache',
+      body: JSON.stringify(dto),
+    })
+    const result = await res.json()
+    console.log(result)
+    return result
+  } catch (err: any) {
+    console.log(err.message)
+  }
+}
 
 // 댓글 작성
-// try {
-//   const dto: AddCommentDTO = {
-//     id: '659beef58c914035572f7226',
-//     message: 'test!!!!!!!!!!!!!!!!!!!!!!!!!',
-//   }
-//   var res = await fetch(`${getBaseUrl}/api/post/new-comment`, {
-//     method: 'POST',
-//     cache: 'no-cache',
-//     headers: headers(),
-//     body: JSON.stringify(dto),
-//   })
-//   console.log(await res.json())
-// } catch (err: any) {
-//   console.log(err.message)
-// }
+export const writeComment = async () => {
+  try {
+    const dto: AddCommentDTO = {
+      id: '659beef58c914035572f7226',
+      message: 'test!!!!!!!!!!!!!!!!!!!!!!!!!',
+    }
+    var res = await fetch(`${getBaseUrl}/api/post/new-comment`, {
+      method: 'POST',
+      cache: 'no-cache',
+      body: JSON.stringify(dto),
+    })
+    const result = await res.json()
+    console.log(result)
+    return result
+  } catch (err: any) {
+    console.log(err.message)
+  }
+}
 
 // 댓글 좋아요
 // try {

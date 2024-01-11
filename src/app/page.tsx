@@ -9,7 +9,7 @@ const Main = () => {
   return (
     <>
       <BannerSection image_url={data.banner.banner_image}>
-        <div className="lg-[6.2rem] absolute inset-0 flex flex-col justify-center bg-gradient-to-t from-black pl-[5.2rem] xl:pl-[6.2rem]">
+        <div className="lg-[6.2rem] absolute inset-0 flex flex-col justify-center bg-gradient-to-t from-[#181818] pl-[5.2rem] xl:pl-[6.2rem]">
           <CSText size="35" color="white" weight="bold">
             {data.banner.title}
           </CSText>

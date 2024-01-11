@@ -95,7 +95,7 @@ const LabKidContents = ({ contents, season }: Props) => {
               </div>
               <div className="flex gap-[0.7rem]">
                 <AutoSizeImage
-                  src={'/images/share.png'}
+                  src={'/images/share_2.png'}
                   className="h-[2.4rem] w-[2.4rem]"
                 />
                 <CSText size="18" color="7D7D7D">

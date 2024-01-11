@@ -17,9 +17,9 @@ const Header = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false)
 
   const header = clsx(
-    'fixed z-10 h-[8.4rem] bg-black px-[3.5rem] flex w-full items-center justify-between',
+    'fixed z-10 h-[8.4rem] bg-181818 px-[3.5rem] flex w-full items-center justify-between',
     path === '/' && !sticky && 'absolute bg-transparent',
-    sticky && 'fixed bg-black shadow-2xl shadow-black',
+    sticky && 'fixed bg-181818 shadow-2xl shadow-181818',
   )
 
   const handleLogout = () => {

@@ -6,12 +6,17 @@ import { usePathname, useRouter } from 'next/navigation'
 import clsx from 'clsx'
 import AutoSizeImage from '@/components/ui/auto-size-image/AutoSizeImage'
 import { cfWorkerUrl } from '@/utils/url'
+import Progressbar from '@/components/progress/ProgressBar'
+import {
+  getFeeds,
+  updateFeedLike,
+  writeComment,
+  writeFeed,
+} from '@/app/api/post'
 
 const HealingPage = () => {
   const router = useRouter()
   const path = usePathname().split('/').pop()
-
-  const [splashEnd, setSplashEnd] = useState<boolean>(false)
 
   //unity build
   const {
@@ -28,21 +33,60 @@ const HealingPage = () => {
     codeUrl: `${cfWorkerUrl}/Build/${path}/Build.wasm`,
   })
 
+  //스플래쉬 종료
+  const [splashEnd, setSplashEnd] = useState<boolean>(false)
+
+  //scene 종료
+  const [sceneOpeningEnd, setSceneOpeningEnd] = useState('')
+
+  //
+  const [getApi, setGetApi] = useState<string>('')
   const OnSceneOpeningEnd = useCallback((data: any) => {
-    router.push('/main')
+    setSceneOpeningEnd(data)
   }, [])
 
   const OnSplashEnd = useCallback((data: any) => {
     setSplashEnd(true)
   }, [])
 
+  const OnRequest = useCallback((data: any) => {
+    console.log(data, 'data.api')
+    setGetApi(data)
+  }, [])
+
   useEffect(() => {
-    addEventListener('OnSceneClosingEnd', OnSceneOpeningEnd)
+    const test = async () => {
+      let result
+      if (getApi == 'get/feeds') {
+        result = await getFeeds()
+      }
+      if (getApi == 'post/new-feed') {
+        result = await writeFeed()
+      }
+      if (getApi == 'post/update-feed-like') {
+        result = await updateFeedLike()
+      }
+      if (getApi == 'post/new-comment') {
+        result = await writeComment()
+      }
+      sendMessage(
+        'MessageReceiver',
+        'OnResponse',
+        `${getApi}|${JSON.stringify(result)}`,
+      )
+    }
+    test()
+  }, [getApi])
+
+  useEffect(() => {
+    addEventListener('OnSceneOpeningEnd', OnSceneOpeningEnd)
     addEventListener('OnSplashEnd', OnSplashEnd)
+    addEventListener('OnRequest', OnRequest)
 
     return () => {
-      removeEventListener('OnSceneClosingEnd', OnSceneOpeningEnd)
+      removeEventListener('OnSceneOpeningEnd', OnSceneOpeningEnd)
       removeEventListener('OnSplashEnd', OnSplashEnd)
+      removeEventListener('OnRequest', OnRequest)
     }
   }, [addEventListener, removeEventListener])
 
@@ -57,28 +101,29 @@ const HealingPage = () => {
       <div className="absolute inset-0 z-10 bg-black">
         <div
           className={clsx(
-            'fixed z-20 grid h-full w-full place-items-center bg-white',
+            'fixed z-20 h-full w-full',
             splashEnd ? 'hidden' : 'block',
           )}
         >
-          <div>
-            <AutoSizeImage
-              src={'/images/unity/path_logo.png'}
-              className="h-[26.3rem] w-[38.8rem]"
-              priority
-            />
-
-            <div className="relative z-10 mt-[3rem] w-[40rem] rounded-full  border bg-[#D3D3D3]">
-              <div className="absolute inset-0 grid place-items-center text-16 text-white">
-                {Math.round(loadingProgression * 100)}%
-              </div>
-              <div
-                className="grid h-[2rem] place-items-end rounded-full bg-gradient-to-r from-[#44D1A7] to-[#088AE7]"
-                style={{ width: `${Math.round(loadingProgression * 100)}%` }}
-              />
-            </div>
-          </div>
+          <AutoSizeImage
+            src={'/images/unity/loading_bg.jpg'}
+            full
+            priority
+            objectCover
+          />
+          <Progressbar number={Math.round(loadingProgression * 100)} />
         </div>
+
+        {(sceneOpeningEnd === 'train' ||
+          sceneOpeningEnd === 'whale' ||
+          sceneOpeningEnd === 'camp') && (
+          <div
+            className="absolute left-[3rem] top-[3rem] w-[4.6rem] cursor-pointer"
+            onClick={() => router.back()}
+          >
+            <AutoSizeImage src="/images/unity/exit.png" full />
+          </div>
+        )}
 
         <Unity
           style={{

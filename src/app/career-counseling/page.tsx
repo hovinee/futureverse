@@ -11,7 +11,7 @@ const CareerCounselignPage = () => {
       <BannerSection
         image_url={'/images/career-counseling/career_counseling_banner.png'}
       >
-        ''
+        {''}
       </BannerSection>
       <main className="mx-auto mt-[4rem] w-full max-w-[140rem]">
         <CSText size="31" color="white" weight="bold" className="mt-[4rem]">

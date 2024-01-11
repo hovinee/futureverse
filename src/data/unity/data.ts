@@ -12,6 +12,7 @@ export const thumbnailCounseling = [
     description:
       '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
     tag: ['봄', '파도', '발자국', '치유의 글귀'],
+    path: '/counsel/intro_lobby',
   },
   {
     thumbnail: '/images/unity/counseling/ai__thumbnail.png',
@@ -26,6 +27,7 @@ export const thumbnailCounseling = [
     description:
       '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
     tag: ['봄', '파도', '발자국', '치유의 글귀'],
+    path: '/counsel/client',
   },
   {
     thumbnail: '/images/unity/counseling/live_thumbnail.png',
@@ -57,21 +59,6 @@ export const thumbnailCounseling = [
   },
 ]
 
-export const selectCounselingImage = [
-  {
-    select: '/images/unity/counseling/select_ai.png',
-    no_select: '/images/unity/counseling/no_select_ai.png',
-  },
-  {
-    select: '/images/unity/counseling/select_live.png',
-    no_select: '/images/unity/counseling/no_select_live.png',
-  },
-  {
-    select: '/images/unity/counseling/select_group.png',
-    no_select: '/images/unity/counseling/no_select_group.png',
-  },
-]
-
 export const thumbnailHealing = [
   {
     thumbnail: '/images/unity/healing/whale_thumbnail.png',
@@ -86,6 +73,7 @@ export const thumbnailHealing = [
     description:
       '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
     tag: ['봄', '파도', '발자국', '치유의 글귀'],
+    path: '/healing/whale',
   },
   {
     thumbnail: '/images/unity/healing/station_thumbnail.png',
@@ -100,6 +88,7 @@ export const thumbnailHealing = [
     description:
       '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
     tag: ['봄', '파도', '발자국', '치유의 글귀'],
+    path: '/healing/train',
   },
   {
     thumbnail: '/images/unity/healing/camping_thumbnail.png',
@@ -114,6 +103,7 @@ export const thumbnailHealing = [
     description:
       '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
     tag: ['봄', '파도', '발자국', '치유의 글귀'],
+    path: '/healing/camp',
   },
   {
     thumbnail: '/images/unity/healing/santa_thumbnail.png',
@@ -128,6 +118,39 @@ export const thumbnailHealing = [
     description:
       '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
     tag: ['봄', '파도', '발자국', '치유의 글귀'],
+  },
+]
+
+export const thumbnailDiagnosis = [
+  {
+    thumbnail: '/images/unity/healing/santa_thumbnail.png',
+    sub_image: [
+      '/images/unity/healing/santa_image.png',
+      '/images/unity/healing/santa_image_2.png',
+      '/images/unity/healing/santa_image_3.png',
+      '/images/unity/healing/santa_image_4.png',
+    ],
+    title: '홀랜드 검사',
+    sub_title: '산타를 기다리면 준비하는 크리스마스',
+    description:
+      '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
+    tag: ['봄', '파도', '발자국', '치유의 글귀'],
+    path: '/healing/holland',
+  },
+]
+
+export const selectCounselingImage = [
+  {
+    select: '/images/unity/counseling/select_ai.png',
+    no_select: '/images/unity/counseling/no_select_ai.png',
+  },
+  {
+    select: '/images/unity/counseling/select_live.png',
+    no_select: '/images/unity/counseling/no_select_live.png',
+  },
+  {
+    select: '/images/unity/counseling/select_group.png',
+    no_select: '/images/unity/counseling/no_select_group.png',
   },
 ]
 

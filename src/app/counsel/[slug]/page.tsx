@@ -87,7 +87,6 @@ const CounselPage = () => {
   }, [])
 
   const OnSceneOpeningEnd = useCallback((data: any) => {
-    console.log(data)
     setSceneOpeningEnd(data)
   }, [])
 

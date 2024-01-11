@@ -46,7 +46,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={clsx(
-          'flex flex-col bg-black',
+          'flex flex-col bg-181818',
           cls(notoSansKr.className, roboto.variable),
         )}
       >
