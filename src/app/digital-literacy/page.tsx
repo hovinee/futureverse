@@ -5,7 +5,7 @@ import CSText from '@/components/ui/text/CSText'
 import { getDigitalLiteracy } from '@/lib/data'
 import Link from 'next/link'
 
-const digitalLiteracy = () => {
+const DigitalLiteracyPage = () => {
   const data = getDigitalLiteracy()
 
   return (
@@ -82,4 +82,4 @@ const digitalLiteracy = () => {
   )
 }
 
-export default digitalLiteracy
+export default DigitalLiteracyPage

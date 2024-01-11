@@ -7,7 +7,7 @@ interface Props {
 
 const Card = ({ content }: Props) => {
   return (
-    <article className="w-full overflow-hidden rounded shadow-lg hover:opacity-80">
+    <article className="w-full overflow-hidden rounded bg-white shadow-lg hover:opacity-80">
       <Link href={content.url} className="relative">
         <img
           className="w-full"

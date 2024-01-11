@@ -60,6 +60,7 @@ const fontColor: StringProps = {
 
 const fontWeight: StringProps = {
   normal: 'font-normal', //400
+  medium: 'font-medium',
   semiBold: 'font-semibold', //600
   bold: 'font-bold', //700
 }

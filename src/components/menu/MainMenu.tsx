@@ -21,7 +21,7 @@ const MainMenu = () => {
     {
       id: 3,
       label: 'GO 상담월드',
-      path: '/counsel',
+      path: '/counsel/intro_lobby',
     },
     {
       id: 4,
@@ -42,6 +42,7 @@ const MainMenu = () => {
       path: '/digital-literacy',
       submenu: [
         { title: '디지털 \n리터러시', path: '/digital-literacy' },
+        { title: '진로상담심리\n캠퍼스', path: '/career-counseling' },
         { title: '크리에이터', path: '/courses' },
       ],
     },
@@ -56,12 +57,12 @@ const MainMenu = () => {
   return (
     <nav>
       <ul>
-        {menu.map(({ id, label, path, submenu, sub_label }) => {
+        {menu.map(({ id, label, path, submenu }) => {
           return (
             <li
               key={id}
               className={clsx(
-                'group relative inline-flex h-[8.4rem] items-center px-[3rem]',
+                'group relative inline-flex items-center px-[3rem]',
               )}
               role="none"
             >
@@ -70,7 +71,7 @@ const MainMenu = () => {
                 path={path}
                 className="relative hover:opacity-50"
               >
-                <CSText size="16" color="white" weight="semiBold">
+                <CSText size="16" color="white" weight="medium">
                   {label}
                 </CSText>
               </NavLink>

@@ -12,11 +12,11 @@ interface Props {
 
 const BannerSection = ({ children, image_url, lecture }: Props) => {
   const path = usePathname()
-  console.log(path)
+
   return (
     <section
       className={clsx(
-        ' h-[50rem] xl:h-[60rem]',
+        ' h-[50rem] xl:h-full',
         lecture && 'lg:h-[64rem] xl:h-[64rem]',
         path === '/' ? 'mt-0' : 'mt-[8.4rem]',
       )}

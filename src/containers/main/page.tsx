@@ -2,7 +2,11 @@
 
 import GridCuration from '@/components/grid-curation/GridCuration'
 import CSText from '@/components/ui/text/CSText'
-import { thumbnailCounseling, thumbnailHealing } from '@/data/unity/data'
+import {
+  thumbnailCounseling,
+  thumbnailDiagnosis,
+  thumbnailHealing,
+} from '@/data/unity/data'
 import clsx from 'clsx'
 import { useState } from 'react'
 
@@ -11,8 +15,9 @@ const curationCategory = ['전체', '상담 월드', '힐링 월드', '진단']
 
 const MainArea = () => {
   const [category, setCategory] = useState<number>(0)
+
   return (
-    <div className="relative mx-auto rounded-lg px-[9rem]">
+    <div className="relative mx-auto mt-[-10rem] rounded-lg px-[9rem] pb-[10rem]">
       <CSText size="21" color="white" weight="bold">
         둘러보기
       </CSText>
@@ -48,8 +53,13 @@ const MainArea = () => {
 
                   <GridCuration
                     tumbnailContent={
-                      index === 0 ? thumbnailCounseling : thumbnailHealing
+                      index === 0
+                        ? thumbnailCounseling
+                        : index === 1
+                          ? thumbnailHealing
+                          : thumbnailDiagnosis
                     }
+                    category={index}
                   />
                 </div>
               </>
@@ -64,8 +74,13 @@ const MainArea = () => {
 
                     <GridCuration
                       tumbnailContent={
-                        index === 0 ? thumbnailCounseling : thumbnailHealing
+                        index === 0
+                          ? thumbnailCounseling
+                          : index === 1
+                            ? thumbnailHealing
+                            : thumbnailDiagnosis
                       }
+                      category={index}
                     />
                   </div>
                 )}
