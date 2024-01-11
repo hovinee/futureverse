@@ -40,9 +40,10 @@ export const updateCourse = async (
 }
 
 //특정 월드에 게시글 작성
-export const writeFeed = async () => {
+export const writeFeed = async (param: string) => {
   try {
-    const dto: AddFeedDTO = { world: 'train', message: 'test' }
+    const { world, message } = JSON.parse(param)
+    const dto: AddFeedDTO = { world: world, message: message }
     var res = await fetch(`${getBaseUrl}/api/post/new-feed`, {
       method: 'POST',
       cache: 'no-cache',
@@ -88,11 +89,12 @@ export const getFeeds = async () => {
 // }
 
 // 게시글 좋아요 수정
-export const updateFeedLike = async () => {
+export const updateFeedLike = async (param: string) => {
   try {
+    const { id, isLike } = JSON.parse(param)
     const dto: UpdateFeedLikeDTO = {
-      id: '659bb6141b6fe09194bc1920',
-      isLike: true,
+      id: id,
+      isLike: isLike,
     }
     var res = await fetch(`${getBaseUrl}/api/post/update-feed-like`, {
       method: 'POST',
@@ -108,11 +110,12 @@ export const updateFeedLike = async () => {
 }
 
 // 댓글 작성
-export const writeComment = async () => {
+export const writeComment = async (param: string) => {
   try {
+    const { id, message } = JSON.parse(param)
     const dto: AddCommentDTO = {
-      id: '659beef58c914035572f7226',
-      message: 'test!!!!!!!!!!!!!!!!!!!!!!!!!',
+      id: id,
+      message: message,
     }
     var res = await fetch(`${getBaseUrl}/api/post/new-comment`, {
       method: 'POST',
