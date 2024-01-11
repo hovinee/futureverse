@@ -41,6 +41,8 @@ const HealingPage = () => {
 
   //
   const [getApi, setGetApi] = useState<string>('')
+  const [getParam, setParam] = useState<string>('')
+
   const OnSceneOpeningEnd = useCallback((data: any) => {
     setSceneOpeningEnd(data)
   }, [])
@@ -49,9 +51,11 @@ const HealingPage = () => {
     setSplashEnd(true)
   }, [])
 
-  const OnRequest = useCallback((data: any) => {
-    console.log(data, 'data.api')
-    setGetApi(data)
+  const OnRequest = useCallback((api: any, json: any) => {
+    console.log(api, 'api')
+    console.log(json, 'json')
+    setGetApi(api)
+    setParam(json)
   }, [])
 
   useEffect(() => {
@@ -61,13 +65,16 @@ const HealingPage = () => {
         result = await getFeeds()
       }
       if (getApi == 'post/new-feed') {
-        result = await writeFeed()
+        console.log('post/new-feed')
+        result = await writeFeed(getParam)
       }
       if (getApi == 'post/update-feed-like') {
-        result = await updateFeedLike()
+        console.log('post/update-feed-like')
+        result = await updateFeedLike(getParam)
       }
       if (getApi == 'post/new-comment') {
-        result = await writeComment()
+        console.log('post/new-comment')
+        result = await writeComment(getParam)
       }
       sendMessage(
         'MessageReceiver',
@@ -76,7 +83,7 @@ const HealingPage = () => {
       )
     }
     test()
-  }, [getApi])
+  }, [getApi, getParam])
 
   useEffect(() => {
     addEventListener('OnSceneOpeningEnd', OnSceneOpeningEnd)
