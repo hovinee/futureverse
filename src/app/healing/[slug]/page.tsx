@@ -62,7 +62,7 @@ const HealingPage = () => {
     const test = async () => {
       let result
       if (getApi == 'get/feeds') {
-        result = await getFeeds()
+        result = await getFeeds(JSON.parse(getParam).world)
       }
       if (getApi == 'post/new-feed') {
         console.log('post/new-feed')
