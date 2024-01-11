@@ -10,14 +10,14 @@ class ResponseHelper {
 
   static error(errorMsg: string, status: number = 400, result: number = 1001) {
     return NextResponse.json(
-      { result: result, resultMsg: errorMsg, data: {} },
+      { result: result, resultMsg: errorMsg, data: null },
       { status },
     )
   }
 
   static internalError(msg: any) {
     return NextResponse.json(
-      { result: -1, resultMsg: 'Internal Server Error\n' + msg, data: {} },
+      { result: -1, resultMsg: 'Internal Server Error\n' + msg, data: null },
       { status: 500 },
     )
   }
