@@ -47,11 +47,11 @@ const prices = [
 const Subscirbe = () => {
   const [subscribe, setSubscribe] = useState<boolean>(false)
   return (
-    <section className="bg-[#f8f9fc] px-[1.8rem]">
+    <section className="mt-[8.4rem] px-[1.8rem]">
       <div className="mx-auto max-w-[114rem] py-[8rem]">
         <CSText
           size="31"
-          color="black"
+          color="white"
           className="font-roboto text-center"
           weight="bold"
         >

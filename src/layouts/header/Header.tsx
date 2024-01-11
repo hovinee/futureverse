@@ -34,12 +34,8 @@ const Header = () => {
           <Link href={'/'}>
             <div className="w-[10rem]">
               <AutoSizeImage
-                src={clsx(
-                  !sticky && path === '/'
-                    ? '/images/unity/logo_black.png'
-                    : '/images/unity/path_logo.png',
-                )}
-                full
+                src={'/images/logo.png'}
+                className="h-[2.67rem] w-[12rem]"
               />
             </div>
           </Link>

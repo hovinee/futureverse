@@ -12,7 +12,7 @@ const curationCategory = ['전체', '상담 월드', '힐링 월드', '진단']
 const MainArea = () => {
   const [category, setCategory] = useState<number>(0)
   return (
-    <div className="relative mx-auto rounded-lg px-[9rem]">
+    <div className="relative mx-auto mt-[-10rem] rounded-lg px-[9rem] pb-[10rem]">
       <CSText size="21" color="white" weight="bold">
         둘러보기
       </CSText>

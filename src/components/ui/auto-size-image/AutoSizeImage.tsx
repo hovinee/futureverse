@@ -9,6 +9,7 @@ interface Props {
   roundedTop?: string
   full?: boolean
   priority?: boolean
+  objectCover?: boolean
 }
 
 interface StringProps {
@@ -35,6 +36,7 @@ const AutoSizeImage = ({
   roundedTop,
   full = false,
   priority = false,
+  objectCover = false,
 }: Props) => {
   return (
     <>
@@ -46,6 +48,7 @@ const AutoSizeImage = ({
           sizes="100%"
           className={clsx(
             'h-full w-full',
+            objectCover && 'object-cover',
             roundedTop && borderTopRadius[roundedTop],
             rounded && borderRadius[rounded],
           )}

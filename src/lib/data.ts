@@ -110,3 +110,11 @@ export function getDigitalLiteracy(): TDigitalLiteracy[] {
   ) as TDigitalLiteracy[]
   return [...fileContents]
 }
+
+export function getCareerCounseling(): TDigitalLiteracy[] {
+  const fullPath = path.join(directory, 'career-counseling.json')
+  const fileContents = JSON.parse(
+    fs.readFileSync(fullPath, 'utf8'),
+  ) as TDigitalLiteracy[]
+  return [...fileContents]
+}
