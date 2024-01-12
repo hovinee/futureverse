@@ -4,7 +4,6 @@ import AutoSizeImage from '../ui/auto-size-image/AutoSizeImage'
 import CSText from '../ui/text/CSText'
 import { motion } from 'framer-motion'
 import { TTumbnailContent } from '@/utils/types'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 

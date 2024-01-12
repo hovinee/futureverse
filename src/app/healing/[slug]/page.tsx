@@ -103,6 +103,16 @@ const HealingPage = () => {
     }
   }, [splashEnd])
 
+  useEffect(() => {
+    if (sceneOpeningEnd === 'main') {
+      router.push('/counsel/intro_lobby')
+    } else if (sceneOpeningEnd === 'main_vr') {
+      router.push('/experience')
+    } else if (sceneOpeningEnd === 'main_lms') {
+      router.push('digital-literacy')
+    }
+  }, [sceneOpeningEnd])
+
   return (
     <>
       <div className="absolute inset-0 z-10 bg-black">

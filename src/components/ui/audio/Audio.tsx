@@ -1,8 +1,15 @@
 import useAudio from '@/hooks/use-audio'
 import { useEffect, useRef, useState } from 'react'
+import AutoSizeImage from '../auto-size-image/AutoSizeImage'
+import clsx from 'clsx'
 
-const Audio = () => {
-  const { audio, toggle, play, source: url } = useAudio()
+interface TProps {
+  audioPath: string
+  black?: boolean
+}
+
+const Audio = ({ audioPath, black }: TProps) => {
+  const { audio, toggle, play, source: url } = useAudio(audioPath)
   const progressRef = useRef<HTMLDivElement>(null)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -67,20 +74,32 @@ const Audio = () => {
   }
 
   return (
-    <div className="text-white">
-      <button onClick={toggle} className="rounded bg-blue-500 p-2 text-white">
-        {play ? '중지' : '재생'}
-      </button>
+    <div className="flex items-center gap-[1rem] py-[1rem] text-white">
+      <div className="h-[2.1rem] w-[2.1rem] ">
+        <AutoSizeImage
+          src={clsx(
+            play
+              ? black
+                ? '/images/test_2.png'
+                : '/images/stop.png'
+              : black
+                ? '/images/test_1.png'
+                : '/images/play.png',
+          )}
+          onClick={toggle}
+          full
+        />
+      </div>
+
       <div
-        className="relative mt-2 h-4 cursor-pointer overflow-hidden rounded bg-gray-300"
+        className="relative mt-2 h-[0.4rem] cursor-pointer overflow-hidden rounded bg-gray-300 "
         ref={progressRef}
         onClick={handleProgressBarClick}
       >
-        <div id="progress" className="h-full rounded bg-blue-500" />
-      </div>
-      <div className="mt-2 flex justify-between">
-        <span>{formatTime(currentTime)}</span>
-        <span>{formatTime(duration)}</span>
+        <div
+          id="progress"
+          className={clsx('h-full', black ? 'bg-black' : 'bg-white')}
+        />
       </div>
     </div>
   )

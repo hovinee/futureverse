@@ -1,6 +1,7 @@
 'use client'
 
 import WorldTab from '@/components/tab/WorldTab'
+import Audio from '@/components/ui/audio/Audio'
 import AutoSizeImage from '@/components/ui/auto-size-image/AutoSizeImage'
 import CSButton from '@/components/ui/button/CSButton'
 import CSSpan from '@/components/ui/span/CSSpan'
@@ -120,13 +121,14 @@ const HealingModal = ({ setHealingMethod, setSelectPlace }: TProps) => {
                   {thumbnailHealing[healingNum].title}
                 </CSText>
                 <CSText
-                  size="18"
+                  size="16"
                   color="black"
-                  className="custom-scrollbar mt-[1rem] h-[29rem] overflow-auto whitespace-pre-line"
+                  className="custom-scrollbar mt-[1rem] h-[25rem] overflow-auto whitespace-pre-line"
                 >
                   {thumbnailHealing[healingNum].description}
                 </CSText>
-                <div className="mt-[1rem]">
+                <Audio audioPath={thumbnailHealing[healingNum].audio} black />
+                <div className="mt-[0.5rem]">
                   {thumbnailHealing[healingNum].tag.map((value, index) => (
                     <div
                       className="mb-[1rem] mr-[1rem] inline-block cursor-pointer rounded-[1rem] border border-[#DCDCDC] px-[1.5rem] text-center hover:opacity-70"
@@ -200,10 +202,12 @@ const HealingModal = ({ setHealingMethod, setSelectPlace }: TProps) => {
                   </div>
                 </div>
               </div>
-              <div className="custom-scrollbar mt-[3rem] flex-1 overflow-auto border-t border-t-[#E1DDDD]">
-                <WorldTab />
-              </div>
             </div>
+          </div>
+        )}
+        {selectHealing && (
+          <div className="custom-scrollbar mt-[3rem] flex-1 overflow-auto border-t border-t-[#E1DDDD]">
+            <WorldTab black />
           </div>
         )}
       </div>

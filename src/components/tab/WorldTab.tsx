@@ -6,7 +6,11 @@ import AutoSizeImage from '../ui/auto-size-image/AutoSizeImage'
 
 const tabs = [{ label: '월드소개' }, { label: '월드리뷰' }]
 
-const WorldTab = () => {
+interface TProps {
+  black?: boolean
+}
+
+const WorldTab = ({ black = false }: TProps) => {
   const [selectedTab, setSelectedTab] = useState(tabs[0])
 
   return (
@@ -23,8 +27,12 @@ const WorldTab = () => {
                 size="21"
                 className={clsx(
                   selectedTab.label === item.label
-                    ? 'text-white'
-                    : 'text-white/30',
+                    ? black
+                      ? 'text-black'
+                      : 'text-white'
+                    : black
+                      ? 'text-black/30'
+                      : 'text-white/30',
                 )}
                 weight="bold"
               >
@@ -51,17 +59,25 @@ const WorldTab = () => {
                     className="h-[5.7rem] w-[5.7rem]"
                   />
                   <div>
-                    <CSText size="18" color="white" weight="bold">
+                    <CSText
+                      size="18"
+                      color={black ? 'black' : 'white'}
+                      weight="bold"
+                    >
                       Global Luna
                     </CSText>
-                    <CSText size="16" color="white" className="mt-[0.3rem]">
+                    <CSText
+                      size="16"
+                      color={black ? 'black' : 'white'}
+                      className="mt-[0.3rem]"
+                    >
                       Version Update Information.
                     </CSText>
                   </div>
                 </div>
                 <CSText
                   size="18"
-                  color="white"
+                  color={black ? 'black' : 'white'}
                   weight="bold"
                   className="mb-[0.5rem]"
                 >
@@ -69,7 +85,7 @@ const WorldTab = () => {
                 </CSText>
                 <CSText
                   size="18"
-                  color="white"
+                  color={black ? 'black' : 'white'}
                   weight="bold"
                   className="mb-[0.5rem]"
                 >
@@ -77,7 +93,7 @@ const WorldTab = () => {
                 </CSText>
                 <CSText
                   size="18"
-                  color="white"
+                  color={black ? 'black' : 'white'}
                   weight="bold"
                   className="mb-[0.5rem]"
                 >
@@ -87,7 +103,11 @@ const WorldTab = () => {
             ) : (
               <>
                 <div className="flex items-center gap-[0.7rem]">
-                  <CSText weight="bold" color="white" size="21">
+                  <CSText
+                    weight="bold"
+                    color={black ? 'black' : 'white'}
+                    size="21"
+                  >
                     4.8
                   </CSText>
                   <div className="flex items-center gap-[0.5rem]">
@@ -98,21 +118,21 @@ const WorldTab = () => {
                         className="h-[1.6rem] w-[1.6rem]"
                       />
                     ))}
-                    <CSText color="white" size="15">
+                    <CSText color={black ? 'black' : 'white'} size="15">
                       (22)
                     </CSText>
                   </div>
                 </div>
 
                 <div className="mt-[2rem] flex justify-between">
-                  <CSText color="white" size="15">
+                  <CSText color={black ? 'black' : 'white'} size="15">
                     전체리뷰 22개
                   </CSText>
                   <div className="flex gap-[2.2rem]">
-                    <CSText color="white" size="15">
+                    <CSText color={black ? 'black' : 'white'} size="15">
                       최신순
                     </CSText>
-                    <CSText color="B1B1B1" size="15">
+                    <CSText color={black ? 'black' : 'white'} size="15">
                       인기순
                     </CSText>
                   </div>
@@ -142,7 +162,7 @@ const WorldTab = () => {
                         <div className="flex justify-between">
                           <CSText
                             size="16"
-                            color="white"
+                            color={black ? 'black' : 'white'}
                             className="mt-[0.3rem]"
                           >
                             토끼토끼 귀엽다
@@ -152,7 +172,11 @@ const WorldTab = () => {
                           </CSText>
                         </div>
                       </div>
-                      <CSText size="16" color="white" className="mt-[2.8rem]">
+                      <CSText
+                        size="16"
+                        color={black ? 'black' : 'white'}
+                        className="mt-[2.8rem]"
+                      >
                         수강이 길게 늘어지는것같긴하지만 자세히 설명하고 어떤
                         원리로 되는지 까지 깊게 가르치는 편이라 한국기준으로는
                         학원다니는 것보다는 훨씬낫습니다.
