@@ -7,6 +7,7 @@ import CSSpan from '@/components/ui/span/CSSpan'
 import CSText from '@/components/ui/text/CSText'
 import { thumbnailHealing } from '@/data/unity/data'
 import clsx from 'clsx'
+import { useRouter } from 'next/navigation'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { ReactUnityEventParameter } from 'react-unity-webgl/distribution/types/react-unity-event-parameters'
 
@@ -16,9 +17,11 @@ interface TProps {
 }
 
 const HealingModal = ({ setHealingMethod, setSelectPlace }: TProps) => {
+  const router = useRouter()
+
   const [selectHealing, setSelectHealing] = useState<boolean>(false)
   const [healingNum, setHealingNum] = useState<number>(0)
-
+  const [thumbnailNum, setThumbnailNum] = useState<number>(0)
   const handleHealing = (num: number) => {
     setSelectHealing(true)
     setHealingNum(num)
@@ -28,7 +31,7 @@ const HealingModal = ({ setHealingMethod, setSelectPlace }: TProps) => {
     <div className="grid h-full w-full place-items-center">
       <div
         className={clsx(
-          'relative h-[80rem] max-w-[150rem] rounded-lg bg-white/80',
+          'custom-scrollbar relative h-[80rem] max-w-[150rem] overflow-auto rounded-lg bg-white/80',
           selectHealing
             ? 'px-[11rem] pb-[12rem] pt-[11rem]'
             : 'px-[10rem] py-[6rem]',
@@ -47,11 +50,11 @@ const HealingModal = ({ setHealingMethod, setSelectPlace }: TProps) => {
         {!selectHealing && (
           <>
             <CSText size="24" color="black" weight="bold">
-              금주의 인기 치유소
+              힐링 월드
             </CSText>
             <div className="grid grid-cols-4 gap-[1.5rem]">
               {thumbnailHealing.map(
-                ({ thumbnail, title, sub_title }, index) => (
+                ({ thumbnail_image, title, sub_title }, index) => (
                   <div
                     key={index}
                     className="cursor-pointer"
@@ -59,7 +62,11 @@ const HealingModal = ({ setHealingMethod, setSelectPlace }: TProps) => {
                   >
                     <div className="mt-[2rem]">
                       <div className="w-[30rem]">
-                        <AutoSizeImage src={thumbnail} full />
+                        <AutoSizeImage
+                          src={thumbnail_image[0]}
+                          full
+                          roundedTop="10"
+                        />
                         <div className="h-[8rem] w-full rounded-b-[1rem] bg-white pl-[1.9rem] pt-[1.5rem]">
                           <CSText size="21" color="black" weight="bold">
                             {title}
@@ -85,32 +92,50 @@ const HealingModal = ({ setHealingMethod, setSelectPlace }: TProps) => {
           <div className="flex h-full gap-[1.5rem]">
             <div className="flex flex-col">
               <AutoSizeImage
-                src={thumbnailHealing[0].thumbnail}
-                className="h-[45rem] w-[80rem]"
+                src={thumbnailHealing[healingNum].thumbnail_image[thumbnailNum]}
+                className="h-[45rem] w-full"
+                rounded="10"
               />
               <div className="mt-[1.5rem] grid flex-1 grid-cols-4 gap-[1.5rem]">
-                {thumbnailHealing[0].sub_image.map((image, index) => (
-                  <AutoSizeImage src={image} full key={index} />
-                ))}
+                {thumbnailHealing[healingNum].thumbnail_image.map(
+                  (image, index) => (
+                    <>
+                      {thumbnailNum !== index && (
+                        <AutoSizeImage
+                          src={image}
+                          full
+                          key={index}
+                          rounded="10"
+                          onClick={() => setThumbnailNum(index)}
+                        />
+                      )}
+                    </>
+                  ),
+                )}
               </div>
             </div>
             <div className="flex h-full w-[47.5rem] flex-col rounded-[1rem] bg-white p-[3rem]">
               <div>
                 <CSText size="31" color="black" weight="bold">
-                  {thumbnailHealing[0].title}
+                  {thumbnailHealing[healingNum].title}
                 </CSText>
-                <CSText size="18" color="black" className="mt-[1rem]">
-                  {thumbnailHealing[0].description}
+                <CSText
+                  size="18"
+                  color="black"
+                  className="custom-scrollbar mt-[1rem] h-[29rem] overflow-auto whitespace-pre-line"
+                >
+                  {thumbnailHealing[healingNum].description}
                 </CSText>
-                <div className="flex gap-[0.5rem]">
-                  {thumbnailHealing[0].tag.map((value, index) => (
-                    <CSText
-                      size="16"
-                      className="mt-[0.8rem] rounded-[1rem] border border-[#DCDCDC] px-[1rem] text-[#AFAFAF]"
+                <div className="mt-[1rem]">
+                  {thumbnailHealing[healingNum].tag.map((value, index) => (
+                    <div
+                      className="mb-[1rem] mr-[1rem] inline-block cursor-pointer rounded-[1rem] border border-[#DCDCDC] px-[1.5rem] text-center hover:opacity-70"
                       key={index}
                     >
-                      {value}
-                    </CSText>
+                      <CSText size="16" className="text-[#AFAFAF]">
+                        {value}
+                      </CSText>
+                    </div>
                   ))}
                 </div>
                 <div className="mt-[0.8rem] flex gap-[1rem]">
@@ -146,31 +171,30 @@ const HealingModal = ({ setHealingMethod, setSelectPlace }: TProps) => {
                     color="white"
                     rounded="10"
                     weight="bold"
+                    onClick={() =>
+                      thumbnailHealing[healingNum].path
+                        ? router.push(thumbnailHealing[healingNum].path!)
+                        : alert('준비중입니다')
+                    }
                   >
-                    Basic 플랜 업그레이드
+                    입장하기
                   </CSButton>
 
                   <div className="grid flex-1 place-items-center">
                     <div className="flex gap-[2rem]">
                       <div className="flex flex-col items-center gap-[0.3rem]">
-                        <AutoSizeImage
-                          src={'/images/unity/healing/like.png'}
-                          className="h-[2rem] w-[2.3rem]"
-                        />
-
-                        <CSText size="14" color="black">
-                          좋아요
-                        </CSText>
+                        <div className="w-[2.3rem] ">
+                          <AutoSizeImage
+                            src={'/images/unity/healing/like.png'}
+                            full
+                          />
+                        </div>
                       </div>
                       <div className="flex flex-col items-center gap-[0.3rem]">
                         <AutoSizeImage
                           src={'/images/unity/healing/share.png'}
                           className="h-[2rem] w-[2rem]"
                         />
-
-                        <CSText size="14" color="black">
-                          공유하기
-                        </CSText>
                       </div>
                     </div>
                   </div>

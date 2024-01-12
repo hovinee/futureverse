@@ -59,9 +59,9 @@ const UserHistory = ({ tutorialStep, setTutorialStep, chat }: TProps) => {
         </CSText>
         {userChat.map((history, index) => (
           <CSText
-            size="20"
+            size="16"
             color="white"
-            className="mt-[0.3rem] line-clamp-2"
+            className="mt-[0.3rem] line-clamp-2 border-b border-b-[#2E3033] py-[0.5rem]"
             key={index}
           >
             {history.text}

@@ -54,7 +54,7 @@ const CounselingModal = ({ setCounselingMethod, setSelectPlace }: TProps) => {
             </CSText>
             <div className="grid grid-cols-4 gap-[1.5rem]">
               {thumbnailCounseling.map(
-                ({ thumbnail, title, sub_title }, index) => (
+                ({ thumbnail_image, title, sub_title }, index) => (
                   <div
                     key={index}
                     className="cursor-pointer"
@@ -62,7 +62,7 @@ const CounselingModal = ({ setCounselingMethod, setSelectPlace }: TProps) => {
                   >
                     <div className="mt-[2rem]">
                       <div className="w-[30rem]">
-                        <AutoSizeImage src={thumbnail} full />
+                        <AutoSizeImage src={thumbnail_image[0]} full />
                         <div className="h-[8rem] w-full rounded-b-[1rem] bg-white pl-[1.9rem] pt-[1.5rem]">
                           <CSText size="21" color="black" weight="bold">
                             {title}
@@ -88,7 +88,7 @@ const CounselingModal = ({ setCounselingMethod, setSelectPlace }: TProps) => {
           <div className="flex h-full gap-[1.5rem]">
             <div className="flex flex-col">
               <AutoSizeImage
-                src={thumbnailCounseling[0].thumbnail}
+                src={thumbnailCounseling[0].thumbnail_image[0]}
                 className="h-[45rem] w-[80rem]"
               />
               <div className="mt-[1.5rem] grid flex-1 grid-cols-4 gap-[1.5rem]">

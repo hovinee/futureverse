@@ -88,7 +88,7 @@ const Experience = () => {
                       <CSText
                         size="16"
                         color="white"
-                        className={clsx('text-center', index == 2 && 'hidden')}
+                        className={clsx('text-center', index > 2 && 'hidden')}
                       >
                         Season{index + 3}
                       </CSText>

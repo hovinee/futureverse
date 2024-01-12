@@ -44,7 +44,7 @@ const Agreement = ({ agreements, setAgreements }: Props) => {
           }.png`}
           className="h-[1.5rem] w-[1.5rem]"
         />
-        <CSText size="18" weight="blod" color="707070">
+        <CSText size="18" weight="bold" color="white">
           전체동의
         </CSText>
       </label>
@@ -64,7 +64,7 @@ const Agreement = ({ agreements, setAgreements }: Props) => {
                 }.png`}
                 className="h-[1.5rem] w-[1.5rem]"
               />
-              <CSText size="14" weight="normal" color="707070">
+              <CSText size="14" weight="normal" color="white">
                 {value.title} (필수)
               </CSText>
             </label>

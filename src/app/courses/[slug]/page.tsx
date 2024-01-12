@@ -16,7 +16,7 @@ const Course = async ({ params }: any) => {
   const course = getCourseBySlug(params.slug, 'all')
   const coursesData = await getCoursesData()
 
-  const registeredCourse = coursesData.data.some(
+  const registeredCourse = coursesData?.data?.some(
     (item: { video_uid: string }) => item.video_uid === course.video_uid,
   )
 

@@ -50,11 +50,11 @@ const SignInForm = () => {
     }
   }
   return (
-    <Section className="m-auto w-[35rem] xl:mx-0 xl:my-auto xl:ml-[15rem] ">
+    <Section className="m-auto w-[35rem] rounded-2xl border py-[2rem] xl:mx-0 xl:my-auto xl:ml-[15rem]">
       <CSText
         size="24"
         weight="bold"
-        color="171717"
+        color="white"
         className="font-inter text-center"
       >
         로그인
@@ -118,7 +118,7 @@ const SignInForm = () => {
           <CSText
             size="12"
             weight="normal"
-            color="171717"
+            color="white"
             className="text-center"
           >
             회원이 아니신가요?

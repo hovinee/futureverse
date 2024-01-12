@@ -10,7 +10,14 @@ type TProps = {
   className: string
 }
 
-const NavLink = ({ children, id, path, className, ...rest }: TProps) => {
+const NavLink = ({
+  children,
+  id,
+  path,
+  className,
+
+  ...rest
+}: TProps) => {
   return (
     <Anchor
       path={path}
