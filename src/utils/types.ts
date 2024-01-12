@@ -110,8 +110,7 @@ export type TDigitalLiteracy = Pick<
 }
 
 export interface TTumbnailContent {
-  thumbnail: string
-  sub_image: string[]
+  thumbnail_image: string[]
   title: string
   sub_title: string
   description: string

@@ -113,11 +113,11 @@ const SignUpForm = () => {
   }
 
   return (
-    <Section className="m-auto w-[35rem] xl:mx-0 xl:my-auto xl:ml-[15rem] ">
+    <Section className="m-auto w-[35rem] rounded-2xl border py-[2rem] xl:mx-0 xl:my-auto xl:ml-[15rem]">
       <CSText
         size="24"
         weight="bold"
-        color="171717"
+        color="white"
         className="font-inter text-center"
       >
         회원가입
@@ -252,7 +252,7 @@ const SignUpForm = () => {
         </CSButton>
 
         <Link className="mt-[1.7rem] text-center" href={'/auth/login'}>
-          <CSText size="12" weight="normal" color="171717">
+          <CSText size="12" weight="normal" color="white">
             회원이 아니신가요?
             <span className="underline">로그인</span>
           </CSText>

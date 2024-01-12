@@ -22,6 +22,7 @@ import { ReactUnityEventParameter } from 'react-unity-webgl/distribution/types/r
 import AnalysisModal from '@/components/unity-ui/modal/AnalysisModal'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
+import DignosisModal from '@/components/unity-ui/modal/DignosisModal'
 
 const CounselPage = () => {
   const path = usePathname().split('/').pop()
@@ -173,7 +174,7 @@ const CounselPage = () => {
     if (selectPlace === 'counseling') {
       switch (counselingMethod) {
         case 0:
-          sendMessage('MessageReceiver', 'OnClickedToLoadScene', 'SpaceRoom')
+          sendMessage('MessageReceiver', 'OnClickedToLoadScene', 'client')
           break
         case 1:
           alert('준비중 입니다.')
@@ -284,8 +285,28 @@ const CounselPage = () => {
           </UnitySection>
         )}
 
+        {/* 상담소 */}
+        {selectPlace === 'Lobby_ToClinic' && (
+          <UnitySection>
+            <CounselingModal
+              setCounselingMethod={setCounselingMethod}
+              setSelectPlace={setSelectPlace}
+            />
+          </UnitySection>
+        )}
+
+        {/* 치유소 */}
+        {selectPlace === 'Lobby_ToAdventure' && (
+          <UnitySection>
+            <DignosisModal
+              setHealingMethod={setHealingMethod}
+              setSelectPlace={setSelectPlace}
+            />
+          </UnitySection>
+        )}
+
         {/* 상담소 선택 */}
-        {sceneOpeningEnd === 'SpaceRoom' && (
+        {sceneOpeningEnd === 'client' && (
           <>
             <UnityHeader
               goToLobby={goToLobby}

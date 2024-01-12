@@ -1,6 +1,7 @@
 'use client'
 
 import WorldTab from '@/components/tab/WorldTab'
+import Audio from '@/components/ui/audio/Audio'
 import AutoSizeImage from '@/components/ui/auto-size-image/AutoSizeImage'
 import CSButton from '@/components/ui/button/CSButton'
 import CSSpan from '@/components/ui/span/CSSpan'
@@ -11,13 +12,15 @@ import {
   thumbnailHealing,
 } from '@/data/unity/data'
 import { usePathname, useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 const SelectCardPage = () => {
   const path = usePathname().split('/')[2].split(',')
   const world = Number(path[0])
   const worldIndex = Number(path[1])
-
   const router = useRouter()
+
+  const [thumbnailNum, setThumbnailNum] = useState<number>(0)
 
   const tumbnailContent =
     world === 0
@@ -29,25 +32,44 @@ const SelectCardPage = () => {
   return (
     <main className="px-[1.8rem]">
       <div className="mx-auto mt-[15rem] max-w-[127rem]">
-        <div className="flex gap-[1.5rem]">
+        <div className="flex h-[60.5rem] gap-[1.5rem]">
           <div className="flex flex-col">
-            <AutoSizeImage
-              src={tumbnailContent[worldIndex].thumbnail}
-              full
-              rounded="10"
-            />
+            <div className="h-[47.7rem] w-[84.9rem]">
+              <AutoSizeImage
+                src={tumbnailContent[worldIndex].thumbnail_image[thumbnailNum]}
+                full
+                objectCover
+                rounded="10"
+              />
+            </div>
             <div className="mt-[1.5rem] grid flex-1 grid-cols-4 gap-[1.5rem]">
-              {tumbnailContent[worldIndex].sub_image.map((image, index) => (
-                <AutoSizeImage src={image} full key={index} rounded="10" />
-              ))}
+              {tumbnailContent[worldIndex].thumbnail_image.map(
+                (image, index) => (
+                  <>
+                    {thumbnailNum !== index && (
+                      <AutoSizeImage
+                        src={image}
+                        className="h-[11.3rem] w-[20.1rem]"
+                        key={index}
+                        rounded="10"
+                        onClick={() => setThumbnailNum(index)}
+                      />
+                    )}
+                  </>
+                ),
+              )}
             </div>
           </div>
-          <div className="flex h-full w-[47.5rem] flex-col rounded-[1rem] bg-181818/75 p-[3rem]">
+          <div className="flex h-full max-w-[47.5rem] flex-col rounded-[1rem] bg-181818/75 px-[3rem]">
             <div>
               <CSText size="31" color="white" weight="bold">
                 {tumbnailContent[worldIndex].title}
               </CSText>
-              <CSText size="18" color="white" className="mt-[1rem]">
+              <CSText
+                size="18"
+                color="white"
+                className="mt-[1rem] whitespace-pre-line"
+              >
                 {tumbnailContent[worldIndex].description}
               </CSText>
 
@@ -126,6 +148,7 @@ const SelectCardPage = () => {
             </div>
           </div>
         </div>
+        <Audio />
         <div className="custom-scrollbar mt-[3rem] flex-1 overflow-auto border-t border-t-[#E1DDDD]">
           <WorldTab />
         </div>

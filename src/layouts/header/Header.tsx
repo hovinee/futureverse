@@ -75,7 +75,7 @@ const Header = () => {
             </div>
           ) : (
             <Link href={'/auth/login'} className="cursor-pointer">
-              <CSText size="16" color="black" weight="semiBold">
+              <CSText size="14" color="white" weight="semiBold">
                 로그인
               </CSText>
             </Link>

@@ -54,6 +54,7 @@ const AutoSizeImage = ({
           )}
           alt=""
           priority={priority}
+          onClick={onClick}
           // placeholder="blur"
           // blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkWNFWDwADjQGvE/U7HAAAAABJRU5ErkJggg=="
         />
