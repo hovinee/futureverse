@@ -23,10 +23,10 @@ export const thumbnailCounseling = [
       '/images/unity/healing/whale_image_4.png',
     ],
     title: '상담소 AI',
-    sub_title: '고래가 떠다니는 신비로운 섬!',
+    sub_title: '고민을 해결해주는 AI 상담소',
     description:
-      '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
-    tag: ['봄', '파도', '발자국', '치유의 글귀'],
+      '고민이 있다면 언제 어디서든 털어놓으세요. 당신의 1일 친구가 되어 뭐든 들어줄게요. 사소한 고민부터 심각한 고민까지 전부 다 이야기봐요.',
+    tag: ['AI', '개인상담', '24시간', '언제어디서든'],
     path: '/counsel/client',
   },
   {
@@ -86,8 +86,8 @@ export const thumbnailHealing = [
     title: '가인역',
     sub_title: '꿈과 희망의 역으로 향하는 행복기차',
     description:
-      '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
-    tag: ['봄', '파도', '발자국', '치유의 글귀'],
+      '가인역에 근심과 걱정은 모두 내려두고 물 위를 달리며 꿈과 희망의 역으로 향하는 행복 기차에 서둘러 탑승하세요. 늦으면 기차를 놓칠지도 몰라요!',
+    tag: ['여름', '갈매기', '행복기차', '가인역', '티켓'],
     path: '/healing/train',
   },
   {
@@ -101,8 +101,8 @@ export const thumbnailHealing = [
     title: '캠핑장',
     sub_title: '심리적 안정감과 평안, 낭만이 가득한 캠핑장',
     description:
-      '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
-    tag: ['봄', '파도', '발자국', '치유의 글귀'],
+      '낭만이 가득한 캠핑장에서 나뭇가지를 모아 장작을 피우며 자연의 소리를 들어보세요. 몸과 마음에 휴식을 취하고 심리적 안정감과 평안을 얻어보세요.',
+    tag: ['가을', '사슴', '캠핑장', '꽃밭', '나뭇가지'],
     path: '/healing/camp',
   },
   {
@@ -116,25 +116,109 @@ export const thumbnailHealing = [
     title: '산타마을',
     sub_title: '산타를 기다리면 준비하는 크리스마스',
     description:
-      '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
-    tag: ['봄', '파도', '발자국', '치유의 글귀'],
+      '루돌프와 함께 캐롤을 들으며 크리스마스 트리를 장식해봐요. 크리스마스를 준비하면서 산타를 기다리는 설렘 가득한 기분을 느껴보세요.',
+    tag: ['겨울', '산타', '루돌프', '크리스마스', '트리장식'],
+  },
+  {
+    thumbnail: '/images/unity/healing/lighthouse_thumbnail.png',
+    sub_image: [
+      '/images/unity/healing/lighthouse_image.png',
+      '/images/unity/healing/lighthouse_image_2.png',
+      '/images/unity/healing/lighthouse_image_3.png',
+      '/images/unity/healing/lighthouse_image_4.png',
+    ],
+    title: '등대섬',
+    sub_title: '잃어버린 나를 찾는 등대섬',
+    description:
+      '내 마음의 길을 찾는 의미를 담은 등대와 다소 밝지만 자연스러운 일상의 외로움이 존재하는 포근한 공간 등대섬에서 잃어버린 나를 찾아보세요.',
+    tag: ['등대', '사슴', '보어', 'ASMR'],
+  },
+  {
+    thumbnail: '/images/unity/healing/foxtail_thumbnail.png',
+    sub_image: [
+      '/images/unity/healing/foxtail_image.png',
+      '/images/unity/healing/foxtail_image_2.png',
+      '/images/unity/healing/foxtail_image_3.png',
+      '/images/unity/healing/foxtail_image_4.png',
+    ],
+    title: '폭스테일 리버',
+    sub_title: '근본적인 두려움을 잃고 이상을 추구하는 곳',
+    description:
+      '부도덕함과 결함이 있는 것에 대한 근본적인 두려움으로 인해 완벽하고 올바른 것에 집착하는 곳이에요. 이곳에선 이상을 실현하기 위해 노력을 아끼지 마세요. ',
+    tag: ['강', '여우', '이상', '로고스', 'ASMR'],
+  },
+  {
+    thumbnail: '/images/unity/healing/rainbow_thumbnail.png',
+    sub_image: [
+      '/images/unity/healing/rainbow_image.png',
+      '/images/unity/healing/rainbow_image_2.png',
+      '/images/unity/healing/rainbow_image_3.png',
+      '/images/unity/healing/rainbow_image_4.png',
+    ],
+    title: '레인보우 비치',
+    sub_title: '사교적이고 남을 도와주는 마음이 깃드는 곳',
+    description:
+      '타인에 대해 민감하고 예리해 남들의 기분을 잘 이해하고 맞춰주는 곳이에요. 이곳이라면 당신은 매우 사교적이고 남을 도와주는 것을 좋아할 수 밖에 없어요.',
+    tag: ['해변', '멧돼지', '사교', '헬퍼', 'ASMR'],
+  },
+  {
+    thumbnail: '/images/unity/healing/northland_thumbnail.png',
+    sub_image: [
+      '/images/unity/healing/northland_image.png',
+      '/images/unity/healing/northland_image_2.png',
+      '/images/unity/healing/northland_image_3.png',
+      '/images/unity/healing/northland_image_4.png',
+    ],
+    title: '노스랜드',
+    sub_title: '감정을 내려놓고 성공에 집중하는 노스랜드',
+    description:
+      '성공과 유능함을 추구하며 야망이 있고 역할이나 지위에 대해 주목받기를 원한다면 노스랜드에서 감정을 잠시 내려두고 성공에 집중해봐요.',
+    tag: ['북섬', '늑대', '성취', '드리머', 'ASMR'],
+  },
+  {
+    thumbnail: '/images/unity/healing/savanah_thumbnail.png',
+    sub_image: [
+      '/images/unity/healing/savanah_image.png',
+      '/images/unity/healing/savanah_image_2.png',
+      '/images/unity/healing/savanah_image_3.png',
+      '/images/unity/healing/savanah_image_4.png',
+    ],
+    title: '사우스 사바나',
+    sub_title: '나의 독특함과 유일함을 찾는 사우스 사바나',
+    description:
+      '평범하고 보통인 것을 거부하는 곳에서 스스로의 자아 정체성을 강화하고 타인과 차별화된 점을 찾기 위해 독특함과 유일무이함을 추구해보세요.',
+    tag: ['사바나', '표범', '특별', '아티', 'ASMR'],
+  },
+  {
+    thumbnail: '/images/unity/healing/raccon_thumbnail.png',
+    sub_image: [
+      '/images/unity/healing/raccon_image.png',
+      '/images/unity/healing/raccon_image_2.png',
+      '/images/unity/healing/raccon_image_3.png',
+      '/images/unity/healing/raccon_image_4.png',
+    ],
+    title: '라쿤 포레스트',
+    sub_title: '혼자만의 시간을 가지며 찾는 나의 객관성 탐구',
+    description:
+      '분석력과 통찰력이 있고 지식을 탐구하는 것을 좋아하시나요? 객관적이고 관찰력이 뛰어난 당신. 여기서 혼자만의 시간을 즐겨보세요.',
+    tag: ['포레스트', '라쿤', '관찰', '띵커', 'ASMR'],
   },
 ]
 
 export const thumbnailDiagnosis = [
   {
-    thumbnail: '/images/unity/healing/santa_thumbnail.png',
+    thumbnail: '/images/unity/healing/hoolland_thumbnail.png',
     sub_image: [
-      '/images/unity/healing/santa_image.png',
-      '/images/unity/healing/santa_image_2.png',
-      '/images/unity/healing/santa_image_3.png',
-      '/images/unity/healing/santa_image_4.png',
+      '/images/unity/healing/hoolland_image.png',
+      '/images/unity/healing/hoolland_image_2.png',
+      '/images/unity/healing/hoolland_image_3.png',
+      '/images/unity/healing/hoolland_image_4.png',
     ],
     title: '홀랜드 검사',
-    sub_title: '산타를 기다리면 준비하는 크리스마스',
+    sub_title: '나의 직업 성격 유형을 찾는 여행',
     description:
-      '고래가 떠다니는 신비로운 섬에서 바닷소리를 듣고 같이 마음을 치유해 봐요. 위로가 되는 쪽지를 모으다보면 새로운 나를 볼 수 있을 거예요.',
-    tag: ['봄', '파도', '발자국', '치유의 글귀'],
+      '배가 난파돼 표류된 섬에서 탈출해보세요. 홀랜드 직업 흥미유형 검사를 통해 6개의 직업적 성격 유형을 알 수 있어요. 어떤 결과가 나올지 지금 한 번 탐험해봐요.',
+    tag: ['홀랜드검사', '직업흥미유형검사', '직업성격', '탐험'],
     path: '/healing/holland',
   },
 ]

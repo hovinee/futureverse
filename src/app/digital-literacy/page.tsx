@@ -70,8 +70,8 @@ const DigitalLiteracyPage = () => {
           </div>
         </div>
       </section>
-      <CSText size="31" color="black" weight="bold" className="mt-[4rem]">
-        디지털리터러시 강좌
+      <CSText size="31" color="white" weight="bold" className="mt-[4rem]">
+        디지털리터러시 강좌 추천
       </CSText>
       <section className="grid grid-cols-4 gap-12 py-[4rem]">
         {data.map((content, index) => (

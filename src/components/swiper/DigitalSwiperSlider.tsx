@@ -14,7 +14,6 @@ import CSText from '../ui/text/CSText'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import AutoSizeImage from '../ui/auto-size-image/AutoSizeImage'
-import clsx from 'clsx'
 
 const courses = [
   {
@@ -37,8 +36,31 @@ const courses = [
   },
 ]
 
-const DigitalSwiperSlider = () => {
+const counsel = [
+  {
+    title: '진로상담 심리',
+    description: '자아인식의 여정: 나를 알고 미래를 향해 해 보세요',
+    src: '/images/career-counseling/banner_image.png',
+  },
+  {
+    title: '진로상담 심리',
+    description: '흥미로운 실험: 능력과 가치관을 탐험해 보세요',
+    src: '/images/career-counseling/banner_image_2.png',
+  },
+  {
+    title: '진로상담 심리',
+    description: '심리적 해마로, 미래로: 성공적인 진로를 향해 해 보세요',
+    src: '/images/career-counseling/banner_image_3.png',
+  },
+]
+
+interface TProps {
+  careerCounseling?: boolean
+}
+
+const DigitalSwiperSlider = ({ careerCounseling }: TProps) => {
   const [slideIndex, setSlideIndex] = useState<number>(0)
+  const data = careerCounseling ? counsel : courses
   return (
     <Swiper
       modules={[Pagination, Autoplay]}
@@ -54,7 +76,7 @@ const DigitalSwiperSlider = () => {
         setSlideIndex(swiper.realIndex)
       }}
     >
-      {courses.map((course, index) => (
+      {data.map((course, index) => (
         <SwiperSlide key={index}>
           <div className="relative w-full">
             <motion.div

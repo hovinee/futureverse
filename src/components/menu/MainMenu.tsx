@@ -16,7 +16,7 @@ const MainMenu = () => {
     {
       id: 2,
       label: 'GO 패스파인더 메타',
-      path: '/main',
+      path: '/healing/hompage',
     },
     {
       id: 3,
@@ -71,7 +71,7 @@ const MainMenu = () => {
                 path={path}
                 className="relative hover:opacity-50"
               >
-                <CSText size="16" color="white" weight="medium">
+                <CSText size="14" color="white" weight="medium">
                   {label}
                 </CSText>
               </NavLink>

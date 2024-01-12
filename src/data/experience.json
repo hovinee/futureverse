@@ -6,12 +6,12 @@
   },
   "contents": [
     {
-      "title": "화성테라포밍기지",
+      "title": "헬스케어_화성테라포밍",
       "thumbnail": "/images/experience/labkid_3.png",
       "path": "/experience/labkid-03"
     },
     {
-      "title": "블레이드워",
+      "title": "4차산업_블레이드",
       "thumbnail": "/images/experience/labkid_4.png",
       "path": "/experience/labkid-04"
     },
@@ -21,14 +21,14 @@
       "path": "/experience/labkid-05"
     },
     {
-      "title": "메디컬_둠스데이",
+      "title": "반도체사관학교",
       "thumbnail": "/images/experience/labkid_5.png",
-      "path": "!#"
+      "path": "/experience"
     },
     {
-      "title": "메디컬_둠스데이",
+      "title": "스마트모빌리티",
       "thumbnail": "/images/experience/labkid_5.png",
-      "path": "!#"
+      "path": "/experience"
     }
   ]
 }
