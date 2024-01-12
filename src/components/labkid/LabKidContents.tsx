@@ -106,10 +106,10 @@ const LabKidContents = ({ contents, season }: Props) => {
           </div>
         </aside>
         <div className="w-[40.5rem] whitespace-pre-line pt-[2.5rem] lg:w-[61rem]">
-          <CSText size="18" color="black">
+          <CSText size="18" color="white">
             CHAPTER {chapterNum}.
           </CSText>
-          <CSText size="31" color="black" className="mt-[0.7rem]">
+          <CSText size="31" color="white" className="mt-[0.7rem]">
             {contents[chapterNum].title}
           </CSText>
           <AutoSizeImage
@@ -130,49 +130,49 @@ const LabKidContents = ({ contents, season }: Props) => {
             <>
               <CSText
                 size="16"
-                color="black"
+                color="white"
                 weight="bold"
                 className="mt-[3rem]"
               >
                 직업소개
               </CSText>
 
-              <CSText size="16" color="black">
+              <CSText size="16" color="white">
                 {contents[chapterNum].job_intro?.future_job}
               </CSText>
-              <CSText size="16" color="black">
+              <CSText size="16" color="white">
                 {contents[chapterNum].job_intro.current_job}
               </CSText>
             </>
           )}
-          <CSText size="16" color="black" weight="bold" className="mt-[3rem]">
+          <CSText size="16" color="white" weight="bold" className="mt-[3rem]">
             콘텐츠 유형
           </CSText>
-          <CSText size="16" color="black">
+          <CSText size="16" color="white">
             {contents[chapterNum].contents_format}
           </CSText>
-          <CSText size="16" color="black" weight="bold" className="mt-[3rem]">
+          <CSText size="16" color="white" weight="bold" className="mt-[3rem]">
             동기부여
           </CSText>
-          <CSText size="16" color="black">
+          <CSText size="16" color="white">
             {contents[chapterNum].motivation}
           </CSText>
           <CSText size="16" color="00A886" className="my-[3rem]" weight="bold">
             {contents[chapterNum].tag}
           </CSText>
           ===========================================================
-          <CSText size="16" color="black" weight="bold" className="mt-[3rem]">
+          <CSText size="16" color="white" weight="bold" className="mt-[3rem]">
             시놉시스
           </CSText>
-          <CSText size="16" color="black" className="mt-[0.3rem]">
+          <CSText size="16" color="white" className="mt-[0.3rem]">
             {contents[chapterNum].synopsis.title}
           </CSText>
           {contents[chapterNum].synopsis.sub_title && (
-            <CSText size="16" color="black">
+            <CSText size="16" color="white">
               {contents[chapterNum].synopsis.sub_title}
             </CSText>
           )}
-          <CSText size="16" color="black" className="mt-[1rem]">
+          <CSText size="16" color="white" className="mt-[1rem]">
             {contents[chapterNum].synopsis.description}
           </CSText>
         </div>

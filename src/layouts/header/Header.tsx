@@ -30,7 +30,7 @@ const Header = () => {
   return (
     <>
       <header className={header} ref={measuredRef}>
-        <div className="flex items-center gap-[4.4rem] ">
+        <div className="flex items-center gap-[5rem] ">
           <Link href={'/'}>
             <div className="w-[10rem]">
               <AutoSizeImage
@@ -39,43 +39,48 @@ const Header = () => {
               />
             </div>
           </Link>
-          <MainMenu />
-        </div>
-        {user ? (
-          <div className="relative">
-            <AutoSizeImage
-              src={'/images/my_profile.png'}
-              className="h-[4.2rem] w-[4.2rem] cursor-pointer"
-              onClick={() => setOpenMenu(!openMenu)}
-            />
-            {openMenu && (
-              <ul className="absolute right-full w-[15rem] bg-white pt-[1rem] shadow-lg">
-                <Link href="/my-info">
-                  <li
-                    className="cursor-pointer border-b py-[0.5rem] text-center text-16 hover:opacity-75"
-                    onClick={() => setOpenMenu(false)}
-                  >
-                    마이페이지
-                  </li>
-                </Link>
-                <Link href="/">
-                  <li
-                    className="cursor-pointer border-b py-[0.5rem] text-center text-16 hover:opacity-75"
-                    onClick={handleLogout}
-                  >
-                    로그아웃
-                  </li>
-                </Link>
-              </ul>
-            )}
+          <div className="w-[20rem]">
+            <AutoSizeImage src={'/images/mindcare_logo.png'} full />
           </div>
-        ) : (
-          <Link href={'/auth/login'} className="cursor-pointer">
-            <CSText size="16" color="black" weight="semiBold">
-              로그인
-            </CSText>
-          </Link>
-        )}
+        </div>
+        <div className="flex items-center gap-[5rem]">
+          <MainMenu />
+          {user ? (
+            <div className="relative">
+              <AutoSizeImage
+                src={'/images/my_profile.png'}
+                className="h-[4.2rem] w-[4.2rem] cursor-pointer"
+                onClick={() => setOpenMenu(!openMenu)}
+              />
+              {openMenu && (
+                <ul className="absolute right-full w-[15rem] bg-white pt-[1rem] shadow-lg">
+                  <Link href="/my-info">
+                    <li
+                      className="cursor-pointer border-b py-[0.5rem] text-center text-16 hover:opacity-75"
+                      onClick={() => setOpenMenu(false)}
+                    >
+                      마이페이지
+                    </li>
+                  </Link>
+                  <Link href="/">
+                    <li
+                      className="cursor-pointer border-b py-[0.5rem] text-center text-16 hover:opacity-75"
+                      onClick={handleLogout}
+                    >
+                      로그아웃
+                    </li>
+                  </Link>
+                </ul>
+              )}
+            </div>
+          ) : (
+            <Link href={'/auth/login'} className="cursor-pointer">
+              <CSText size="16" color="black" weight="semiBold">
+                로그인
+              </CSText>
+            </Link>
+          )}
+        </div>
       </header>
     </>
   )

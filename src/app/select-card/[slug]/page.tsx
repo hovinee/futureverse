@@ -45,22 +45,25 @@ const SelectCardPage = () => {
           <div className="flex h-full w-[47.5rem] flex-col rounded-[1rem] bg-181818/75 p-[3rem]">
             <div>
               <CSText size="31" color="white" weight="bold">
-                {tumbnailContent[0].title}
+                {tumbnailContent[worldIndex].title}
               </CSText>
               <CSText size="18" color="white" className="mt-[1rem]">
-                {tumbnailContent[0].description}
+                {tumbnailContent[worldIndex].description}
               </CSText>
-              <div className="mt-[1rem] flex gap-[0.5rem]">
-                {tumbnailContent[0].tag.map((value, index) => (
-                  <CSText
-                    size="16"
-                    className="mt-[0.8rem] rounded-[1rem] border border-white px-[1rem] text-white"
+
+              <div className="mt-[1rem]">
+                {tumbnailContent[worldIndex].tag.map((value, index) => (
+                  <div
+                    className="mb-[1rem] mr-[1rem] inline-block cursor-pointer rounded-[1rem] border border-white px-[1.5rem] text-center hover:opacity-70"
                     key={index}
                   >
-                    {value}
-                  </CSText>
+                    <CSText size="16" color="white">
+                      {value}
+                    </CSText>
+                  </div>
                 ))}
               </div>
+
               <div className="mt-[2rem] flex gap-[1rem]">
                 <div className="flex items-center gap-[0.2rem]">
                   <AutoSizeImage

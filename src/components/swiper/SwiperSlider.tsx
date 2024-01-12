@@ -67,7 +67,7 @@ const SwiperSlider = ({ contents, recommend, rank }: TProps) => {
             <CSText
               size="21"
               weight="bold"
-              color="black"
+              color="white"
               className="font-inter"
             >
               추천강의
@@ -116,7 +116,7 @@ const SwiperSlider = ({ contents, recommend, rank }: TProps) => {
                     size="16"
                     weight="bold"
                     className="mt-[1rem]"
-                    color="black"
+                    color="white"
                   >
                     {value.title}
                   </CSText>
@@ -125,7 +125,7 @@ const SwiperSlider = ({ contents, recommend, rank }: TProps) => {
                   <CSText
                     size="12"
                     className="mt-[0.8rem] line-clamp-2"
-                    color="757575"
+                    color="white"
                   >
                     {value.intro}
                   </CSText>
@@ -142,7 +142,7 @@ const SwiperSlider = ({ contents, recommend, rank }: TProps) => {
             <CSText
               size="21"
               weight="bold"
-              color="black"
+              color="white"
               className="font-inter"
             >
               TOP 5
@@ -185,13 +185,13 @@ const SwiperSlider = ({ contents, recommend, rank }: TProps) => {
                     </CSText>
                   </div>
                   <div className="h-[4.6rem]">
-                    <CSText size="16" weight="bold" color="black">
+                    <CSText size="16" weight="bold" color="white">
                       {value.title}
                     </CSText>
                     <CSText
                       size="12"
                       className="mt-[0.8rem] line-clamp-2"
-                      color="757575"
+                      color="white"
                     >
                       {value.intro}
                     </CSText>

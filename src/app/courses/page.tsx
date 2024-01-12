@@ -45,7 +45,7 @@ const Courses = () => {
           <SwiperSlider rank={courses} />
         </div>
         <div className="mt-[6.3rem]">
-          <CSText size="21" weight="bold" color="black" className="font-inter">
+          <CSText size="21" weight="bold" color="white" className="font-inter">
             카테고리
           </CSText>
           <div className="mt-[2.5rem] grid grid-cols-4 gap-y-[1.3rem] lg:gap-y-[3rem] xl:gap-y-[5.3rem]">
