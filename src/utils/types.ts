@@ -115,4 +115,5 @@ export interface TTumbnailContent {
   sub_title: string
   description: string
   tag: string[]
+  audio: string
 }

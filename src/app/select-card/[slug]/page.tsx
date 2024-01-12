@@ -66,13 +66,13 @@ const SelectCardPage = () => {
                 {tumbnailContent[worldIndex].title}
               </CSText>
               <CSText
-                size="18"
+                size="16"
                 color="white"
                 className="mt-[1rem] whitespace-pre-line"
               >
                 {tumbnailContent[worldIndex].description}
               </CSText>
-
+              <Audio audioPath={tumbnailContent[worldIndex].audio} />
               <div className="mt-[1rem]">
                 {tumbnailContent[worldIndex].tag.map((value, index) => (
                   <div
@@ -148,7 +148,7 @@ const SelectCardPage = () => {
             </div>
           </div>
         </div>
-        <Audio />
+
         <div className="custom-scrollbar mt-[3rem] flex-1 overflow-auto border-t border-t-[#E1DDDD]">
           <WorldTab />
         </div>

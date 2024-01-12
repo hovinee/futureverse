@@ -9,13 +9,13 @@ interface AudioHook {
   toggle: () => void
 }
 
-const useAudio = (): AudioHook => {
+const useAudio = (audioPath: string): AudioHook => {
   const [audio, setAudio] = useState<HTMLAudioElement>(new Audio()) // audio 엘리먼트다
   const [play, setPlay] = useState(false) // 오디오 플레이어의 재생 여부를 나타내는 상태 값이다.
   const [source, setSource] = useState<string | undefined>() // 재생할 오디오 소스 값이다.
 
   useEffect(() => {
-    fetch('/audio/test.mp3')
+    fetch(audioPath)
       .then((res) => res.blob())
       .then((blob) => URL.createObjectURL(blob))
       .then((url) => {

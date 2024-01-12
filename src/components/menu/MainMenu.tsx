@@ -15,7 +15,7 @@ const menu = [
   {
     id: 2,
     label: 'GO 패스파인더 메타',
-    path: '/healing/hompage',
+    path: '/healing/homepage',
   },
   {
     id: 3,

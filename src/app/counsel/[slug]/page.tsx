@@ -66,8 +66,9 @@ const CounselPage = () => {
   //튜토리얼
   const [tutorialStep, setTutorialStep] = useState<number>(0)
 
-  //원하는 상담
+  //원하는 상담 //훈련일경우 trainer-poor, trainer(로봇 조언)
   const counseling = ['career', 'family', 'friend', 'love', 'psychology']
+
   const systemMsg = counseling[wantCounseling]
 
   const sendToGPT = async (selectMessage?: string) => {
