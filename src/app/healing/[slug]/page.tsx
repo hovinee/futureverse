@@ -79,7 +79,7 @@ const HealingPage = () => {
       sendMessage(
         'MessageReceiver',
         'OnResponse',
-        `${getApi}|${JSON.stringify(result)}`,
+        `${getApi}|${result?.status}|${JSON.stringify(await result?.json())}`,
       )
     }
     test()

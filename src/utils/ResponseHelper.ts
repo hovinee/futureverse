@@ -10,7 +10,7 @@ class ResponseHelper {
 
   static error(errorMsg: string, status: number = 400, result: number = 1001) {
     return NextResponse.json(
-      { result: result, resultMsg: errorMsg, data: null },
+      { result: result, resultMsg: errorMsg },
       { status },
     )
   }
