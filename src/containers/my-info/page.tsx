@@ -29,7 +29,7 @@ const MyInfo = ({ myCourses }: TProps) => {
   ]
 
   return (
-    <div className="h-screen lg:flex">
+    <div className="mt-[8.4rem] h-screen lg:flex">
       <MyInfoHeaderSection />
       <MyInfoPCHeroSection
         list={list}
@@ -39,7 +39,7 @@ const MyInfo = ({ myCourses }: TProps) => {
       <div className="mx-auto mt-[3rem] flex w-[64.8rem] flex-col lg:mt-[12rem] xl:mx-0 xl:w-[88.4rem] xl:pl-[5.1rem]">
         <CSText
           size="21"
-          color="181818"
+          color="white"
           weight="bold"
           className="hidden lg:block"
         >
@@ -72,7 +72,7 @@ const MyInfo = ({ myCourses }: TProps) => {
                   <div className="relative h-full">
                     <CSText
                       size="14"
-                      color="565656"
+                      color="white"
                       className="whitespace-pre-line"
                     >
                       {value.title}
@@ -82,7 +82,7 @@ const MyInfo = ({ myCourses }: TProps) => {
                         <CSText
                           size="31"
                           weight="bold"
-                          color="black"
+                          color="white"
                           className="whitespace-pre-line"
                         >
                           {value.contents}

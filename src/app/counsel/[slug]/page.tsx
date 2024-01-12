@@ -1,9 +1,8 @@
 'use client'
 
 import { Unity, useUnityContext } from 'react-unity-webgl'
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import Menu from '@/components/unity-ui/menu/Menu'
-
 import Chat from '@/components/unity-ui/chat/Chat'
 import UnityHeader from '@/components/unity-ui/unity-header/UnityHeader'
 import UnitySection from '@/components/unity-ui/section/UnitySection'
@@ -32,7 +31,6 @@ const CounselPage = () => {
     addEventListener,
     removeEventListener,
     loadingProgression,
-    isLoaded,
     sendMessage,
   } = useUnityContext({
     loaderUrl: `${cfWorkerUrl}/Build/${path}/Build.loader.js`,
@@ -117,6 +115,10 @@ const CounselPage = () => {
       sendMessage('MessageReceiver', 'OnClickedToLoadScene', path)
     }
   }, [splashEnd])
+
+  useEffect(() => {
+    sendMessage('MessageReceiver', 'OnClickedToLoadScene', 'offAudio')
+  }, [])
 
   const goToLobby = () => {
     sendMessage('MessageReceiver', 'OnClickedToLoadScene', 'Lobby')
@@ -222,7 +224,6 @@ const CounselPage = () => {
         />
         <Progressbar number={Math.round(loadingProgression * 100)} />
       </div>
-
       <div className="relative h-full w-full">
         <Unity
           style={{

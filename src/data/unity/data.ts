@@ -1,22 +1,6 @@
 export const thumbnailCounseling = [
   {
     thumbnail_image: [
-      '/images/unity/healing/whale_image.png',
-      '/images/unity/healing/whale_image_2.png',
-      '/images/unity/healing/whale_image_3.png',
-      '/images/unity/healing/whale_image_4.png',
-      '/images/unity/healing/whale_image_5.png',
-    ],
-    title: '상담센터 로비',
-    sub_title: '고래가 떠다니는 신비로운 섬!',
-    description:
-      '신비로운 고래가 떠다니는 그 어딘가의 섬에서, 마음의 평화를 찾아보세요. 함께 바다의 소리를 들으며 마음을 정화하고, 위로가 되는 쪽지들을 수집하다보면, 당신은 새로운 자아를 발견할 것입니다.\n\n해변의 모래사장에 펼쳐진 쪽지처럼, 위로와 힐링이 담긴 내용으로 가득할 것입니다. 이곳에서는 고래와 함께하는 신비로운 여행, 바다의 소리가 마음을 감싸는 특별한 순간들이 여러분을 기다리고 있습니다.\n\n위로와 힐링을 찾아가며 여러분이 수집한 쪽지들은 새로운 나를 발견하는 여정의 단서가 될 것입니다. 함께 고래의 우아한 춤과 바닷소리를 따라 이 신비로운 섬에서 마음을 치유하고, 내면의 변화를 즐겨보세요.',
-    tag: ['봄', '파도', '발자국', '치유의 글귀'],
-    path: '/counsel/intro_lobby',
-    audio: '',
-  },
-  {
-    thumbnail_image: [
       '/images/unity/counseling/ai__thumbnail.png',
       '/images/unity/healing/whale_image.png',
       '/images/unity/healing/whale_image_2.png',

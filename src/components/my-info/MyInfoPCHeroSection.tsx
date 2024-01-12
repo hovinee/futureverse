@@ -13,8 +13,8 @@ interface TProps {
 
 const MyInfoPCHeroSection = ({ selectList, setSelectList, list }: TProps) => {
   return (
-    <section className="hidden h-full w-[27.7rem] flex-col bg-00A886/20 pb-[10rem] lg:flex xl:w-[66.3rem]">
-      <div className="flex-1 ">
+    <section className="hidden h-full w-[27.7rem] flex-col  pb-[10rem] lg:flex xl:w-[66.3rem]">
+      <div className="flex-1">
         <div className="mt-[8rem] flex items-end justify-center gap-[1.8rem] xl:mr-[14.4rem] xl:justify-end">
           <div className="grid h-[6.1rem] w-[6.1rem] place-items-center rounded-full bg-white">
             <AutoSizeImage
@@ -25,7 +25,7 @@ const MyInfoPCHeroSection = ({ selectList, setSelectList, list }: TProps) => {
           <div className="flex flex-col">
             <CSText
               size="24"
-              color="black"
+              color="white"
               className="whitespace-pre-line"
               weight="bold"
             >
@@ -34,7 +34,7 @@ const MyInfoPCHeroSection = ({ selectList, setSelectList, list }: TProps) => {
             <div className="flex items-baseline gap-[1.5rem]">
               <CSText
                 size="24"
-                color="black"
+                color="white"
                 className="whitespace-pre-line"
                 weight="bold"
               >
@@ -51,9 +51,8 @@ const MyInfoPCHeroSection = ({ selectList, setSelectList, list }: TProps) => {
           {list.map((value, index) => (
             <div
               className={clsx(
-                'ml-auto flex h-[5.1rem] w-[24.2rem] cursor-pointer items-center border-b-2 pl-[7.9rem] hover:rounded-tl-[1rem] hover:border-b-00A886 hover:bg-white xl:w-[34.3rem]',
-                selectList === index &&
-                  'rounded-tl-[1rem] border-b-00A886 bg-white',
+                'ml-auto flex h-[5.1rem] w-[24.2rem] cursor-pointer items-center border-b-2 pl-[7.9rem] hover:border-b-00A886 hover:bg-white xl:w-[34.3rem]',
+                selectList === index && 'border-b-00A886 bg-white',
               )}
               key={index}
               onClick={() => setSelectList(index)}
