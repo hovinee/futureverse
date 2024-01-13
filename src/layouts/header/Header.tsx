@@ -31,17 +31,21 @@ const Header = () => {
     <>
       <header className={header} ref={measuredRef}>
         <div className="flex items-center gap-[5rem] ">
+          <div
+            className="w-[10rem] cursor-pointer"
+            onClick={() => window.open('https://www.ducogen.net/')}
+          >
+            <AutoSizeImage
+              src={'/images/logo.png'}
+              className="h-[2.67rem] w-[12rem]"
+            />
+          </div>
+
           <Link href={'/'}>
-            <div className="w-[10rem]">
-              <AutoSizeImage
-                src={'/images/logo.png'}
-                className="h-[2.67rem] w-[12rem]"
-              />
+            <div className="w-[20rem]">
+              <AutoSizeImage src={'/images/mindcare_logo.png'} full />
             </div>
           </Link>
-          <div className="w-[20rem]">
-            <AutoSizeImage src={'/images/mindcare_logo.png'} full />
-          </div>
         </div>
         <div className="flex items-center gap-[5rem]">
           <MainMenu />

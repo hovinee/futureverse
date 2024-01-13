@@ -43,7 +43,7 @@ const ChooseCounselingModal = ({
 
   return (
     <div className="z-20 grid h-full w-full place-items-center">
-      <div className="h-[32.8rem] w-[69.2rem] rounded-[1rem] bg-white/75 pt-[2rem]">
+      <div className="h-[32.8rem] rounded-[1rem] bg-white/75 px-[2rem] pt-[2rem]">
         <div className="flex flex-col items-center">
           <CSText size="24" color="black" weight="bold">
             원하시는 상담을 골라주세요

@@ -8,23 +8,18 @@ import { useRouter } from 'next/navigation'
 const menu = [
   {
     id: 1,
-    label: 'ABOUT 패스파인더 메타',
-
-    path: 'https://www.pathfindermeta.com',
+    label: 'ABOUT',
+    path: '/',
   },
   {
     id: 2,
-    label: 'GO 패스파인더 메타',
+    label: '메타월드',
     path: '/healing/homepage',
   },
-  {
-    id: 3,
-    label: 'GO 상담월드',
-    path: '/counsel/intro_lobby',
-  },
+
   {
     id: 4,
-    label: 'XR 직업체험',
+    label: '체험·XR 직업',
     path: '/experience',
     submenu: [
       { title: '랩키드 3', path: '/experience/labkid-03' },
@@ -36,7 +31,7 @@ const menu = [
   },
   {
     id: 5,
-    label: 'LEARN 배움',
+    label: '배움·LEARN ',
     sub_label: '(AI·메타버스 캠퍼스)',
     path: '/digital-literacy',
     submenu: [
@@ -72,6 +67,9 @@ const MainMenu = () => {
                 if (!user) {
                   alert('로그인을 하셔야 이용 가능합니다'),
                     router.push('/auth/login')
+                }
+                if (id === 1) {
+                  window.open('https://www.pathfindermeta.com/')
                 }
               }}
             >

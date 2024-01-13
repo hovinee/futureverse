@@ -54,7 +54,7 @@ const MyInfoTab = ({ myCourses }: TProps) => {
                 <div className="flex gap-[2.3rem]">
                   {['수강순', '가나다순'].map((value, index) => (
                     <div key={index} className="flex">
-                      <CSText size="16" color="747474">
+                      <CSText size="16" color="white">
                         {value}
                       </CSText>
                       {/* <AutoSizeImage
@@ -74,15 +74,15 @@ const MyInfoTab = ({ myCourses }: TProps) => {
                     <div className="grid h-[2.6rem] w-[7.3rem] place-items-center rounded-[1.5rem] bg-[#00A886] text-12 text-white">
                       수강중
                     </div>
-                    <CSText size="16" color="171717" className="mt-[0.9rem]">
+                    <CSText size="16" color="white" className="mt-[0.9rem]">
                       {title}
                     </CSText>
-                    <CSText size="11" color="7A7A7A" className="mt-[0.9rem]">
+                    <CSText size="11" color="white" className="mt-[0.9rem]">
                       수강기간 : 평생수강
                     </CSText>
                   </div>
                   <div className="flex items-center justify-between">
-                    <CSText size="16" color="171717" className="mt-[0.9rem]">
+                    <CSText size="16" color="white" className="mt-[0.9rem]">
                       현재 수강률 : 80%
                     </CSText>
                     <Link href={path}>
